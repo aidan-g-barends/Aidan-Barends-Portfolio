@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Mail } from "lucide-react";
 
 function GithubIcon() {
@@ -17,6 +16,10 @@ function LinkedinIcon() {
   );
 }
 
+const githubUrl = "https://github.com/aidan-g-barends";
+const linkedinUrl = "https://www.linkedin.com/in/aidan-barends/";
+const emailUrl = "mailto:aidanbarends95@gmail.com";
+
 export default function Footer() {
   return (
     <footer className="border-t border-surface-border">
@@ -24,15 +27,9 @@ export default function Footer() {
         <p>&copy; {new Date().getFullYear()} Aidan Barends.</p>
 
         <div className="flex items-center gap-4">
-          <Link href="https://github.com/aidan-g-barends" aria-label="GitHub" target="_blank">
-            <GithubIcon />
-          </Link>
-          <Link href="https://www.linkedin.com/in/aidan-barends/" aria-label="LinkedIn" target="_blank">
-            <LinkedinIcon />
-          </Link>
-          <Link href="mailto:aidanbarends95@gmail.com" aria-label="Email">
-            <Mail size={18} className="hover:text-foreground transition" />
-          </Link>
+          <a href={githubUrl} aria-label="GitHub" target="_blank" rel="noopener noreferrer"><GithubIcon /></a>
+          <a href={linkedinUrl} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><LinkedinIcon /></a>
+          <a href={emailUrl} aria-label="Email"><Mail size={18} className="hover:text-foreground transition" /></a>
         </div>
       </div>
     </footer>
