@@ -37,7 +37,8 @@ export default function RootLayout({
         <div className="fixed top-4 right-4 z-50">
           <ThemeToggle />
         </div>
-        {children}</body>
+        {children}
+      </body>
     </html>
   );
 }
