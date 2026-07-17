@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Space_Grotesk, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import ThemeToggle from './components/ThemeToggle';
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -32,7 +33,11 @@ export default function RootLayout({
      lang="en" 
      className={`${spaceGrotesk.variable} ${inter.variable} ${jetBrainsMono.variable} h-full antialiased`}
      >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <div className="fixed top-4 right-4 z-50">
+          <ThemeToggle />
+        </div>
+        {children}</body>
     </html>
   );
 }
