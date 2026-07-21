@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { projects } from "./data/projects";
-import ProjectCard from "./components/ProjectCard";
+import { projects } from "../data/projects";
+import ProjectCard from "../components/ProjectCard";
 
 const skillGroups = [
   { label: "Languages", items: ["JavaScript", "TypeScript", "Java", "Python", "PHP", "SQL"] },
