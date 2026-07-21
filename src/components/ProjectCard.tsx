@@ -1,10 +1,15 @@
+import Link from "next/link";
 import type { Project } from "../data/projects";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
     <div className="group flex flex-col rounded-xl border border-surface-border bg-surface p-6 transition hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg">
       <div className="flex items-center justify-between gap-2">
-        <h3 className="text-lg font-semibold">{project.name}</h3>
+        <h3 className="text-lg font-semibold">
+          <Link href={`/projects/${project.slug}`} className="hover:text-accent">
+            {project.name}
+          </Link>
+        </h3>
         {project.inProgress && (
           <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
             In Progress
