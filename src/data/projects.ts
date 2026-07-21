@@ -6,6 +6,7 @@ export type Project = {
   github?: string;
   live?: string;
   featured: boolean;
+  inProgress?: boolean;
 };
 
 export const projects: Project[] = [
@@ -26,5 +27,15 @@ export const projects: Project[] = [
     tech: ["HTML", "Tailwind CSS", "JavaScript"],
     github: "https://github.com/aidan-g-barends/DieStrandloper",
     featured: true,
+  },
+  {
+    slug: "mediticket-2",
+    name: "MediTicket 2",
+    description:
+      "A Spring Boot clinic management backend built with Domain-Driven Design and the Builder pattern. Models patients, doctors, and staff through a shared User hierarchy, handling appointments, tickets, payments, and notifications. Built collaboratively by a 7-member team.",
+    tech: ["Spring Boot", "Java", "JPA/Hibernate", "MySQL"],
+    github: "https://github.com/AidanBarends/MediTicket2",
+    featured: false,
+    inProgress: true,
   },
 ];
