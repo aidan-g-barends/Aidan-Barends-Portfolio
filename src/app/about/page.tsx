@@ -1,7 +1,20 @@
+import Image from "next/image";
+
 export default function AboutPage() {
   return (
     <section className="mx-auto max-w-3xl px-6 py-20">
       <h1 className="text-3xl font-bold">About Me</h1>
+
+      <div className="mt-8 flex justify-center sm:justify-start">
+        <Image
+          src="/profile.jpeg"
+          alt="Aidan Barends"
+          width={160}
+          height={160}
+          className="rounded-2xl border border-surface-border object-cover"
+          priority
+        />
+      </div>
 
       <div className="mt-8 space-y-5 text-foreground-muted">
         <p>
@@ -64,7 +77,16 @@ export default function AboutPage() {
         </div>
       </div>
 
-     
+      <div className="mt-12">
+        <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+          Outside of Tech
+        </h2>
+        <p className="mt-4 text-foreground-muted">
+          Rugby, soccer, and hockey keep me active and I still play piano
+          when I get the chance. And yes, I&apos;m still a gamer, the same
+          thing that got me into tech in the first place.
+        </p>
+      </div>
     </section>
   );
 }
