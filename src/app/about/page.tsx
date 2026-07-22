@@ -4,7 +4,7 @@ export default function AboutPage() {
   return (
     <section className="relative overflow-hidden">
       <div
-        className="pointer-events-none absolute left-1/2 top-0 h-[400px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
+        className="pointer-events-none absolute left-1/2 top-0 top-[280px] h-[400px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
         style={{
           background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
         }}
