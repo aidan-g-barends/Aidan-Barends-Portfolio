@@ -72,6 +72,45 @@ export const projects: Project[] = [
       "Built with Domain-Driven Design and the Builder pattern for structured, maintainable code",
     ],
     challenges:
-  "Coordinating architecture decisions and consistent patterns across a 7-person team.",
+      "Coordinating architecture decisions and consistent patterns across a 7-person team.",
+  },
+  {
+    slug: "medical-practice-crm",
+    name: "Medical Practice CRM",
+    description:
+      "A collaborative full-stack CRM built with a team of five students, managing patients, appointments, doctors, and medical records for a medical practice.",
+    tech: ["Next.js", "Supabase", "TypeScript", "Tailwind CSS"],
+    github: "https://github.com/AidanBarends/Medical-Practise-Crm",
+    featured: false,
+    inProgress: true,
+    role:
+      "Collaborated with a team of five students, contributing to core CRM features and working through git-based version control and code review as part of the team's workflow.",
+    problem:
+      "Medical practices often rely on scattered spreadsheets and paper records to manage patients, appointments, and staff, making it hard to keep information accurate and accessible.",
+    features: [
+      "Patient records management",
+      "Appointment scheduling",
+      "Doctor and staff administration",
+      "Supabase-backed data layer",
+    ],
+  },
+  {
+    slug: "task-manager-app",
+    name: "Task Manager App",
+    description:
+      "A task management application for organizing and tracking to-dos and projects, built with a Spring Boot backend and Angular frontend.",
+    tech: ["Angular", "Spring Boot", "Java", "TypeScript"],
+    github: "https://github.com/aidan-g-barends/Task-Manager-App",
+    featured: false,
+    inProgress: true,
+    role:
+      "Building both the Angular frontend and the Spring Boot REST API backend independently.",
+    problem:
+      "Keeping track of tasks and deadlines across multiple projects gets messy without a dedicated, structured tool.",
+    features: [
+      "Create, update, and delete tasks",
+      "REST API backend with Spring Boot",
+      "Angular single-page frontend",
+    ],
   },
 ];
