@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Aidan Barends — Portfolio
+
+My personal developer portfolio, built from scratch with Next.js, TypeScript, and Tailwind CSS.
+
+**Live site:** [aidan-barends.vercel.app](https://aidan-barends.vercel.app)
+
+## About
+
+I'm a Software Engineering student at CPUT (Application Development), currently working as an IT Field Technician while building toward a career as a Full Stack and AI Engineer. This portfolio showcases my projects, skills, and experience, and was built as a full learning project — from initial planning through deployment.
+
+## Features
+
+- Fully responsive design with light and dark mode (persisted via `localStorage`)
+- Dynamic project pages generated from a single shared data source
+- Working contact form powered by Web3Forms
+- Full SEO setup: per-page metadata, Open Graph previews, and an auto-generated sitemap
+- Accessible by design: skip-to-content link, semantic HTML, keyboard-navigable
+- 100/100 Lighthouse scores across Performance, Best Practices, and SEO
+
+## Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org/) (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Icons:** Lucide
+- **Forms:** [Web3Forms](https://web3forms.com/)
+- **Deployment:** [Vercel](https://vercel.com/)
 
 ## Getting Started
 
-First, run the development server:
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/aidan-g-barends/Aidan-Barends-Portfolio.git
+cd Aidan-Barends-Portfolio
+npm install
+```
+
+Create a `.env.local` file in the project root with your own Web3Forms access key:
+
+```
+NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your_key_here
+```
+
+Run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+src/
+├── app/              # Pages (Next.js App Router)
+├── components/       # Reusable UI components
+└── data/             # Project data (single source of truth)
+```
 
-## Learn More
+## Author
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Aidan Barends**
+[GitHub](https://github.com/aidan-g-barends) · [LinkedIn](https://www.linkedin.com/in/aidan-barends/) · [Email](mailto:aidanbarends95@gmail.com)
