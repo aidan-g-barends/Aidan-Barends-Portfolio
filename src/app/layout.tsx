@@ -19,11 +19,17 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
 });
-
 export const metadata: Metadata = {
   title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
   description:
     "Portfolio of Aidan Barends, a Software Engineering student at CPUT building full stack web applications and AI-powered tools.",
+  openGraph: {
+    title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
+    description:
+      "Portfolio of Aidan Barends, a Software Engineering student at CPUT building full stack web applications and AI-powered tools.",
+    type: "website",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
