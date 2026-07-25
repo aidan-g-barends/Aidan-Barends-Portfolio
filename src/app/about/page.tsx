@@ -18,7 +18,7 @@ export default function AboutPage() {
         }}
       />
 
-      <div className="relative mx-auto max-w-3xl px-6 py-20">
+      <div className="relative mx-auto max-w-3xl 2xl:max-w-4xl px-6 py-20">
         <div className="flex items-center gap-5">
           <Image
             src="/profile.jpeg"
