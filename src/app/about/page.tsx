@@ -1,5 +1,13 @@
 import Image from "next/image";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About | Aidan Barends",
+  description:
+    "Learn more about Aidan Barends — a Software Engineering student at CPUT with a background in IT support, networking, and hardware, working toward becoming an AI Engineer.",
+};
+
 export default function AboutPage() {
   return (
     <section className="relative overflow-hidden">

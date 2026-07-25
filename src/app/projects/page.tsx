@@ -1,6 +1,14 @@
 import { projects } from "../../data/projects";
 import ProjectCard from "../../components/ProjectCard";
 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects | Aidan Barends",
+  description:
+    "A collection of full stack web applications and client projects built by Aidan Barends, including Task Flow Pro, Die Strandloper, and MediTicket 2.",
+};
+
 export default function ProjectsPage() {
   return (
     <section className="mx-auto max-w-5xl px-6 py-20">

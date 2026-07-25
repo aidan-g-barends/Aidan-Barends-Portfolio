@@ -1,3 +1,11 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Experience & Education | Aidan Barends",
+  description:
+    "Aidan Barends' professional experience as an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
+};
+
 export default function ExperiencePage() {
   return (
     <>
