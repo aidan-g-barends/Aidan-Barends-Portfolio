@@ -113,4 +113,24 @@ export const projects: Project[] = [
       "Angular single-page frontend",
     ],
   },
+
+  {
+  slug: "golden-way",
+  name: "GoldenWay",
+  description:
+    "A ticketing platform for Golden Arrow Bus, moving ticket purchasing from in-person to online. Built collaboratively with a React/Vite frontend and Spring Boot backend.",
+  tech: ["React", "Vite", "Spring Boot", "Java", "MySQL"],
+  github: "https://github.com/AidanBarends/GoldenWay",
+  featured: false,
+  inProgress: true,
+  role:
+    "Working full stack as part of a team, with a focus on the Spring Boot backend and database layer.",
+  problem:
+    "Golden Arrow Bus commuters currently have to buy tickets in person, with no way to purchase or manage tickets online.",
+  features: [
+    "Online ticket purchasing to replace in-person sales",
+    "React/Vite frontend",
+    "Spring Boot backend and database layer",
+  ],
+},
 ];
