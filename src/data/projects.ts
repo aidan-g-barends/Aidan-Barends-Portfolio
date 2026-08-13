@@ -21,6 +21,7 @@ export const projects: Project[] = [
       "A full stack task management app built with Laravel as part of a university group project, with a structured architecture including models, services, policies, and notifications.",
     tech: ["Laravel", "PHP", "MySQL"],
     github: "https://github.com/aidan-g-barends/Task-Flow-Pro",
+    live: "https://task-flow-pro.vercel.app/",
     featured: true,
     role:
       "Collaborated as part of a university group, contributing to backend logic and data handling.",
@@ -74,29 +75,30 @@ export const projects: Project[] = [
     challenges:
       "Coordinating architecture decisions and consistent patterns across a 7-person team.",
   },
- {
-  slug: "practiceflow-crm",
-  name: "PracticeFlow CRM",
-  description:
-    "A HIPAA-compliant Medical Practice CRM platform for managing patients, appointments, staff, and clinical records, built with Next.js and Supabase as part of a 6-person team.",
-  tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
-  github: "https://github.com/aidan-g-barends/practiceflow-crm",
-  featured: false,
-  inProgress: true,
-  role:
-    "Frontend Developer, responsible for building the appointment scheduling and calendar interface as part of a 6-person team.",
-  problem:
-    "Medical practices need a single, HIPAA-compliant system to manage patients, appointments, staff, and clinical notes instead of relying on disconnected tools.",
-  features: [
-    "Patient directory with registration and editing",
-    "Appointment scheduling and calendar interface",
-    "Clinical workspace with SOAP notes and medication tracking",
-    "Staff and provider management directory",
-    "Supabase-backed authentication and database",
-  ],
-  challenges:
-    "Coordinating frontend and backend work across a 6-person team with clearly divided roles, while keeping the UI and database schema in sync as features were built in parallel.",
-},
+  {
+    slug: "practiceflow-crm",
+    name: "PracticeFlow CRM",
+    description:
+      "A HIPAA-compliant Medical Practice CRM platform for managing patients, appointments, staff, and clinical records, built with Next.js and Supabase as part of a 6-person team.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+    github: "https://github.com/aidan-g-barends/practiceflow-crm",
+    live: "https://practiceflow-crm-iota.vercel.app/",
+    featured: true,
+    inProgress: true,
+    role:
+      "Frontend Developer, responsible for building the appointment scheduling and calendar interface as part of a 6-person team.",
+    problem:
+      "Medical practices need a single, HIPAA-compliant system to manage patients, appointments, staff, and clinical notes instead of relying on disconnected tools.",
+    features: [
+      "Patient directory with registration and editing",
+      "Appointment scheduling and calendar interface",
+      "Clinical workspace with SOAP notes and medication tracking",
+      "Staff and provider management directory",
+      "Supabase-backed authentication and database",
+    ],
+    challenges:
+      "Coordinating frontend and backend work across a 6-person team with clearly divided roles, while keeping the UI and database schema in sync as features were built in parallel.",
+  },
   {
     slug: "task-manager-app",
     name: "Task Manager App",
@@ -116,24 +118,23 @@ export const projects: Project[] = [
       "Angular single-page frontend",
     ],
   },
-
   {
-  slug: "golden-way",
-  name: "GoldenWay",
-  description:
-    "A ticketing platform for Golden Arrow Bus, moving ticket purchasing from in-person to online. Built collaboratively with a React/Vite frontend and Spring Boot backend.",
-  tech: ["React", "Vite", "Spring Boot", "Java", "MySQL"],
-  github: "https://github.com/AidanBarends/GoldenWay",
-  featured: false,
-  inProgress: true,
-  role:
-    "Working full stack as part of a team, with a focus on the Spring Boot backend and database layer.",
-  problem:
-    "Golden Arrow Bus commuters currently have to buy tickets in person, with no way to purchase or manage tickets online.",
-  features: [
-    "Online ticket purchasing to replace in-person sales",
-    "React/Vite frontend",
-    "Spring Boot backend and database layer",
-  ],
-},
+    slug: "golden-way",
+    name: "GoldenWay",
+    description:
+      "A ticketing platform for Golden Arrow Bus, moving ticket purchasing from in-person to online. Built collaboratively with a React/Vite frontend and Spring Boot backend.",
+    tech: ["React", "Vite", "Spring Boot", "Java", "MySQL"],
+    github: "https://github.com/AidanBarends/GoldenWay",
+    featured: false,
+    inProgress: true,
+    role:
+      "Working full stack as part of a team, with a focus on the Spring Boot backend and database layer.",
+    problem:
+      "Golden Arrow Bus commuters currently have to buy tickets in person, with no way to purchase or manage tickets online.",
+    features: [
+      "Online ticket purchasing to replace in-person sales",
+      "React/Vite frontend",
+      "Spring Boot backend and database layer",
+    ],
+  },
 ];
