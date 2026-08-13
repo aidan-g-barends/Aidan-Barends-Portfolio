@@ -84,7 +84,7 @@ export const projects: Project[] = [
     github: "https://github.com/aidan-g-barends/practiceflow-crm",
     live: "https://practiceflow-crm-iota.vercel.app/",
     featured: true,
-    inProgress: true,
+    inProgress: false,
     role:
       "Frontend Developer, responsible for building the appointment scheduling and calendar interface as part of a 6-person team.",
     problem:
