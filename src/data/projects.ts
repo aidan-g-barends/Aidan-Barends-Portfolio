@@ -74,26 +74,29 @@ export const projects: Project[] = [
     challenges:
       "Coordinating architecture decisions and consistent patterns across a 7-person team.",
   },
-  {
-    slug: "medical-practice-crm",
-    name: "Medical Practice CRM",
-    description:
-      "A collaborative full-stack CRM built with a team of five students, managing patients, appointments, doctors, and medical records for a medical practice.",
-    tech: ["Next.js", "Supabase", "TypeScript", "Tailwind CSS"],
-    github: "https://github.com/AidanBarends/Medical-Practise-Crm",
-    featured: false,
-    inProgress: true,
-    role:
-      "Collaborated with a team of five students, contributing to core CRM features and working through git-based version control and code review as part of the team's workflow.",
-    problem:
-      "Medical practices often rely on scattered spreadsheets and paper records to manage patients, appointments, and staff, making it hard to keep information accurate and accessible.",
-    features: [
-      "Patient records management",
-      "Appointment scheduling",
-      "Doctor and staff administration",
-      "Supabase-backed data layer",
-    ],
-  },
+ {
+  slug: "practiceflow-crm",
+  name: "PracticeFlow CRM",
+  description:
+    "A HIPAA-compliant Medical Practice CRM platform for managing patients, appointments, staff, and clinical records, built with Next.js and Supabase as part of a 6-person team.",
+  tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+  github: "https://github.com/aidan-g-barends/practiceflow-crm",
+  featured: false,
+  inProgress: true,
+  role:
+    "Frontend Developer, responsible for building the appointment scheduling and calendar interface as part of a 6-person team.",
+  problem:
+    "Medical practices need a single, HIPAA-compliant system to manage patients, appointments, staff, and clinical notes instead of relying on disconnected tools.",
+  features: [
+    "Patient directory with registration and editing",
+    "Appointment scheduling and calendar interface",
+    "Clinical workspace with SOAP notes and medication tracking",
+    "Staff and provider management directory",
+    "Supabase-backed authentication and database",
+  ],
+  challenges:
+    "Coordinating frontend and backend work across a 6-person team with clearly divided roles, while keeping the UI and database schema in sync as features were built in parallel.",
+},
   {
     slug: "task-manager-app",
     name: "Task Manager App",
