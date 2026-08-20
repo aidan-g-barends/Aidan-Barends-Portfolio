@@ -18,123 +18,208 @@ export const projects: Project[] = [
     slug: "task-flow-pro",
     name: "Task Flow Pro",
     description:
-      "A full stack task management app built with Laravel as part of a university group project, with a structured architecture including models, services, policies, and notifications.",
+      "A full-stack task management platform developed as a university group project to help teams organise, assign, monitor, and complete work through one centralised system. The application was built with Laravel and MySQL, using a structured backend architecture with dedicated models, services, policies, and notification functionality.",
     tech: ["Laravel", "PHP", "MySQL"],
     github: "https://github.com/aidan-g-barends/Task-Flow-Pro",
-    live: "https://task-flow-pro.vercel.app/",
     featured: true,
+    inProgress: false,
     role:
-      "Collaborated as part of a university group, contributing to backend logic and data handling.",
+      "Collaborated as part of a university development team, contributing to backend functionality, business logic, database interactions, and the overall implementation of the application's task management workflow.",
     problem:
-      "University groups and small teams often lack a simple, structured way to assign and track tasks through to completion.",
+      "Teams often rely on scattered communication channels and documents to manage work, making it difficult to know who is responsible for a task, what its current status is, and what still needs to be completed. Task Flow Pro provides a structured platform for managing these workflows in one place.",
     features: [
-      "Structured Laravel architecture with dedicated models, services, and policies",
-      "Notification system to keep team members updated on task changes",
-      "Multi-developer Git workflow across the team",
+      "Task creation, assignment, updating, and completion tracking",
+      "Structured Laravel architecture using models, services, and policies",
+      "Database-backed storage using MySQL",
+      "Notification functionality to keep users informed about task changes",
+      "Organised separation between application logic and data handling",
+      "Collaborative Git workflow for multi-developer development",
     ],
     challenges:
-      "Coordinating consistent code structure and avoiding merge conflicts while multiple people worked on the same Laravel app at once.",
+      "A major challenge was maintaining a consistent codebase while multiple developers worked on the same Laravel application. This required coordinating changes, following a shared project structure, resolving Git conflicts, and keeping business logic organised rather than placing everything directly inside controllers.",
   },
+
   {
     slug: "die-strandloper",
     name: "Die Strandloper",
     description:
-      "A multi-page website built for a real local restaurant, with a live contact form that emails inquiries directly to the owner — no custom backend required.",
+      "A responsive multi-page website developed for a real local restaurant to establish a professional online presence and make important business information easily accessible to customers. The website combines restaurant information, menu presentation, photography, and a working contact system into a simple customer-facing experience.",
     tech: ["HTML", "Tailwind CSS", "JavaScript"],
     github: "https://github.com/aidan-g-barends/DieStrandloper",
     featured: true,
-    role: "Designed and built the entire site independently for a real local restaurant.",
+    inProgress: false,
+    role:
+      "Designed and developed the website independently, handling the page structure, responsive layouts, styling, JavaScript functionality, and integration of the customer contact form.",
     problem:
-      "The restaurant needed an online presence where customers could view the menu, see the space, and get in touch directly.",
+      "The restaurant needed a professional website where customers could discover the business, view important information and the menu, see the restaurant through a gallery, and contact the owner directly without needing to use multiple platforms.",
     features: [
-      "Home, About, Menu, Gallery, and Contact pages",
-      "Live contact form integrated with Web3Forms, delivering messages straight to email",
-      "Fully responsive layout built with Tailwind CSS",
+      "Home page introducing the restaurant and its offering",
+      "About page providing information about the business",
+      "Digital menu presentation for customers",
+      "Gallery for showcasing the restaurant and experience",
+      "Contact page with a working customer enquiry form",
+      "Web3Forms integration for sending enquiries directly to email",
+      "Responsive layouts for desktop, tablet, and mobile devices",
+      "Tailwind CSS-based styling and reusable layout patterns",
     ],
     challenges:
-      "Built while still learning Tailwind and JavaScript, so a lot of the layout and form-handling logic involved real trial and error.",
+      "This project was built while I was expanding my knowledge of Tailwind CSS and JavaScript. One of the biggest challenges was translating a real business requirement into a polished responsive website while learning how to structure the frontend, handle responsive layouts, and integrate a third-party service for the contact functionality.",
   },
+
   {
     slug: "mediticket-2",
     name: "MediTicket 2",
     description:
-      "A Spring Boot clinic management backend built with Domain-Driven Design and the Builder pattern. Models patients, doctors, and staff through a shared User hierarchy, handling appointments, tickets, payments, and notifications. Built collaboratively by a 7-member team.",
+      "A full-stack medical practice management platform focused on connecting patients, doctors, and staff through a centralised healthcare system. The backend is built with Spring Boot and Java and manages core workflows such as appointments, digital tickets, payments, and notifications. The project applies Domain-Driven Design and object-oriented design patterns to create a structured and maintainable codebase.",
     tech: ["Spring Boot", "Java", "JPA/Hibernate", "MySQL"],
     github: "https://github.com/AidanBarends/MediTicket2",
     featured: false,
     inProgress: true,
-    role: "Contributing as part of a 7-member team, working within a Domain-Driven Design architecture.",
+    role:
+      "Contributing as part of a 7-member software development team, working primarily within the backend and implementing functionality within the project's Domain-Driven Design architecture.",
     problem:
-      "Clinics need a structured way to manage patients, doctors, staff, appointments, and payments in one connected system.",
+      "Medical practices need to coordinate patients, doctors, staff, appointments, tickets, payments, and communication. Managing these processes separately can lead to duplicated information and inefficient workflows. MediTicket aims to provide a connected platform for managing these core processes.",
     features: [
-      "Shared User hierarchy modeling patients, doctors, and staff",
-      "Appointment, ticket, and payment handling",
-      "Notification system for updates",
-      "Built with Domain-Driven Design and the Builder pattern for structured, maintainable code",
+      "Patient, doctor, and staff management",
+      "Shared User domain hierarchy for different types of system users",
+      "Appointment scheduling and management",
+      "Digital ticket management for patient workflows",
+      "Payment-related functionality",
+      "Notification functionality for important system updates",
+      "JPA/Hibernate persistence with MySQL",
+      "Domain-Driven Design architecture",
+      "Builder pattern and object-oriented design principles",
+      "Spring Boot REST-based backend architecture",
     ],
     challenges:
-      "Coordinating architecture decisions and consistent patterns across a 7-person team.",
+      "Developing within a 7-person team required careful coordination around domain models, database relationships, API functionality, and coding standards. One of the biggest challenges was making sure different parts of the system followed the same architectural principles while several developers were implementing features simultaneously.",
   },
+
   {
     slug: "practiceflow-crm",
     name: "PracticeFlow CRM",
     description:
-      "A HIPAA-compliant Medical Practice CRM platform for managing patients, appointments, staff, and clinical records, built with Next.js and Supabase as part of a 6-person team.",
+      "A full-stack medical practice CRM designed to centralise patient management, appointment scheduling, clinical workflows, and staff administration within one modern application. The project combines a Next.js and React frontend with Supabase for authentication, database functionality, and backend services, and was developed collaboratively as part of a 6-person software engineering team.",
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
     github: "https://github.com/aidan-g-barends/practiceflow-crm",
     live: "https://practiceflow-crm-iota.vercel.app/",
     featured: true,
     inProgress: false,
     role:
-      "Frontend Developer, responsible for building the appointment scheduling and calendar interface as part of a 6-person team.",
+      "Frontend Developer responsible for the appointment scheduling experience, including the calendar interface, booking workflow, appointment status presentation, and reusable frontend components.",
     problem:
-      "Medical practices need a single, HIPAA-compliant system to manage patients, appointments, staff, and clinical notes instead of relying on disconnected tools.",
+      "Medical practices need to manage patients, appointments, healthcare providers, staff, and clinical information efficiently. Relying on disconnected tools can make these workflows difficult to coordinate. PracticeFlow CRM brings these areas together into one centralised system.",
     features: [
-      "Patient directory with registration and editing",
-      "Appointment scheduling and calendar interface",
-      "Clinical workspace with SOAP notes and medication tracking",
-      "Staff and provider management directory",
-      "Supabase-backed authentication and database",
+      "Patient registration and patient directory",
+      "Patient profile viewing and editing",
+      "Appointment scheduling and management",
+      "Calendar-based appointment interface",
+      "Appointment status tracking",
+      "Daily appointment and scheduling views",
+      "Clinical workspace with SOAP notes",
+      "Medication tracking",
+      "Staff and healthcare provider directory",
+      "Supabase authentication and database integration",
+      "Reusable React components",
+      "Responsive interface using Tailwind CSS",
     ],
     challenges:
-      "Coordinating frontend and backend work across a 6-person team with clearly divided roles, while keeping the UI and database schema in sync as features were built in parallel.",
+      "My main challenge was developing the appointment management experience while other team members worked on different areas of the system. The frontend needed to remain consistent with the database structure and backend functionality as both were evolving. This required communication within the team, reusable component design, and careful handling of appointment states and scheduling information.",
   },
+
   {
     slug: "task-manager-app",
     name: "Task Manager App",
     description:
-      "A task management application for organizing and tracking to-dos and projects, built with a Spring Boot backend and Angular frontend.",
+      "A full-stack task management application built to explore the integration of a modern Angular single-page application with a Java Spring Boot REST API. The project demonstrates the separation of frontend and backend responsibilities while providing a practical environment for working with REST endpoints, TypeScript, Java, and application data.",
     tech: ["Angular", "Spring Boot", "Java", "TypeScript"],
     github: "https://github.com/aidan-g-barends/Task-Manager-App",
     featured: false,
     inProgress: true,
     role:
-      "Building both the Angular frontend and the Spring Boot REST API backend independently.",
+      "Developing the Angular frontend and Spring Boot backend independently, including frontend components, REST API endpoints, application logic, and the communication between the two layers.",
     problem:
-      "Keeping track of tasks and deadlines across multiple projects gets messy without a dedicated, structured tool.",
+      "As the number of projects and responsibilities increases, managing tasks without a structured system can become difficult. The Task Manager App provides a centralised way to create, update, organise, and track tasks.",
     features: [
-      "Create, update, and delete tasks",
-      "REST API backend with Spring Boot",
-      "Angular single-page frontend",
+      "Task creation and management",
+      "Updating existing task information",
+      "Deleting tasks",
+      "Retrieving task data through REST API endpoints",
+      "Spring Boot backend for API and business logic",
+      "Angular single-page application frontend",
+      "TypeScript-based frontend development",
+      "Separation between frontend presentation and backend services",
+      "Frontend-to-backend API communication",
     ],
+    challenges:
+      "The main technical challenge was understanding and implementing the communication between an Angular frontend and Spring Boot backend. This involved structuring REST endpoints, handling requests and responses, connecting frontend components to backend services, and keeping the application layers properly separated.",
   },
+
   {
     slug: "golden-way",
     name: "GoldenWay",
     description:
-      "A ticketing platform for Golden Arrow Bus, moving ticket purchasing from in-person to online. Built collaboratively with a React/Vite frontend and Spring Boot backend.",
+      "A digital public transport ticketing platform designed to modernise the way Golden Arrow Bus commuters purchase and manage bus tickets. The project moves the traditional in-person ticket purchasing experience into a digital platform, combining a React/Vite frontend with a Spring Boot backend and MySQL database.",
     tech: ["React", "Vite", "Spring Boot", "Java", "MySQL"],
     github: "https://github.com/AidanBarends/GoldenWay",
     featured: false,
     inProgress: true,
     role:
-      "Working full stack as part of a team, with a focus on the Spring Boot backend and database layer.",
+      "Working as a full-stack developer within a team, with a strong focus on the Spring Boot backend, REST API development, database layer, and integration between the backend and React frontend.",
     problem:
-      "Golden Arrow Bus commuters currently have to buy tickets in person, with no way to purchase or manage tickets online.",
+      "Golden Arrow Bus commuters traditionally have limited options for purchasing and managing their bus tickets digitally. This creates unnecessary friction for passengers who need a faster and more convenient way to access their transport tickets.",
     features: [
-      "Online ticket purchasing to replace in-person sales",
-      "React/Vite frontend",
-      "Spring Boot backend and database layer",
+      "Digital bus ticket purchasing",
+      "Passenger-facing React/Vite application",
+      "Spring Boot REST API backend",
+      "MySQL database integration",
+      "Digital ticket management",
+      "Passenger booking workflows",
+      "Separation between frontend, backend, and database layers",
+      "Team-based Git development workflow",
     ],
+    challenges:
+      "The project required the team to translate a real-world public transport problem into a practical software solution while developing the frontend and backend in parallel. One of the biggest challenges has been keeping the database structure, API contracts, and React application aligned as functionality continues to be developed.",
+  },
+
+  {
+    slug: "the-hairbra",
+    name: "The HairBra",
+    description:
+      "A modern barbershop platform currently in development that combines online appointment booking, secure digital payments, barber profiles, and an integrated e-commerce store into one customer-facing application. The goal is to provide local barbershops with a complete digital platform where customers can discover barbers, book appointments, pay online, and purchase grooming products from the same application.",
+    tech: [
+      "React",
+      "Supabase",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Payment Integration",
+    ],
+    github: "https://github.com/aidan-g-barends/The_HairBra",
+    featured: false,
+    inProgress: true,
+    role:
+      "Sole developer responsible for the application's architecture, frontend development, Supabase integration, database design, booking workflows, payment integration, and planned e-commerce functionality.",
+    problem:
+      "Many local barbershops still rely on WhatsApp messages, phone calls, social media, or walk-ins to manage appointments. Product sales are often handled separately as well. This can make bookings difficult to manage and creates a fragmented customer experience. The HairBra aims to bring bookings, payments, and product sales together into one platform.",
+    features: [
+      "Online appointment booking",
+      "Barber profiles and barber selection",
+      "Service selection and booking workflow",
+      "Barber availability management",
+      "Online payment integration for appointments",
+      "Customer appointment management",
+      "Integrated e-commerce store",
+      "Hair, beard, and grooming product listings",
+      "Online product purchasing",
+      "Customer order management",
+      "Supabase authentication",
+      "Supabase database integration",
+      "PostgreSQL data storage",
+      "Responsive React customer interface",
+      "Planned customer and business notifications",
+      "Planned live deployment for real-world use",
+    ],
+    challenges:
+      "The HairBra combines several different software systems into one product, including appointment scheduling, authentication, payments, database management, and e-commerce. A major technical challenge is designing the underlying data model so that customers, barbers, appointments, payments, products, and orders remain connected and consistent. The project also requires careful consideration of payment states and booking availability to prevent conflicting appointments or incomplete transactions.",
   },
 ];
