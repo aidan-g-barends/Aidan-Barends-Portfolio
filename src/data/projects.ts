@@ -67,6 +67,38 @@ export const projects: Project[] = [
   },
 
   {
+    slug: "jjs-business-solutions",
+    name: "JJS Business Solutions",
+    description:
+      "A professional business website developed for JJS Business Solutions to establish a modern digital presence and clearly communicate the organisation's training, consulting, and project-focused services. The website was designed to present the organisation in a credible and professional way while making important business information easy for prospective clients, partners, and visitors to discover.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    github: "https://github.com/aidan-g-barends/jjs-website",
+    live: "https://jjs-website-omega.vercel.app/",
+    featured: true,
+    inProgress: false,
+    role:
+      "Sole developer responsible for the website's frontend development, UI implementation, responsive layouts, reusable components, content presentation, deployment, and overall user experience.",
+    problem:
+      "JJS Business Solutions needed a professional online presence that could clearly communicate its services and establish a strong digital representation of the organisation. The website needed to make the business easy to understand while presenting its services and information through a polished, modern, and responsive experience.",
+    features: [
+      "Professional business-focused landing page",
+      "Clear presentation of JJS Business Solutions' services",
+      "Training, consulting, and project information",
+      "Structured content sections for improved information discovery",
+      "Modern responsive user interface",
+      "Mobile, tablet, and desktop support",
+      "Reusable frontend components",
+      "Consistent visual hierarchy and design patterns",
+      "Clear navigation between important sections",
+      "Professional presentation of business information",
+      "Production deployment using Vercel",
+      "Live publicly accessible website",
+    ],
+    challenges:
+      "The main challenge was translating an established organisation's services and business identity into a modern digital experience without making the website feel unnecessarily complicated. The project required balancing professional presentation, clear information architecture, responsive design, reusable components, and usability across different screen sizes. It also provided practical experience in taking a business-focused website from development through to a live production deployment.",
+  },
+
+  {
     slug: "mediticket-2",
     name: "MediTicket 2",
     description:
