@@ -1,3 +1,28 @@
+
+
+===== FILE: ./next-env.d.ts =====
+
+/// <reference types="next" />
+/// <reference types="next/image-types/global" />
+import "./.next/dev/types/routes.d.ts";
+
+// NOTE: This file should not be edited
+// see https://nextjs.org/docs/app/api-reference/config/typescript for more information.
+
+
+===== FILE: ./next.config.ts =====
+
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  /* config options here */
+};
+
+export default nextConfig;
+
+
+===== FILE: ./package-lock.json =====
+
 {
   "name": "portfolio",
   "version": "0.1.0",
@@ -6729,4 +6754,1451 @@
       }
     }
   }
+}
+
+
+===== FILE: ./package.json =====
+
+{
+  "name": "portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "@gsap/react": "^2.1.2",
+    "gsap": "^3.15.0",
+    "lucide-react": "^1.25.0",
+    "next": "16.2.10",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.10",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}
+
+
+===== FILE: ./src/app/about/page.tsx =====
+
+import Image from "next/image";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About | Aidan Barends",
+  description:
+    "Learn more about Aidan Barends — a Software Engineering student at CPUT with a background in IT support, networking, and hardware, working toward becoming an AI Engineer.",
+};
+
+export default function AboutPage() {
+  return (
+    <section className="relative overflow-hidden">
+      <div
+        className="pointer-events-none absolute left-1/2 top-0 top-[280px] h-[400px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
+        style={{
+          background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-3xl 2xl:max-w-4xl px-6 py-20">
+        <div className="flex items-center gap-5">
+          <Image
+            src="/profile.jpeg"
+            alt="Aidan Barends"
+            width={72}
+            height={72}
+            className="rounded-full border border-surface-border object-cover"
+            style={{ boxShadow: "var(--card-shadow)" }}
+            priority
+          />
+          <h1 className="text-3xl font-bold">About Me</h1>
+        </div>
+
+        <div className="mt-8 space-y-5 text-foreground-muted">
+          <p>
+            I got into tech the way a lot of people my age did, through
+            gaming. Messing around with computers as a kid turned into taking
+            Computer Applications Technology (CAT) in school, where I did well
+            and realized this was the path I wanted to follow.
+          </p>
+
+          <p>
+            Today I&apos;m a Software Engineering student at CPUT (Application
+            Development), and I work as an IT Field Technician at
+            CraythorneIT, where I do everything from Wi-Fi assessments and
+            router configuration to hardware repairs and PC builds for real
+            clients. It&apos;s hands-on, problem-solving work, and it&apos;s
+            taught me a lot about troubleshooting under real-world conditions
+            — not just in a classroom.
+          </p>
+
+          <p>
+            Outside of coursework, I&apos;m constantly upskilling myself.
+            I&apos;ve completed Angela Yu&apos;s Complete Web Development
+            Bootcamp, and I&apos;m currently working through Ed Donner&apos;s
+            AI course. What draws me to AI specifically is the idea of
+            building systems that can automate the kind of hands-on technical
+            work I already do, that&apos;s the direction I want my career to
+            keep moving in.
+          </p>
+
+          <p>
+            My goal after graduating is to land a junior developer role, keep
+            building toward becoming an AI Engineer, and eventually start my
+            own company, ideally one that makes a real difference, not just
+            money. I care about that a lot, which is part of why healthcare
+            and fintech are the industries that excite me most.
+          </p>
+        </div>
+
+        <div
+          style={{ boxShadow: "var(--card-shadow)" }}
+          className="mt-16 rounded-xl border border-surface-border bg-surface p-6"
+        >
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+            What I&apos;m About
+          </h2>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {[
+              "Patient",
+              "Hardworking",
+              "Eager to Learn",
+              "Good Listener",
+              "Team Player",
+              "Adaptable",
+              "Detail-Oriented",
+            ].map((trait) => (
+              <span
+                key={trait}
+                className="rounded-full border border-surface-border bg-background px-4 py-1.5 text-sm transition hover:border-accent/50 hover:text-accent"
+              >
+                {trait}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div
+          style={{ boxShadow: "var(--card-shadow)" }}
+          className="mt-8 rounded-xl border border-surface-border bg-surface p-6"
+        >
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+            Outside of Tech
+          </h2>
+          <p className="mt-4 text-foreground-muted">
+            Rugby, soccer, and hockey keep me active and I still play piano
+            when I get the chance. And yes, I&apos;m still a gamer, the same
+            thing that got me into tech in the first place.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+===== FILE: ./src/app/contact/page.tsx =====
+
+import type { Metadata } from "next";
+import ContactForm from "../../components/ContactForm";
+
+export const metadata: Metadata = {
+  title: "Contact | Aidan Barends",
+  description:
+    "Get in touch with Aidan Barends for job opportunities, collaborations, or questions about his projects.",
+  openGraph: {
+    title: "Contact | Aidan Barends",
+    description:
+      "Get in touch with Aidan Barends for job opportunities, collaborations, or questions about his projects.",
+    type: "website",
+  },
+};
+
+export default function ContactPage() {
+  return <ContactForm />;
+}
+
+===== FILE: ./src/app/experience/page.tsx =====
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Experience & Education | Aidan Barends",
+  description:
+    "Aidan Barends' professional experience as an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
+};
+
+export default function ExperiencePage() {
+  return (
+    <>
+      <section className="relative overflow-hidden">
+        <div
+          className="pointer-events-none absolute left-1/2 top-0 h-[350px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
+          style={{
+            background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+          }}
+        />
+        <div className="relative mx-auto max-w-3xl px-6 py-20 text-center">
+          <h1 className="text-3xl font-bold">Experience & Education</h1>
+          <p className="mt-3 text-foreground-muted">
+            Where I&apos;ve worked, studied, and what I&apos;ve been building
+            my skills with.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 py-16">
+        <h2 className="text-2xl font-bold">Experience</h2>
+
+        <div className="relative mt-10 space-y-4 border-l-2 border-surface-border pl-8">
+          <div className="group relative">
+            <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-accent transition-transform duration-300 group-hover:scale-125" />
+            <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-accent">
+                  IT Field Technician
+                </h3>
+                <span className="text-sm text-foreground-muted">
+                  Aug 2025 – Jan 2026, Jul 2026 – Present
+                </span>
+              </div>
+              <p className="text-sm text-foreground-muted">CraythorneIT</p>
+
+              <ul className="mt-3 list-disc space-y-2 pl-5 text-foreground-muted">
+                <li>
+                  Perform Wi-Fi assessments, installations, and configurations
+                  for residential and business clients.
+                </li>
+                <li>
+                  Troubleshoot network connectivity issues and diagnose
+                  devices on-site using Fing.
+                </li>
+                <li>
+                  Configure routers and maintain client networks, responding
+                  to and resolving outages.
+                </li>
+                <li>
+                  Carry out PC builds, hardware repairs, and system upgrades.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="group relative">
+            <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-surface-border transition-transform duration-300 group-hover:scale-125 group-hover:bg-accent" />
+            <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
+              <h3 className="text-sm font-semibold text-foreground-muted transition-colors group-hover:text-accent">
+                Other Experience
+              </h3>
+              <p className="mt-2 text-sm text-foreground-muted">
+                Waiter (Cape Town Fish Market), Barman (Die Strandloper),
+                Classroom & Music Assistant (Longacres Private School),
+                Background Actor (39 Steps Agency), Lifeguard (NSRI) —
+                2022–2025. Roles spanning hospitality, education, and
+                emergency response, building customer service, teamwork, and
+                reliability under pressure.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 py-16">
+        <h2 className="text-2xl font-bold">Education</h2>
+
+        <div className="relative mt-10 space-y-4 border-l-2 border-surface-border pl-8">
+          <div className="group relative">
+            <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-accent transition-transform duration-300 group-hover:scale-125" />
+            <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-accent">
+                  Diploma in ICT: Application Development
+                </h3>
+                <span className="text-sm text-foreground-muted">2024 – Present</span>
+              </div>
+              <p className="text-sm text-foreground-muted">
+                Cape Peninsula University of Technology (CPUT)
+              </p>
+            </div>
+          </div>
+
+          <div className="group relative">
+            <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-surface-border transition-transform duration-300 group-hover:scale-125 group-hover:bg-accent" />
+            <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="text-lg font-semibold transition-colors group-hover:text-accent">
+                  National Senior Certificate (NSC)
+                </h3>
+                <span className="text-sm text-foreground-muted">2018 – 2022</span>
+              </div>
+              <p className="text-sm text-foreground-muted">Hopefield High School</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 py-16">
+        <h2 className="text-2xl font-bold">Certifications</h2>
+
+        <ul className="mt-4 space-y-1">
+          <li className="group -mx-4 flex items-start gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
+            <span className="text-foreground-muted transition-colors group-hover:text-foreground">
+              The Complete Web Development Bootcamp — Angela Yu (Udemy),
+              Completed
+            </span>
+          </li>
+          <li className="group -mx-4 flex items-start gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
+            <span className="text-foreground-muted transition-colors group-hover:text-foreground">
+              4IR Digital Skills Training Programme
+            </span>
+          </li>
+          <li className="group -mx-4 flex items-start gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
+            <span className="text-foreground-muted transition-colors group-hover:text-foreground">
+              AI course — Ed Donner (in progress)
+            </span>
+          </li>
+        </ul>
+      </section>
+    </>
+  );
+}
+
+===== FILE: ./src/app/globals.css =====
+
+@import "tailwindcss";
+
+:root {
+  --background: #EEF1F5;
+  --surface: #FFFFFF;
+  --surface-border: #D7DEE7;
+  --foreground: #0B0F14;
+  --foreground-muted: #57626F;
+  --accent: #0D9C9A;
+  --accent-2: #3D6BE0;
+  --card-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --pattern-dot: rgba(11, 15, 20, 0.06);
+}
+
+.dark {
+  --background: #0B0F14;
+  --surface: #131922;
+  --surface-border: #232C38;
+  --foreground: #E7ECF2;
+  --foreground-muted: #8B97A8;
+  --accent: #3DDBD9;
+  --accent-2: #5B8DEF;
+  --card-shadow: none;
+  --pattern-dot: rgba(255, 255, 255, 0.05);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-border: var(--surface-border);
+  --color-foreground: var(--foreground);
+  --color-foreground-muted: var(--foreground-muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+
+  --font-heading: var(--font-heading);
+  --font-body: var(--font-body);
+  --font-mono: var(--font-mono);
+}
+
+body {
+  background-color: var(--background);
+  background-image: radial-gradient(var(--pattern-dot) 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--foreground);
+  font-family: var(--font-body), Arial, Helvetica, sans-serif;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading), sans-serif;
+}
+
+code, pre {
+  font-family: var(--font-mono), monospace;
+}
+
+===== FILE: ./src/app/layout.tsx =====
+
+import type { Metadata } from "next";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
+import "./globals.css";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-heading",
+  subsets: ["latin"],
+});
+
+const inter = Inter({
+  variable: "--font-body",
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
+  description:
+    "Portfolio of Aidan Barends, a Software Engineering student at CPUT building full stack web applications and AI-powered tools.",
+  openGraph: {
+    title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
+    description:
+      "Portfolio of Aidan Barends, a Software Engineering student at CPUT building full stack web applications and AI-powered tools.",
+    type: "website",
+    images: ["/og-image.png"],
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html
+      lang="en"
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
+        
+       <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background">
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main-content" className="flex-1">
+          {children}
+        </main>
+        <Footer />
+      </body>
+    </html>
+  );
+}
+
+===== FILE: ./src/app/page.tsx =====
+
+import Link from "next/link";
+import { projects } from "../data/projects";
+import ProjectCard from "../components/ProjectCard";
+
+const skillGroups = [
+  { label: "Languages", items: ["JavaScript", "TypeScript", "Java", "Python", "PHP", "SQL"] },
+  { label: "Frameworks", items: ["React", "Next.js", "Node.js", "Laravel", "Tailwind CSS"] },
+  { label: "Databases", items: ["MySQL", "PostgreSQL"] },
+  { label: "Networking & Hardware", items: ["Router Config", "Wi-Fi Setup", "PC Builds", "Troubleshooting"] },
+];
+
+export default function Home() {
+  const featuredProjects = projects.filter((project) => project.featured);
+
+  return (
+    <>
+      <section className="relative overflow-hidden">
+        <div
+          className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
+          style={{
+            background:
+              "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+          }}
+        />
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-28 text-center sm:py-40">
+          <p className="font-[family-name:var(--font-mono)] text-sm text-accent">
+            IT Field Technician → Software Engineering Student → Aspiring AI Engineer
+          </p>
+
+          <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
+            Hey, I&apos;m Aidan Barends.
+          </h1>
+
+          <p className="mt-6 max-w-xl text-lg text-foreground-muted">
+            A Software Engineering student at CPUT who builds full stack web
+            applications, and is working toward becoming an AI Engineer.
+          </p>
+
+          <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            <Link
+              href="/projects"
+              className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition hover:opacity-90"
+            >
+              View My Work
+            </Link>
+            <Link
+              href="/resume.pdf"
+              target="_blank"
+              className="rounded-lg border border-surface-border px-6 py-3 text-sm font-medium text-foreground transition hover:border-accent"
+            >
+              Download Resume
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-6 py-20">
+        <h2 className="text-2xl font-bold">Featured Projects</h2>
+        <p className="mt-2 text-foreground-muted">
+          A couple of things I&apos;ve built recently.
+        </p>
+
+        <div className="mt-10 grid gap-6 sm:grid-cols-2">
+          {featuredProjects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
+      </section>
+
+      <section className="border-y border-surface-border bg-surface/50">
+        <div className="mx-auto max-w-5xl px-6 py-20">
+          <h2 className="text-2xl font-bold">Skills</h2>
+          <p className="mt-2 text-foreground-muted">
+            Technologies and tools I work with.
+          </p>
+
+          <div className="mt-10 grid gap-6 sm:grid-cols-2">
+            {skillGroups.map((group) => (
+              <div
+                key={group.label}
+                className="group rounded-xl border border-surface-border bg-background p-6 transition hover:border-accent/40"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+                  <h3 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+                    {group.label}
+                  </h3>
+                </div>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span
+                      key={item}
+                      className="rounded-md bg-surface px-2.5 py-1 font-[family-name:var(--font-mono)] text-xs transition group-hover:bg-accent/10"
+                    >
+                      {item}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-5xl px-6 py-24">
+        <div className="rounded-2xl border border-surface-border bg-surface px-6 py-16 text-center sm:px-16">
+          <h2 className="text-2xl font-bold sm:text-3xl">
+            Interested in working together?
+          </h2>
+          <p className="mx-auto mt-4 max-w-md text-foreground-muted">
+            I&apos;m open to junior developer roles and opportunities to keep
+            learning and building.
+          </p>
+          <Link
+            href="/contact"
+            className="mt-8 inline-block rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition hover:opacity-90"
+          >
+            Get In Touch
+          </Link>
+        </div>
+      </section>
+    </>
+  );
+}
+
+===== FILE: ./src/app/projects/page.tsx =====
+
+import { projects } from "../../data/projects";
+import ProjectCard from "../../components/ProjectCard";
+
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Projects | Aidan Barends",
+  description:
+    "A collection of full stack web applications and client projects built by Aidan Barends, including Task Flow Pro, Die Strandloper, and MediTicket 2.",
+};
+
+export default function ProjectsPage() {
+  return (
+    <section className="mx-auto max-w-5xl px-6 py-20">
+      <h1 className="text-3xl font-bold">Projects</h1>
+      <p className="mt-3 max-w-2xl text-foreground-muted">
+        A collection of things I&apos;ve built
+      </p>
+
+      <div className="mt-10 grid gap-6 sm:grid-cols-2">
+        {projects.map((project) => (
+          <ProjectCard key={project.slug} project={project} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+===== FILE: ./src/app/projects/[slug]/page.tsx =====
+
+import { notFound } from "next/navigation";
+import { projects } from "../../../data/projects";
+
+export function generateStaticParams() {
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const project = projects.find((item) => item.slug === slug);
+
+  if (!project) {
+    notFound();
+  }
+
+  return (
+    <section className="mx-auto max-w-3xl px-6 py-20">
+      <div className="flex items-center gap-3">
+        <h1 className="text-3xl font-bold">{project.name}</h1>
+        {project.inProgress && (
+          <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
+            In Progress
+          </span>
+        )}
+      </div>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {project.tech.map((item) => (
+          <span
+            key={item}
+            className="rounded-md bg-surface px-2.5 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground-muted"
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+
+      {project.problem && (
+        <div className="mt-10">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+            The Problem
+          </h2>
+          <p className="mt-2 text-foreground">{project.problem}</p>
+        </div>
+      )}
+
+      {project.role && (
+        <div className="mt-8">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+            My Role
+          </h2>
+          <p className="mt-2 text-foreground">{project.role}</p>
+        </div>
+      )}
+
+      {project.features && (
+        <div className="mt-8">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+            Key Features
+          </h2>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-foreground">
+            {project.features.map((feature) => (
+              <li key={feature}>{feature}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {project.challenges && (
+        <div className="mt-8">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+            Challenges
+          </h2>
+          <p className="mt-2 text-foreground">{project.challenges}</p>
+        </div>
+      )}
+
+      <div className="mt-10 flex gap-4 text-sm font-medium">
+        {project.github && (
+          <a href={project.github} target="_blank" rel="noopener noreferrer" className="rounded-lg bg-accent px-5 py-2.5 text-background transition hover:opacity-90">View on GitHub →</a>
+        )}
+        {project.live && (
+          <a href={project.live} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-surface-border px-5 py-2.5 text-foreground transition hover:border-accent">Live Demo →</a>
+        )}
+      </div>
+    </section>
+  );
+}
+
+===== FILE: ./src/app/sitemap.ts =====
+
+import type { MetadataRoute } from "next";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const baseUrl = "https://aidan-barends.vercel.app";
+
+  const staticRoutes = ["", "/about", "/projects", "/experience", "/contact"].map(
+    (route) => ({
+      url: `${baseUrl}${route}`,
+      lastModified: new Date(),
+    })
+  );
+
+  return staticRoutes;
+}
+
+===== FILE: ./src/components/ContactForm.tsx =====
+
+"use client";
+
+import { useState } from "react";
+import type { FormEvent } from "react";
+import { Mail, Phone, ArrowRight } from "lucide-react";
+
+function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M12 .5C5.73.5.5 5.73.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.08 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14 0 1.54-.01 2.79-.01 3.17 0 .31.21.67.8.56A10.99 10.99 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z" />
+    </svg>
+  );
+}
+
+function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z" />
+    </svg>
+  );
+}
+
+export default function ContactPage () {
+  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
+    "idle"
+  );
+
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setStatus("sending");
+
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus("sent");
+        form.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch {
+      setStatus("error");
+    }
+  }
+
+  const contactCards = [
+    {
+      icon: Mail,
+      label: "Email",
+      value: "aidanbarends95@gmail.com",
+      href: "mailto:aidanbarends95@gmail.com",
+      cta: "Email me",
+      external: false,
+    },
+    {
+      icon: Phone,
+      label: "Phone",
+      value: "071 680 8399",
+      href: "tel:+27716808399",
+      cta: "Call me",
+      external: false,
+    },
+    {
+      icon: LinkedinIcon,
+      label: "LinkedIn",
+      value: "linkedin.com/in/aidan-barends",
+      href: "https://www.linkedin.com/in/aidan-barends/",
+      cta: "View profile",
+      external: true,
+    },
+    {
+      icon: GithubIcon,
+      label: "GitHub",
+      value: "github.com/aidan-g-barends",
+      href: "https://github.com/aidan-g-barends",
+      cta: "View profile",
+      external: true,
+    },
+  ];
+
+  return (
+    <section className="relative overflow-hidden">
+      <div
+        className="pointer-events-none absolute left-1/2 top-0 h-[350px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
+        style={{
+          background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+        }}
+      />
+
+      <div className="relative mx-auto max-w-3xl px-6 py-20">
+        <h1 className="text-3xl font-bold">Get In Touch</h1>
+        <p className="mt-3 text-foreground-muted">
+          Have an opportunity, a question, or just want to connect? Send me a
+          message below, or reach out directly.
+        </p>
+
+        <div className="mt-10 grid gap-12">
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <input
+              type="hidden"
+              name="access_key"
+              value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
+            />
+
+            <div>
+              <label htmlFor="name" className="text-sm font-medium">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                className="mt-2 w-full rounded-lg border border-surface-border bg-surface px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="email" className="text-sm font-medium">
+                Email
+              </label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                required
+                className="mt-2 w-full rounded-lg border border-surface-border bg-surface px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="message" className="text-sm font-medium">
+                Message
+              </label>
+              <textarea
+                id="message"
+                name="message"
+                required
+                rows={5}
+                className="mt-2 w-full rounded-lg border border-surface-border bg-surface px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+              />
+            </div>
+
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition hover:opacity-90 disabled:opacity-50"
+            >
+              {status === "sending" ? "Sending..." : "Send Message"}
+            </button>
+
+            {status === "sent" && (
+              <p className="text-sm text-accent">
+                Thanks for reaching out — I&apos;ll get back to you soon.
+              </p>
+            )}
+            {status === "error" && (
+              <p className="text-sm text-red-500">
+                Something went wrong. Please try again, or email me directly.
+              </p>
+            )}
+          </form>
+
+          <div>
+            <h2 className="text-lg font-bold">Prefer to reach out directly?</h2>
+
+            <div className="mt-5 space-y-4">
+              {contactCards.map((card) => {
+                const Icon = card.icon;
+                const linkProps = card.external
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {};
+                return (
+                  <div
+                    key={card.label}
+                    className="flex items-start gap-4 rounded-lg border border-surface-border bg-surface p-4 transition hover:-translate-y-0.5 hover:shadow-md"
+                  >
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10">
+                      <Icon className="h-5 w-5 text-accent" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-medium uppercase tracking-wide text-foreground-muted">
+                        {card.label}
+                      </p>
+                      <p className="mt-0.5 text-sm text-foreground">
+                        {card.value}
+                      </p>
+                      <a href={card.href} {...linkProps} className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline">
+                        {card.cta}
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </a>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+===== FILE: ./src/components/Footer.tsx =====
+
+import { Mail } from "lucide-react";
+
+function GithubIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width={18} height={18} fill="currentColor">
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11.1 11.1 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.7 5.4-5.27 5.69.42.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.67.8.56A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
+    </svg>
+  );
+}
+
+function LinkedinIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width={18} height={18} fill="currentColor">
+      <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.27 2.38 4.27 5.47v6.27ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z" />
+    </svg>
+  );
+}
+
+const githubUrl = "https://github.com/aidan-g-barends";
+const linkedinUrl = "https://www.linkedin.com/in/aidan-barends/";
+const emailUrl = "mailto:aidanbarends95@gmail.com";
+
+export default function Footer() {
+  return (
+    <footer className="border-t border-surface-border">
+      <div className="flex flex-col items-center gap-4 px-6 py-8 text-sm text-foreground-muted">
+        <p>&copy; {new Date().getFullYear()} Aidan Barends.</p>
+
+        <div className="flex items-center gap-4">
+          <a href={githubUrl} aria-label="GitHub" target="_blank" rel="noopener noreferrer"><GithubIcon /></a>
+          <a href={linkedinUrl} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><LinkedinIcon /></a>
+          <a href={emailUrl} aria-label="Email"><Mail size={18} className="hover:text-foreground transition" /></a>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+===== FILE: ./src/components/Navbar.tsx =====
+
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
+
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/projects", label: "Projects" },
+  { href: "/experience", label: "Experience" },
+  { href: "/contact", label: "Contact" },
+];
+
+export default function Navbar() {
+  const pathname = usePathname();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  return (
+    <header className="sticky top-0 z-50 border-b border-surface-border bg-background/80 backdrop-blur">
+      <nav className="grid grid-cols-3 items-center px-6 py-4 sm:px-10">
+        <Link
+          href="/"
+          className="justify-self-start font-[family-name:var(--font-heading)] text-lg font-semibold"
+        >
+          Aidan Barends
+        </Link>
+
+        <div className="hidden items-center gap-6 justify-self-center sm:flex">
+          {links.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm transition ${
+                  isActive
+                    ? "text-foreground font-medium"
+                    : "text-foreground-muted hover:text-foreground"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
+
+        <div className="flex items-center gap-3 justify-self-end">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileOpen((open) => !open)}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border border-surface-border sm:hidden"
+          >
+            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
+      </nav>
+
+      {mobileOpen && (
+        <div className="border-t border-surface-border px-6 py-4 sm:hidden">
+          <div className="flex flex-col gap-4">
+            {links.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`text-sm transition ${
+                    isActive
+                      ? "text-foreground font-medium"
+                      : "text-foreground-muted hover:text-foreground"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </header>
+  );
+}
+
+===== FILE: ./src/components/ProjectCard.tsx =====
+
+import Link from "next/link";
+import type { Project } from "../data/projects";
+
+export default function ProjectCard({ project }: { project: Project }) {
+  return (
+    <div className="group flex flex-col rounded-xl border border-surface-border bg-surface p-6 transition hover:-translate-y-1 hover:border-accent/50 hover:shadow-lg">
+      <div className="flex items-center justify-between gap-2">
+        <h3 className="text-lg font-semibold">
+          <Link href={`/projects/${project.slug}`} className="hover:text-accent">
+            {project.name}
+          </Link>
+        </h3>
+        {project.inProgress && (
+          <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
+            In Progress
+          </span>
+        )}
+      </div>
+
+      <p className="mt-2 flex-1 text-sm text-foreground-muted">
+        {project.description}
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-2">
+        {project.tech.map((item) => (
+          <span key={item} className="rounded-md bg-background px-2 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground-muted">
+            {item}
+          </span>
+        ))}
+      </div>
+
+      <div className="mt-5 flex gap-4 text-sm font-medium">
+        {project.github && (
+          <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">GitHub →</a>
+        )}
+        {project.live && (
+          <a href={project.live} target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">Live Demo →</a>
+        )}
+      </div>
+    </div>
+  );
+}
+
+===== FILE: ./src/components/ThemeToggle.tsx =====
+
+"use client";
+
+import { useEffect, useState } from "react";
+import { Sun, Moon } from "lucide-react";
+
+export default function ThemeToggle() {
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const shouldUseDark = stored ? stored === "dark" : prefersDark;
+
+    setIsDark(shouldUseDark);
+    document.documentElement.classList.toggle("dark", shouldUseDark);
+  }, []);
+
+  function setTheme(dark: boolean) {
+    setIsDark(dark);
+    document.documentElement.classList.toggle("dark", dark);
+    localStorage.setItem("theme", dark ? "dark" : "light");
+  }
+
+  return (
+    <div className="flex items-center gap-1 rounded-full border border-surface-border bg-surface p-1">
+      <button
+        onClick={() => setTheme(false)}
+        aria-label="Switch to light mode"
+        aria-pressed={!isDark}
+        className={`flex h-7 w-7 items-center justify-center rounded-full transition ${
+          !isDark ? "bg-background shadow-sm" : "hover:bg-background/50"
+        }`}
+      >
+        <Sun size={15} className="text-foreground" />
+      </button>
+      <button
+        onClick={() => setTheme(true)}
+        aria-label="Switch to dark mode"
+        aria-pressed={isDark}
+        className={`flex h-7 w-7 items-center justify-center rounded-full transition ${
+          isDark ? "bg-background shadow-sm" : "hover:bg-background/50"
+        }`}
+      >
+        <Moon size={15} className="text-foreground" />
+      </button>
+    </div>
+  );
+}
+
+===== FILE: ./src/data/projects.ts =====
+
+export type Project = {
+  slug: string;
+  name: string;
+  description: string;
+  tech: string[];
+  github?: string;
+  live?: string;
+  featured: boolean;
+  inProgress?: boolean;
+  role?: string;
+  problem?: string;
+  features?: string[];
+  challenges?: string;
+};
+
+export const projects: Project[] = [
+  {
+    slug: "task-flow-pro",
+    name: "Task Flow Pro",
+    description:
+      "A full-stack task management platform developed as a university group project to help teams organise, assign, monitor, and complete work through one centralised system. The application was built with Laravel and MySQL, using a structured backend architecture with dedicated models, services, policies, and notification functionality.",
+    tech: ["Laravel", "PHP", "MySQL"],
+    github: "https://github.com/aidan-g-barends/Task-Flow-Pro",
+    featured: true,
+    inProgress: false,
+    role:
+      "Collaborated as part of a university development team, contributing to backend functionality, business logic, database interactions, and the overall implementation of the application's task management workflow.",
+    problem:
+      "Teams often rely on scattered communication channels and documents to manage work, making it difficult to know who is responsible for a task, what its current status is, and what still needs to be completed. Task Flow Pro provides a structured platform for managing these workflows in one place.",
+    features: [
+      "Task creation, assignment, updating, and completion tracking",
+      "Structured Laravel architecture using models, services, and policies",
+      "Database-backed storage using MySQL",
+      "Notification functionality to keep users informed about task changes",
+      "Organised separation between application logic and data handling",
+      "Collaborative Git workflow for multi-developer development",
+    ],
+    challenges:
+      "A major challenge was maintaining a consistent codebase while multiple developers worked on the same Laravel application. This required coordinating changes, following a shared project structure, resolving Git conflicts, and keeping business logic organised rather than placing everything directly inside controllers.",
+  },
+
+  {
+    slug: "die-strandloper",
+    name: "Die Strandloper",
+    description:
+      "A responsive multi-page website developed for a real local restaurant to establish a professional online presence and make important business information easily accessible to customers. The website combines restaurant information, menu presentation, photography, and a working contact system into a simple customer-facing experience.",
+    tech: ["HTML", "Tailwind CSS", "JavaScript"],
+    github: "https://github.com/aidan-g-barends/DieStrandloper",
+    featured: true,
+    inProgress: false,
+    role:
+      "Designed and developed the website independently, handling the page structure, responsive layouts, styling, JavaScript functionality, and integration of the customer contact form.",
+    problem:
+      "The restaurant needed a professional website where customers could discover the business, view important information and the menu, see the restaurant through a gallery, and contact the owner directly without needing to use multiple platforms.",
+    features: [
+      "Home page introducing the restaurant and its offering",
+      "About page providing information about the business",
+      "Digital menu presentation for customers",
+      "Gallery for showcasing the restaurant and experience",
+      "Contact page with a working customer enquiry form",
+      "Web3Forms integration for sending enquiries directly to email",
+      "Responsive layouts for desktop, tablet, and mobile devices",
+      "Tailwind CSS-based styling and reusable layout patterns",
+    ],
+    challenges:
+      "This project was built while I was expanding my knowledge of Tailwind CSS and JavaScript. One of the biggest challenges was translating a real business requirement into a polished responsive website while learning how to structure the frontend, handle responsive layouts, and integrate a third-party service for the contact functionality.",
+  },
+
+  {
+    slug: "jjs-business-solutions",
+    name: "JJS Business Solutions",
+    description:
+      "A professional business website developed for JJS Business Solutions to establish a modern digital presence and clearly communicate the organisation's training, consulting, and project-focused services. The website was designed to present the organisation in a credible and professional way while making important business information easy for prospective clients, partners, and visitors to discover.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    github: "https://github.com/aidan-g-barends/jjs-website",
+    live: "https://jjs-website-omega.vercel.app/",
+    featured: true,
+    inProgress: false,
+    role:
+      "Sole developer responsible for the website's frontend development, UI implementation, responsive layouts, reusable components, content presentation, deployment, and overall user experience.",
+    problem:
+      "JJS Business Solutions needed a professional online presence that could clearly communicate its services and establish a strong digital representation of the organisation. The website needed to make the business easy to understand while presenting its services and information through a polished, modern, and responsive experience.",
+    features: [
+      "Professional business-focused landing page",
+      "Clear presentation of JJS Business Solutions' services",
+      "Training, consulting, and project information",
+      "Structured content sections for improved information discovery",
+      "Modern responsive user interface",
+      "Mobile, tablet, and desktop support",
+      "Reusable frontend components",
+      "Consistent visual hierarchy and design patterns",
+      "Clear navigation between important sections",
+      "Professional presentation of business information",
+      "Production deployment using Vercel",
+      "Live publicly accessible website",
+    ],
+    challenges:
+      "The main challenge was translating an established organisation's services and business identity into a modern digital experience without making the website feel unnecessarily complicated. The project required balancing professional presentation, clear information architecture, responsive design, reusable components, and usability across different screen sizes. It also provided practical experience in taking a business-focused website from development through to a live production deployment.",
+  },
+
+  {
+    slug: "mediticket-2",
+    name: "MediTicket 2",
+    description:
+      "A full-stack medical practice management platform focused on connecting patients, doctors, and staff through a centralised healthcare system. The backend is built with Spring Boot and Java and manages core workflows such as appointments, digital tickets, payments, and notifications. The project applies Domain-Driven Design and object-oriented design patterns to create a structured and maintainable codebase.",
+    tech: ["Spring Boot", "Java", "JPA/Hibernate", "MySQL"],
+    github: "https://github.com/AidanBarends/MediTicket2",
+    featured: false,
+    inProgress: true,
+    role:
+      "Contributing as part of a 7-member software development team, working primarily within the backend and implementing functionality within the project's Domain-Driven Design architecture.",
+    problem:
+      "Medical practices need to coordinate patients, doctors, staff, appointments, tickets, payments, and communication. Managing these processes separately can lead to duplicated information and inefficient workflows. MediTicket aims to provide a connected platform for managing these core processes.",
+    features: [
+      "Patient, doctor, and staff management",
+      "Shared User domain hierarchy for different types of system users",
+      "Appointment scheduling and management",
+      "Digital ticket management for patient workflows",
+      "Payment-related functionality",
+      "Notification functionality for important system updates",
+      "JPA/Hibernate persistence with MySQL",
+      "Domain-Driven Design architecture",
+      "Builder pattern and object-oriented design principles",
+      "Spring Boot REST-based backend architecture",
+    ],
+    challenges:
+      "Developing within a 7-person team required careful coordination around domain models, database relationships, API functionality, and coding standards. One of the biggest challenges was making sure different parts of the system followed the same architectural principles while several developers were implementing features simultaneously.",
+  },
+
+  {
+    slug: "practiceflow-crm",
+    name: "PracticeFlow CRM",
+    description:
+      "A full-stack medical practice CRM designed to centralise patient management, appointment scheduling, clinical workflows, and staff administration within one modern application. The project combines a Next.js and React frontend with Supabase for authentication, database functionality, and backend services, and was developed collaboratively as part of a 6-person software engineering team.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
+    github: "https://github.com/aidan-g-barends/practiceflow-crm",
+    live: "https://practiceflow-crm-iota.vercel.app/",
+    featured: true,
+    inProgress: false,
+    role:
+      "Frontend Developer responsible for the appointment scheduling experience, including the calendar interface, booking workflow, appointment status presentation, and reusable frontend components.",
+    problem:
+      "Medical practices need to manage patients, appointments, healthcare providers, staff, and clinical information efficiently. Relying on disconnected tools can make these workflows difficult to coordinate. PracticeFlow CRM brings these areas together into one centralised system.",
+    features: [
+      "Patient registration and patient directory",
+      "Patient profile viewing and editing",
+      "Appointment scheduling and management",
+      "Calendar-based appointment interface",
+      "Appointment status tracking",
+      "Daily appointment and scheduling views",
+      "Clinical workspace with SOAP notes",
+      "Medication tracking",
+      "Staff and healthcare provider directory",
+      "Supabase authentication and database integration",
+      "Reusable React components",
+      "Responsive interface using Tailwind CSS",
+    ],
+    challenges:
+      "My main challenge was developing the appointment management experience while other team members worked on different areas of the system. The frontend needed to remain consistent with the database structure and backend functionality as both were evolving. This required communication within the team, reusable component design, and careful handling of appointment states and scheduling information.",
+  },
+
+  {
+    slug: "task-manager-app",
+    name: "Task Manager App",
+    description:
+      "A full-stack task management application built to explore the integration of a modern Angular single-page application with a Java Spring Boot REST API. The project demonstrates the separation of frontend and backend responsibilities while providing a practical environment for working with REST endpoints, TypeScript, Java, and application data.",
+    tech: ["Angular", "Spring Boot", "Java", "TypeScript"],
+    github: "https://github.com/aidan-g-barends/Task-Manager-App",
+    featured: false,
+    inProgress: true,
+    role:
+      "Developing the Angular frontend and Spring Boot backend independently, including frontend components, REST API endpoints, application logic, and the communication between the two layers.",
+    problem:
+      "As the number of projects and responsibilities increases, managing tasks without a structured system can become difficult. The Task Manager App provides a centralised way to create, update, organise, and track tasks.",
+    features: [
+      "Task creation and management",
+      "Updating existing task information",
+      "Deleting tasks",
+      "Retrieving task data through REST API endpoints",
+      "Spring Boot backend for API and business logic",
+      "Angular single-page application frontend",
+      "TypeScript-based frontend development",
+      "Separation between frontend presentation and backend services",
+      "Frontend-to-backend API communication",
+    ],
+    challenges:
+      "The main technical challenge was understanding and implementing the communication between an Angular frontend and Spring Boot backend. This involved structuring REST endpoints, handling requests and responses, connecting frontend components to backend services, and keeping the application layers properly separated.",
+  },
+
+  {
+    slug: "golden-way",
+    name: "GoldenWay",
+    description:
+      "A digital public transport ticketing platform designed to modernise the way Golden Arrow Bus commuters purchase and manage bus tickets. The project moves the traditional in-person ticket purchasing experience into a digital platform, combining a React/Vite frontend with a Spring Boot backend and MySQL database.",
+    tech: ["React", "Vite", "Spring Boot", "Java", "MySQL"],
+    github: "https://github.com/AidanBarends/GoldenWay",
+    featured: false,
+    inProgress: true,
+    role:
+      "Working as a full-stack developer within a team, with a strong focus on the Spring Boot backend, REST API development, database layer, and integration between the backend and React frontend.",
+    problem:
+      "Golden Arrow Bus commuters traditionally have limited options for purchasing and managing their bus tickets digitally. This creates unnecessary friction for passengers who need a faster and more convenient way to access their transport tickets.",
+    features: [
+      "Digital bus ticket purchasing",
+      "Passenger-facing React/Vite application",
+      "Spring Boot REST API backend",
+      "MySQL database integration",
+      "Digital ticket management",
+      "Passenger booking workflows",
+      "Separation between frontend, backend, and database layers",
+      "Team-based Git development workflow",
+    ],
+    challenges:
+      "The project required the team to translate a real-world public transport problem into a practical software solution while developing the frontend and backend in parallel. One of the biggest challenges has been keeping the database structure, API contracts, and React application aligned as functionality continues to be developed.",
+  },
+
+  {
+    slug: "the-hairbra",
+    name: "The HairBra",
+    description:
+      "A modern barbershop platform currently in development that combines online appointment booking, secure digital payments, barber profiles, and an integrated e-commerce store into one customer-facing application. The goal is to provide local barbershops with a complete digital platform where customers can discover barbers, book appointments, pay online, and purchase grooming products from the same application.",
+    tech: [
+      "React",
+      "Supabase",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Payment Integration",
+    ],
+    github: "https://github.com/aidan-g-barends/The_HairBra",
+    featured: false,
+    inProgress: true,
+    role:
+      "Sole developer responsible for the application's architecture, frontend development, Supabase integration, database design, booking workflows, payment integration, and planned e-commerce functionality.",
+    problem:
+      "Many local barbershops still rely on WhatsApp messages, phone calls, social media, or walk-ins to manage appointments. Product sales are often handled separately as well. This can make bookings difficult to manage and creates a fragmented customer experience. The HairBra aims to bring bookings, payments, and product sales together into one platform.",
+    features: [
+      "Online appointment booking",
+      "Barber profiles and barber selection",
+      "Service selection and booking workflow",
+      "Barber availability management",
+      "Online payment integration for appointments",
+      "Customer appointment management",
+      "Integrated e-commerce store",
+      "Hair, beard, and grooming product listings",
+      "Online product purchasing",
+      "Customer order management",
+      "Supabase authentication",
+      "Supabase database integration",
+      "PostgreSQL data storage",
+      "Responsive React customer interface",
+      "Planned customer and business notifications",
+      "Planned live deployment for real-world use",
+    ],
+    challenges:
+      "The HairBra combines several different software systems into one product, including appointment scheduling, authentication, payments, database management, and e-commerce. A major technical challenge is designing the underlying data model so that customers, barbers, appointments, payments, products, and orders remain connected and consistent. The project also requires careful consideration of payment states and booking availability to prevent conflicting appointments or incomplete transactions.",
+  },
+];
+
+===== FILE: ./tsconfig.json =====
+
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "exclude": ["node_modules"]
 }

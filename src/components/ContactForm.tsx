@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { Mail, Phone, ArrowRight } from "lucide-react";
+import gsap from "gsap";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -20,10 +21,10 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default function ContactPage () {
-  const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
-    "idle"
-  );
+export default function ContactForm() {
+  const [status, setStatus] = useState<
+    "idle" | "sending" | "sent" | "error"
+  >("idle");
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -33,10 +34,14 @@ export default function ContactPage () {
     const formData = new FormData(form);
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "https://api.web3forms.com/submit",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+
       const result = await response.json();
 
       if (result.success) {
@@ -48,6 +53,26 @@ export default function ContactPage () {
     } catch {
       setStatus("error");
     }
+  }
+
+  function handleCardMouseEnter(
+    event: React.MouseEvent<HTMLDivElement>
+  ) {
+    gsap.to(event.currentTarget, {
+      y: -5,
+      duration: 0.3,
+      ease: "power2.out",
+    });
+  }
+
+  function handleCardMouseLeave(
+    event: React.MouseEvent<HTMLDivElement>
+  ) {
+    gsap.to(event.currentTarget, {
+      y: 0,
+      duration: 0.4,
+      ease: "power3.out",
+    });
   }
 
   const contactCards = [
@@ -68,14 +93,6 @@ export default function ContactPage () {
       external: false,
     },
     {
-      icon: LinkedinIcon,
-      label: "LinkedIn",
-      value: "linkedin.com/in/aidan-barends",
-      href: "https://www.linkedin.com/in/aidan-barends/",
-      cta: "View profile",
-      external: true,
-    },
-    {
       icon: GithubIcon,
       label: "GitHub",
       value: "github.com/aidan-g-barends",
@@ -83,36 +100,64 @@ export default function ContactPage () {
       cta: "View profile",
       external: true,
     },
+    {
+      icon: LinkedinIcon,
+      label: "LinkedIn",
+      value: "linkedin.com/in/aidan-barends",
+      href: "https://www.linkedin.com/in/aidan-barends/",
+      cta: "View profile",
+      external: true,
+    },
   ];
 
   return (
     <section className="relative overflow-hidden">
+      {/* Background glow */}
       <div
+        data-gsap="parallax"
         className="pointer-events-none absolute left-1/2 top-0 h-[350px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
         style={{
-          background: "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+          background:
+            "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
         }}
       />
 
       <div className="relative mx-auto max-w-3xl px-6 py-20">
-        <h1 className="text-3xl font-bold">Get In Touch</h1>
-        <p className="mt-3 text-foreground-muted">
-          Have an opportunity, a question, or just want to connect? Send me a
-          message below, or reach out directly.
-        </p>
+        {/* Heading */}
+        <div data-gsap="hero">
+          <h1 className="text-3xl font-bold">
+            Get In Touch
+          </h1>
+
+          <p className="mt-3 text-foreground-muted">
+            Have an opportunity, a question, or just want to
+            connect? Send me a message below, or reach out directly.
+          </p>
+        </div>
 
         <div className="mt-10 grid gap-12">
-          <form onSubmit={handleSubmit} className="space-y-5">
+          {/* FORM */}
+          <form
+            onSubmit={handleSubmit}
+            data-gsap="reveal"
+            className="space-y-5"
+          >
             <input
               type="hidden"
               name="access_key"
-              value={process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY}
+              value={
+                process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? ""
+              }
             />
 
             <div>
-              <label htmlFor="name" className="text-sm font-medium">
+              <label
+                htmlFor="name"
+                className="text-sm font-medium"
+              >
                 Name
               </label>
+
               <input
                 id="name"
                 name="name"
@@ -123,9 +168,13 @@ export default function ContactPage () {
             </div>
 
             <div>
-              <label htmlFor="email" className="text-sm font-medium">
+              <label
+                htmlFor="email"
+                className="text-sm font-medium"
+              >
                 Email
               </label>
+
               <input
                 id="email"
                 name="email"
@@ -136,9 +185,13 @@ export default function ContactPage () {
             </div>
 
             <div>
-              <label htmlFor="message" className="text-sm font-medium">
+              <label
+                htmlFor="message"
+                className="text-sm font-medium"
+              >
                 Message
               </label>
+
               <textarea
                 id="message"
                 name="message"
@@ -151,50 +204,77 @@ export default function ContactPage () {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition hover:opacity-90 disabled:opacity-50"
+              className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition-transform duration-300 hover:-translate-y-1 hover:opacity-90 disabled:opacity-50"
             >
-              {status === "sending" ? "Sending..." : "Send Message"}
+              {status === "sending"
+                ? "Sending..."
+                : "Send Message"}
             </button>
 
             {status === "sent" && (
               <p className="text-sm text-accent">
-                Thanks for reaching out — I&apos;ll get back to you soon.
+                Thanks for reaching out — I&apos;ll get back to you
+                soon.
               </p>
             )}
+
             {status === "error" && (
               <p className="text-sm text-red-500">
-                Something went wrong. Please try again, or email me directly.
+                Something went wrong. Please try again, or email me
+                directly.
               </p>
             )}
           </form>
 
+          {/* DIRECT CONTACT */}
           <div>
-            <h2 className="text-lg font-bold">Prefer to reach out directly?</h2>
+            <div data-gsap="reveal">
+              <h2 className="text-lg font-bold">
+                Prefer to reach out directly?
+              </h2>
+            </div>
 
-            <div className="mt-5 space-y-4">
+            <div
+              data-gsap="stagger"
+              className="mt-5 space-y-4"
+            >
               {contactCards.map((card) => {
                 const Icon = card.icon;
+
                 const linkProps = card.external
-                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  ? {
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                    }
                   : {};
+
                 return (
                   <div
                     key={card.label}
-                    className="flex items-start gap-4 rounded-lg border border-surface-border bg-surface p-4 transition hover:-translate-y-0.5 hover:shadow-md"
+                    onMouseEnter={handleCardMouseEnter}
+                    onMouseLeave={handleCardMouseLeave}
+                    className="flex items-start gap-4 rounded-lg border border-surface-border bg-surface p-4 will-change-transform transition-shadow hover:shadow-md"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10">
                       <Icon className="h-5 w-5 text-accent" />
                     </div>
-                    <div>
-                      <p className="text-xs font-medium uppercase tracking-wide text-foreground-muted">
+
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium">
                         {card.label}
                       </p>
-                      <p className="mt-0.5 text-sm text-foreground">
+
+                      <p className="mt-1 break-all text-sm text-foreground-muted">
                         {card.value}
                       </p>
-                      <a href={card.href} {...linkProps} className="mt-1 inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline">
+
+                      <a
+                        href={card.href}
+                        {...linkProps}
+                        className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
+                      >
                         {card.cta}
-                        <ArrowRight className="h-3.5 w-3.5" />
+                        <ArrowRight size={14} />
                       </a>
                     </div>
                   </div>

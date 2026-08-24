@@ -1,50 +1,77 @@
 "use client";
 
+import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Sun, Moon } from "lucide-react";
 
 export default function ThemeToggle() {
   const [isDark, setIsDark] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
+
     const prefersDark = window.matchMedia(
       "(prefers-color-scheme: dark)"
     ).matches;
-    const shouldUseDark = stored ? stored === "dark" : prefersDark;
+
+    const shouldUseDark = stored
+      ? stored === "dark"
+      : prefersDark;
+
+    document.documentElement.classList.toggle(
+      "dark",
+      shouldUseDark
+    );
 
     setIsDark(shouldUseDark);
-    document.documentElement.classList.toggle("dark", shouldUseDark);
+    setMounted(true);
   }, []);
 
-  function setTheme(dark: boolean) {
-    setIsDark(dark);
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("theme", dark ? "dark" : "light");
+  function toggleTheme() {
+    const nextIsDark = !isDark;
+
+    setIsDark(nextIsDark);
+
+    document.documentElement.classList.toggle(
+      "dark",
+      nextIsDark
+    );
+
+    localStorage.setItem(
+      "theme",
+      nextIsDark ? "dark" : "light"
+    );
+  }
+
+  // Keep the server and initial client render identical.
+  if (!mounted) {
+    return (
+      <button
+        type="button"
+        aria-label="Toggle theme"
+        className="rounded-lg p-2 text-foreground-muted transition-colors hover:bg-surface hover:text-foreground"
+      >
+        <Moon size={18} aria-hidden="true" />
+      </button>
+    );
   }
 
   return (
-    <div className="flex items-center gap-1 rounded-full border border-surface-border bg-surface p-1">
-      <button
-        onClick={() => setTheme(false)}
-        aria-label="Switch to light mode"
-        aria-pressed={!isDark}
-        className={`flex h-7 w-7 items-center justify-center rounded-full transition ${
-          !isDark ? "bg-background shadow-sm" : "hover:bg-background/50"
-        }`}
-      >
-        <Sun size={15} className="text-foreground" />
-      </button>
-      <button
-        onClick={() => setTheme(true)}
-        aria-label="Switch to dark mode"
-        aria-pressed={isDark}
-        className={`flex h-7 w-7 items-center justify-center rounded-full transition ${
-          isDark ? "bg-background shadow-sm" : "hover:bg-background/50"
-        }`}
-      >
-        <Moon size={15} className="text-foreground" />
-      </button>
-    </div>
+    <button
+      type="button"
+      onClick={toggleTheme}
+      aria-label={
+        isDark
+          ? "Switch to light mode"
+          : "Switch to dark mode"
+      }
+      className="rounded-lg p-2 text-foreground-muted transition-colors hover:bg-surface hover:text-foreground"
+    >
+      {isDark ? (
+        <Sun size={18} aria-hidden="true" />
+      ) : (
+        <Moon size={18} aria-hidden="true" />
+      )}
+    </button>
   );
 }

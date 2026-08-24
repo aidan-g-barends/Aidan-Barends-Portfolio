@@ -8,7 +8,9 @@
   --foreground-muted: #57626F;
   --accent: #0D9C9A;
   --accent-2: #3D6BE0;
-  --card-shadow: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --card-shadow:
+    0 1px 3px rgba(15, 23, 42, 0.06),
+    0 1px 2px rgba(15, 23, 42, 0.04);
   --pattern-dot: rgba(11, 15, 20, 0.06);
 }
 
@@ -38,19 +40,65 @@
   --font-mono: var(--font-mono);
 }
 
-body {
-  background-color: var(--background);
-  background-image: radial-gradient(var(--pattern-dot) 1px, transparent 1px);
-  background-size: 28px 28px;
-  color: var(--foreground);
-  font-family: var(--font-body), Arial, Helvetica, sans-serif;
-  transition: background-color 0.2s ease, color 0.2s ease;
+html {
+  scroll-behavior: smooth;
 }
 
-h1, h2, h3, h4, h5, h6 {
+body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(
+      var(--pattern-dot) 1px,
+      transparent 1px
+    );
+  background-size: 28px 28px;
+  color: var(--foreground);
+  font-family:
+    var(--font-body),
+    Arial,
+    Helvetica,
+    sans-serif;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-heading), sans-serif;
 }
 
-code, pre {
+code,
+pre {
   font-family: var(--font-mono), monospace;
+}
+
+a,
+button,
+input,
+textarea {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.will-change-transform {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
