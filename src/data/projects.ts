@@ -227,8 +227,9 @@ export const projects: Project[] = [
       "Payment Integration",
     ],
     github: "https://github.com/aidan-g-barends/The_HairBra",
-    featured: false,
-    inProgress: true,
+    live: "https://the-hair-bra.vercel.app/",
+    featured: true,
+    inProgress: false,
     role:
       "Sole developer responsible for the application's architecture, frontend development, Supabase integration, database design, booking workflows, payment integration, and planned e-commerce functionality.",
     problem:
