@@ -56,7 +56,6 @@ export default function ProjectCard({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      
       className="group flex h-full flex-col rounded-xl border border-surface-border bg-surface p-6 will-change-transform transition-colors hover:border-accent/50"
     >
       <div className="flex items-center justify-between gap-2">
@@ -91,7 +90,8 @@ export default function ProjectCard({
         ))}
       </div>
 
-      <div className="mt-5 flex gap-4 text-sm font-medium">
+      <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
+        {/* Standard GitHub repository */}
         {project.github && (
           <a
             href={project.github}
@@ -103,6 +103,31 @@ export default function ProjectCard({
           </a>
         )}
 
+        {/* Frontend repository */}
+        {project.githubFrontend && (
+          <a
+            href={project.githubFrontend}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent transition-transform duration-200 hover:translate-x-1 hover:underline"
+          >
+            Frontend GitHub →
+          </a>
+        )}
+
+        {/* Backend repository */}
+        {project.githubBackend && (
+          <a
+            href={project.githubBackend}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent transition-transform duration-200 hover:translate-x-1 hover:underline"
+          >
+            Backend GitHub →
+          </a>
+        )}
+
+        {/* Live deployment */}
         {project.live && (
           <a
             href={project.live}
