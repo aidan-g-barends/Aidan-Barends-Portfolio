@@ -4,6 +4,8 @@ export type Project = {
   description: string;
   tech: string[];
   github?: string;
+  githubFrontend?: string;
+  githubBackend?: string;
   live?: string;
   featured: boolean;
   inProgress?: boolean;
@@ -104,9 +106,10 @@ export const projects: Project[] = [
     description:
       "A full-stack medical practice management platform focused on connecting patients, doctors, and staff through a centralised healthcare system. The backend is built with Spring Boot and Java and manages core workflows such as appointments, digital tickets, payments, and notifications. The project applies Domain-Driven Design and object-oriented design patterns to create a structured and maintainable codebase.",
     tech: ["Spring Boot", "Java", "JPA/Hibernate", "MySQL"],
-    github: "https://github.com/AidanBarends/MediTicket2",
-    featured: false,
-    inProgress: true,
+    githubFrontend: "https://github.com/AidanBarends/MediTicketApp",
+    githubBackend: "https://github.com/AidanBarends/MediTicket2",
+    featured: true,
+    inProgress: false,
     role:
       "Contributing as part of a 7-member software development team, working primarily within the backend and implementing functionality within the project's Domain-Driven Design architecture.",
     problem:
