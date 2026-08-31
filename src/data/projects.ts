@@ -169,8 +169,8 @@ export const projects: Project[] = [
       "A full-stack task management application built to explore the integration of a modern Angular single-page application with a Java Spring Boot REST API. The project demonstrates the separation of frontend and backend responsibilities while providing a practical environment for working with REST endpoints, TypeScript, Java, and application data.",
     tech: ["Angular", "Spring Boot", "Java", "TypeScript"],
     github: "https://github.com/aidan-g-barends/Task-Manager-App",
-    featured: false,
-    inProgress: true,
+    featured: true,
+    inProgress: false,
     role:
       "Developing the Angular frontend and Spring Boot backend independently, including frontend components, REST API endpoints, application logic, and the communication between the two layers.",
     problem:
