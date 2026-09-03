@@ -258,4 +258,38 @@ export const projects: Project[] = [
     challenges:
       "The HairBra combines several different software systems into one product, including appointment scheduling, authentication, payments, database management, and e-commerce. A major technical challenge is designing the underlying data model so that customers, barbers, appointments, payments, products, and orders remain connected and consistent. The project also requires careful consideration of payment states and booking availability to prevent conflicting appointments or incomplete transactions.",
   },
+
+    {
+    slug: "2g-architecture-solutions",
+    name: "2G Architecture Solutions",
+    description:
+      "A modern, editorial-style website concept developed for an established independent architectural practice with approximately 28 years of industry experience in Saldanha, Western Coast. Built with Next.js, TypeScript, and GSAP-powered animations, the site focuses on architectural storytelling, a curated project archive, and a refined visual identity designed to position the practice as a premium, trustworthy local studio.",
+    tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "GSAP"],
+    github: "https://github.com/aidan-g-barends/2G-Architecture",
+    featured: false,
+    inProgress: true,
+    role:
+      "Full-stack developer and UI/UX designer responsible for conceptualising the digital experience, designing the UI/UX, building reusable React/Next.js components, implementing responsive layouts and GSAP-driven animations, and structuring the site so real client content and photography can be dropped in without a redesign.",
+    problem:
+      "The architectural practice had a limited digital presence and no website capable of communicating its experience, services, and design capability. The project establishes a professional digital identity and portfolio platform that highlights nearly three decades of industry experience, presents work in a premium visual format, and gives prospective clients an easy way to get in touch.",
+    features: [
+      "Premium architectural/editorial visual design",
+      "Responsive desktop, tablet, and mobile layouts",
+      "Large typography-driven hero section",
+      "'28 Years of Experience' feature section",
+      "Selected Works / interactive project archive",
+      "Individual project presentation pages with large-format galleries",
+      "Services and design philosophy sections",
+      "About the designer/studio section",
+      "Architectural design process section",
+      "West Coast / Saldanha location presence",
+      "Contact / project enquiry section",
+      "GSAP-powered scroll and typography animations",
+      "Project hover interactions and smooth scrolling",
+      "SEO-friendly, semantic, accessibility-conscious structure",
+      "Reusable, data-driven component architecture for easy future updates",
+    ],
+    challenges:
+      "The main challenge was establishing a strong, premium visual identity for a client with limited publicly available information, photography, and project documentation, without fabricating professional claims. The site was structured around placeholder content so real photographs and project details can later replace it without a redesign, while balancing editorial minimalism against the need to clearly communicate the practice's experience and services. Designing for a small independent practice also meant conveying 28 years of credibility without making the business feel artificially corporate.",
+  },
 ];
