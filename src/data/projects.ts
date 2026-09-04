@@ -320,8 +320,8 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "GSAP"],
     github: "https://github.com/aidan-g-barends/2G-Architecture",
     live: "https://2-g-architecture.vercel.app/",
-    featured: false,
-    inProgress: true,
+    featured: true,
+    inProgress: false,
     role:
       "Full-stack developer and UI/UX designer responsible for conceptualising the digital experience, designing the UI/UX, building reusable React/Next.js components, implementing responsive layouts and GSAP-driven animations, and structuring the site so real client content and photography can be dropped in without a redesign.",
     problem:
