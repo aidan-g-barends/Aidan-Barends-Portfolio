@@ -130,6 +130,59 @@ export const projects: Project[] = [
       "Developing within a 7-person team required careful coordination around domain models, database relationships, API functionality, and coding standards. One of the biggest challenges was making sure different parts of the system followed the same architectural principles while several developers were implementing features simultaneously.",
   },
 
+   {
+    slug: "uni-exchange",
+    name: "UniExchange",
+    description:
+      "A campus marketplace platform developed as a university group project for students at the Cape Peninsula University of Technology (CPUT). The platform is designed to provide a centralised space where students can buy, sell, and exchange goods and services within the university community.",
+
+    tech: [
+      "Spring Boot",
+      "Java",
+      "Spring Data JPA",
+      "Hibernate",
+      "MySQL",
+      "React",
+      "Vite",
+    ],
+
+    github: "https://github.com/AidanBarends/UniExchange",
+
+    featured: false,
+    inProgress: true,
+
+    role:
+      "Contributing as part of a university software development team, working primarily on the backend domain layer and collaborating with team members through a structured Git workflow. My contributions involve implementing and maintaining domain entities, applying object-oriented design principles, and working within the project's Spring Boot architecture.",
+
+    problem:
+      "University students often rely on informal platforms and social media to buy, sell, and exchange goods and services with other students. UniExchange aims to provide a dedicated campus marketplace where members of the university community can discover listings, communicate with other users, complete transactions, and build trust within a structured platform.",
+
+    features: [
+      "Campus-focused marketplace for students",
+      "Buying, selling, and exchanging goods and services",
+      "User and campus identity management",
+      "Marketplace listings and categories",
+      "Listing image support",
+      "User-to-user conversations and messaging",
+      "Notifications",
+      "Reviews and seller trust system",
+      "Vendor application and trusted seller functionality",
+      "Transaction and payment management",
+      "Digital wallet functionality",
+      "Community bulletin posts",
+      "Administrative audit logging",
+      "Spring Boot REST API architecture",
+      "Spring Data JPA and Hibernate persistence",
+      "MySQL database integration",
+      "Domain-driven backend structure",
+      "JUnit and Spring Boot testing",
+      "React and Vite frontend foundation",
+    ],
+
+    challenges:
+      "Working on UniExchange as a group project required coordinating a large domain model across multiple developers while keeping the architecture and database relationships consistent. A major challenge has been establishing a structured backend foundation containing 22 domain entities and 13 enums, while ensuring the different parts of the system follow consistent object-oriented and JPA design patterns. The project also requires keeping frontend and backend development aligned as the platform progresses through its planned feature milestones.",
+  },
+
   {
     slug: "practiceflow-crm",
     name: "PracticeFlow CRM",
@@ -292,4 +345,6 @@ export const projects: Project[] = [
     challenges:
       "The main challenge was establishing a strong, premium visual identity for a client with limited publicly available information, photography, and project documentation, without fabricating professional claims. The site was structured around placeholder content so real photographs and project details can later replace it without a redesign, while balancing editorial minimalism against the need to clearly communicate the practice's experience and services. Designing for a small independent practice also meant conveying 28 years of credibility without making the business feel artificially corporate.",
   },
+
+   
 ];
