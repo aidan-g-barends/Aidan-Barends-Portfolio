@@ -319,6 +319,7 @@ export const projects: Project[] = [
       "A modern, editorial-style website concept developed for an established independent architectural practice with approximately 28 years of industry experience in Saldanha, Western Coast. Built with Next.js, TypeScript, and GSAP-powered animations, the site focuses on architectural storytelling, a curated project archive, and a refined visual identity designed to position the practice as a premium, trustworthy local studio.",
     tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "GSAP"],
     github: "https://github.com/aidan-g-barends/2G-Architecture",
+    live: "https://2-g-architecture.vercel.app/",
     featured: false,
     inProgress: true,
     role:
