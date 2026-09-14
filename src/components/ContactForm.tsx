@@ -32,19 +32,20 @@ export default function ContactForm() {
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const data = {
+      name: formData.get("name"),
+      email: formData.get("email"),
+      message: formData.get("message"),
+    };
 
     try {
-      const response = await fetch(
-        "https://api.web3forms.com/submit",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
 
-      const result = await response.json();
-
-      if (result.success) {
+      if (response.ok) {
         setStatus("sent");
         form.reset();
       } else {
@@ -142,14 +143,6 @@ export default function ContactForm() {
             data-gsap="reveal"
             className="space-y-5"
           >
-            <input
-              type="hidden"
-              name="access_key"
-              value={
-                process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? ""
-              }
-            />
-
             <div>
               <label
                 htmlFor="name"
