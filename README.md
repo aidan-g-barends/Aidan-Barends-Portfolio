@@ -12,7 +12,7 @@ I'm a Software Engineering student at CPUT (Application Development), currently 
 
 - Fully responsive design with light and dark mode (persisted via `localStorage`)
 - Dynamic project pages generated from a single shared data source
-- Working contact form powered by Web3Forms
+- Working contact form powered by Resend
 - Full SEO setup: per-page metadata, Open Graph previews, and an auto-generated sitemap
 - Accessible by design: skip-to-content link, semantic HTML, keyboard-navigable
 - 100/100 Lighthouse scores across Performance, Best Practices, and SEO
@@ -23,7 +23,7 @@ I'm a Software Engineering student at CPUT (Application Development), currently 
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
 - **Icons:** Lucide
-- **Forms:** [Web3Forms](https://web3forms.com/)
+- **Forms:** [Resend](https://resend.com/)
 - **Deployment:** [Vercel](https://vercel.com/)
 
 ## Getting Started
@@ -36,10 +36,10 @@ cd Aidan-Barends-Portfolio
 npm install
 ```
 
-Create a `.env.local` file in the project root with your own Web3Forms access key:
+Create a `.env.local` file in the project root with your own Resend API key:
 
 ```
-NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY=your_key_here
+RESEND_API_KEY=your_key_here
 ```
 
 Run the development server:
