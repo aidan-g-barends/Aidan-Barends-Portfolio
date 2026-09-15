@@ -355,8 +355,8 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Vercel"],
     github: "https://github.com/aidan-g-barends/BouplanOntwerpers",
     live: "https://bouplan-ontwerpers.vercel.app/",
-    featured: false,
-    inProgress: true,
+    featured: true,
+    inProgress: false,
     role:
       "Full-stack developer and UI/UX designer responsible for the design system, component architecture, page development, accessibility implementation, SEO structure, and deployment. Work included auditing the practice's existing branding, defining the typography and colour system, and structuring the content layer so the client can replace placeholder material without a rebuild.",
     problem:
