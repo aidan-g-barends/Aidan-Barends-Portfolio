@@ -35,7 +35,7 @@ export default function AboutPage() {
           className="flex items-center gap-5"
         >
           <Image
-            src="public/projects/profile.jpeg"
+            src="/projects/profile.jpeg"
             alt="Aidan Barends"
             width={72}
             height={72}
