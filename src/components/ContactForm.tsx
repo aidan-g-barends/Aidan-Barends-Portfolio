@@ -28,10 +28,19 @@ export default function ContactForm() {
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setStatus("sending");
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+
+    // Honeypot: real visitors never fill this hidden field, bots often do.
+    if (formData.get("company")) {
+      setStatus("sent");
+      form.reset();
+      return;
+    }
+
+    setStatus("sending");
+
     const data = {
       name: formData.get("name"),
       email: formData.get("email"),
@@ -141,8 +150,21 @@ export default function ContactForm() {
           <form
             onSubmit={handleSubmit}
             data-gsap="reveal"
-            className="space-y-5"
+            style={{
+              boxShadow: "var(--card-shadow)",
+            }}
+            className="space-y-5 rounded-xl border border-surface-border bg-surface p-6"
           >
+            {/* Honeypot field, hidden from real visitors */}
+            <input
+              type="text"
+              name="company"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute -left-[9999px] h-0 w-0 opacity-0"
+            />
+
             <div>
               <label
                 htmlFor="name"
@@ -156,7 +178,7 @@ export default function ContactForm() {
                 name="name"
                 type="text"
                 required
-                className="mt-2 w-full rounded-lg border border-surface-border bg-surface px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
               />
             </div>
 
@@ -173,7 +195,7 @@ export default function ContactForm() {
                 name="email"
                 type="email"
                 required
-                className="mt-2 w-full rounded-lg border border-surface-border bg-surface px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
               />
             </div>
 
@@ -190,7 +212,7 @@ export default function ContactForm() {
                 name="message"
                 required
                 rows={5}
-                className="mt-2 w-full rounded-lg border border-surface-border bg-surface px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
               />
             </div>
 
@@ -206,7 +228,7 @@ export default function ContactForm() {
 
             {status === "sent" && (
               <p className="text-sm text-accent">
-                Thanks for reaching out — I&apos;ll get back to you
+                Thanks for reaching out. I&apos;ll get back to you
                 soon.
               </p>
             )}

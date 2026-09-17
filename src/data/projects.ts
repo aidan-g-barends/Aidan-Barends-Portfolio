@@ -1,3 +1,5 @@
+export type ProjectStatus = "live" | "github-only" | "in-progress";
+
 export type Project = {
   slug: string;
   name: string;
@@ -7,8 +9,9 @@ export type Project = {
   githubFrontend?: string;
   githubBackend?: string;
   live?: string;
+  private?: boolean;
+  status: ProjectStatus;
   featured: boolean;
-  inProgress?: boolean;
   role?: string;
   problem?: string;
   features?: string[];
@@ -23,8 +26,8 @@ export const projects: Project[] = [
       "A full-stack task management platform developed as a university group project to help teams organise, assign, monitor, and complete work through one centralised system. The application was built with Laravel and MySQL, using a structured backend architecture with dedicated models, services, policies, and notification functionality.",
     tech: ["Laravel", "PHP", "MySQL"],
     github: "https://github.com/aidan-g-barends/Task-Flow-Pro",
-    featured: true,
-    inProgress: false,
+    status: "github-only",
+    featured: false,
     role:
       "Collaborated as part of a university development team, contributing to backend functionality, business logic, database interactions, and the overall implementation of the application's task management workflow.",
     problem:
@@ -48,8 +51,8 @@ export const projects: Project[] = [
       "A responsive multi-page website developed for a real local restaurant to establish a professional online presence and make important business information easily accessible to customers. The website combines restaurant information, menu presentation, photography, and a working contact system into a simple customer-facing experience.",
     tech: ["HTML", "Tailwind CSS", "JavaScript"],
     github: "https://github.com/aidan-g-barends/DieStrandloper",
-    featured: true,
-    inProgress: false,
+    status: "github-only",
+    featured: false,
     role:
       "Designed and developed the website independently, handling the page structure, responsive layouts, styling, JavaScript functionality, and integration of the customer contact form.",
     problem:
@@ -76,8 +79,8 @@ export const projects: Project[] = [
     tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     github: "https://github.com/aidan-g-barends/jjs-website",
     live: "https://jjs-website-omega.vercel.app/",
-    featured: true,
-    inProgress: false,
+    status: "live",
+    featured: false,
     role:
       "Sole developer responsible for the website's frontend development, UI implementation, responsive layouts, reusable components, content presentation, deployment, and overall user experience.",
     problem:
@@ -108,8 +111,8 @@ export const projects: Project[] = [
     tech: ["Spring Boot", "Java", "JPA/Hibernate", "MySQL"],
     githubFrontend: "https://github.com/AidanBarends/MediTicketApp",
     githubBackend: "https://github.com/AidanBarends/MediTicket2",
-    featured: true,
-    inProgress: false,
+    status: "github-only",
+    featured: false,
     role:
       "Contributing as part of a 7-member software development team, working primarily within the backend and implementing functionality within the project's Domain-Driven Design architecture.",
     problem:
@@ -148,8 +151,8 @@ export const projects: Project[] = [
 
     github: "https://github.com/AidanBarends/UniExchange",
 
+    status: "in-progress",
     featured: false,
-    inProgress: true,
 
     role:
       "Contributing as part of a university software development team, working primarily on the backend domain layer and collaborating with team members through a structured Git workflow. My contributions involve implementing and maintaining domain entities, applying object-oriented design principles, and working within the project's Spring Boot architecture.",
@@ -191,8 +194,8 @@ export const projects: Project[] = [
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
     github: "https://github.com/aidan-g-barends/practiceflow-crm",
     live: "https://practiceflow-crm-iota.vercel.app/",
+    status: "live",
     featured: true,
-    inProgress: false,
     role:
       "Frontend Developer responsible for the appointment scheduling experience, including the calendar interface, booking workflow, appointment status presentation, and reusable frontend components.",
     problem:
@@ -222,8 +225,8 @@ export const projects: Project[] = [
       "A full-stack task management application built to explore the integration of a modern Angular single-page application with a Java Spring Boot REST API. The project demonstrates the separation of frontend and backend responsibilities while providing a practical environment for working with REST endpoints, TypeScript, Java, and application data.",
     tech: ["Angular", "Spring Boot", "Java", "TypeScript"],
     github: "https://github.com/aidan-g-barends/Task-Manager-App",
-    featured: true,
-    inProgress: false,
+    status: "github-only",
+    featured: false,
     role:
       "Developing the Angular frontend and Spring Boot backend independently, including frontend components, REST API endpoints, application logic, and the communication between the two layers.",
     problem:
@@ -249,9 +252,9 @@ export const projects: Project[] = [
     description:
       "A digital public transport ticketing platform designed to modernise the way Golden Arrow Bus commuters purchase and manage bus tickets. The project moves the traditional in-person ticket purchasing experience into a digital platform, combining a React/Vite frontend with a Spring Boot backend and MySQL database.",
     tech: ["React", "Vite", "Spring Boot", "Java", "MySQL"],
-    github: "https://github.com/AidanBarends/GoldenWay",
+    github: "https://github.com/aidan-g-barends/GoldenWayApp",
+    status: "in-progress",
     featured: false,
-    inProgress: true,
     role:
       "Working as a full-stack developer within a team, with a strong focus on the Spring Boot backend, REST API development, database layer, and integration between the backend and React frontend.",
     problem:
@@ -284,8 +287,8 @@ export const projects: Project[] = [
     ],
     github: "https://github.com/aidan-g-barends/The_HairBra",
     live: "https://the-hair-bra.vercel.app/",
+    status: "live",
     featured: true,
-    inProgress: false,
     role:
       "Sole developer responsible for the application's architecture, frontend development, Supabase integration, database design, booking workflows, payment integration, and planned e-commerce functionality.",
     problem:
@@ -320,8 +323,8 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "GSAP"],
     github: "https://github.com/aidan-g-barends/2G-Architecture",
     live: "https://2-g-architecture.vercel.app/",
+    status: "live",
     featured: true,
-    inProgress: false,
     role:
       "Full-stack developer and UI/UX designer responsible for conceptualising the digital experience, designing the UI/UX, building reusable React/Next.js components, implementing responsive layouts and GSAP-driven animations, and structuring the site so real client content and photography can be dropped in without a redesign.",
     problem:
@@ -355,8 +358,8 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Vercel"],
     github: "https://github.com/aidan-g-barends/BouplanOntwerpers",
     live: "https://bouplan-ontwerpers.vercel.app/",
+    status: "live",
     featured: true,
-    inProgress: false,
     role:
       "Full-stack developer and UI/UX designer responsible for the design system, component architecture, page development, accessibility implementation, SEO structure, and deployment. Work included auditing the practice's existing branding, defining the typography and colour system, and structuring the content layer so the client can replace placeholder material without a rebuild.",
     problem:
@@ -378,6 +381,30 @@ export const projects: Project[] = [
       "Production deployment on Vercel",
     ],
     challenges:
-      "The central challenge was building something that looks like an established practice's website without inventing anything to fill the gaps. Initial AI-generated design concepts included fabricated project names, invented company history, and false statistics, all of which had to be identified and stripped out. The site was instead structured around clearly marked placeholder states that look deliberate rather than broken and upgrade automatically once real content arrives. Accessibility required genuine attention rather than assumption — the client's brand orange failed WCAG AA behind white text, so a deeper variant was introduced for button fills while the original colour was reserved for non-text accents. The project also involved decisions beyond code, including choosing an email-only contact architecture over an unnecessary database and documenting exactly which information still requires client confirmation before launch.",
+      "The central challenge was building something that looks like an established practice's website without inventing anything to fill the gaps. Initial AI-generated design concepts included fabricated project names, invented company history, and false statistics, all of which had to be identified and stripped out. The site was instead structured around clearly marked placeholder states that look deliberate rather than broken and upgrade automatically once real content arrives. Accessibility required genuine attention rather than assumption, since the client's brand orange failed WCAG AA behind white text, so a deeper variant was introduced for button fills while the original colour was reserved for non-text accents. The project also involved decisions beyond code, including choosing an email-only contact architecture over an unnecessary database and documenting exactly which information still requires client confirmation before launch.",
+  },
+
+  {
+    slug: "dfv-dental-booking",
+    name: "DFV Dental Booking",
+    description:
+      "A practice website and online booking system currently in development for Dr Frans Venter's dental practice. The goal is to give patients a simple way to learn about the practice and request appointments online, instead of relying on phone calls to book a visit.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS"],
+    github: "https://github.com/aidan-g-barends/DFV",
+    private: true,
+    status: "in-progress",
+    featured: false,
+    role:
+      "Sole developer responsible for the site structure, the patient-facing booking flow, and the overall design and build of the application.",
+    problem:
+      "The practice currently manages appointments over the phone, which is slower for both patients and staff and offers no way for patients to see availability or request a booking outside of office hours. This project is building a practice website with an online booking flow to make scheduling easier for everyone involved.",
+    features: [
+      "Practice information and services overview",
+      "Online appointment booking flow",
+      "Patient-facing scheduling interface",
+      "Responsive layouts for desktop and mobile",
+    ],
+    challenges:
+      "Still early in development. The main challenge so far has been designing a booking flow that actually fits how the practice schedules patients day to day, while keeping the interface simple enough for patients of any age to use without help.",
   },
 ];

@@ -41,6 +41,12 @@ export default function ExperiencePage() {
           <h2 className="text-2xl font-bold">
             Experience
           </h2>
+
+          <p className="mt-2 max-w-xl text-sm text-foreground-muted">
+            A mix of hands-on IT fieldwork and hospitality roles
+            that built real-world problem solving skills, all while
+            I worked toward software engineering.
+          </p>
         </div>
 
         <div className="relative mt-10 border-l-2 border-surface-border pl-8">
@@ -66,7 +72,7 @@ export default function ExperiencePage() {
                   </h3>
 
                   <span className="text-sm text-foreground-muted">
-                    Aug 2025 – Jan 2026, Jul 2026 – Present
+                    Jul 2026 – Present
                   </span>
                 </div>
 
@@ -96,6 +102,22 @@ export default function ExperiencePage() {
                     system upgrades.
                   </li>
                 </ul>
+
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {[
+                    "Networking",
+                    "Troubleshooting",
+                    "Client Communication",
+                    "Hardware",
+                  ].map((skill) => (
+                    <span
+                      key={skill}
+                      className="rounded-md bg-background px-2 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground-muted"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -106,18 +128,47 @@ export default function ExperiencePage() {
               <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-surface-border transition-transform duration-300 group-hover:scale-125 group-hover:bg-accent" />
 
               <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
-                <h3 className="text-sm font-semibold text-foreground-muted transition-colors group-hover:text-accent">
-                  Other Experience
-                </h3>
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-lg font-semibold transition-colors group-hover:text-accent">
+                    IT Field Technician
+                  </h3>
+
+                  <span className="text-sm text-foreground-muted">
+                    Aug 2025 – Jan 2026
+                  </span>
+                </div>
+
+                <p className="text-sm text-foreground-muted">
+                  CraythorneIT
+                </p>
+              </div>
+            </div>
+
+            <div
+              data-gsap="timeline"
+              className="group relative"
+            >
+              <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-surface-border transition-transform duration-300 group-hover:scale-125 group-hover:bg-accent" />
+
+              <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-sm font-semibold text-foreground-muted transition-colors group-hover:text-accent">
+                    Other Experience
+                  </h3>
+
+                  <span className="text-sm text-foreground-muted">
+                    2022 – 2025
+                  </span>
+                </div>
 
                 <p className="mt-2 text-sm text-foreground-muted">
                   Waiter (Cape Town Fish Market), Barman (Die
                   Strandloper), Classroom & Music Assistant
                   (Longacres Private School), Background Actor
-                  (39 Steps Agency), Lifeguard (NSRI) — 2022–2025.
-                  Roles spanning hospitality, education, and
-                  emergency response, building customer service,
-                  teamwork, and reliability under pressure.
+                  (39 Steps Agency), and Lifeguard (NSRI). Roles
+                  spanning hospitality, education, and emergency
+                  response, building customer service, teamwork, and
+                  reliability under pressure.
                 </p>
               </div>
             </div>
@@ -204,28 +255,40 @@ export default function ExperiencePage() {
           data-gsap="stagger"
           className="mt-4 space-y-1"
         >
-          <li className="group -mx-4 flex items-start gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
-            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
+          <li className="group -mx-4 flex flex-wrap items-center gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 self-start rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
 
             <span className="text-foreground-muted transition-colors group-hover:text-foreground">
-              The Complete Web Development Bootcamp — Angela Yu
-              (Udemy), Completed
+              The Complete Web Development Bootcamp (Angela Yu,
+              Udemy)
+            </span>
+
+            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
+              Completed
             </span>
           </li>
 
-          <li className="group -mx-4 flex items-start gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
-            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
+          <li className="group -mx-4 flex flex-wrap items-center gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 self-start rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
 
             <span className="text-foreground-muted transition-colors group-hover:text-foreground">
               4IR Digital Skills Training Programme
             </span>
+
+            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
+              Completed
+            </span>
           </li>
 
-          <li className="group -mx-4 flex items-start gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
-            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
+          <li className="group -mx-4 flex flex-wrap items-center gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
+            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 self-start rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
 
             <span className="text-foreground-muted transition-colors group-hover:text-foreground">
-              AI course — Ed Donner (in progress)
+              AI course (Ed Donner)
+            </span>
+
+            <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
+              In Progress
             </span>
           </li>
         </ul>

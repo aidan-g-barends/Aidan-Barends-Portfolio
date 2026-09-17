@@ -14,7 +14,12 @@ function escapeHtml(value: string) {
 
 export async function POST(request: Request) {
   try {
-    const { name, email, message } = await request.json();
+    const { name, email, message, company } = await request.json();
+
+    // Honeypot field: real visitors never fill this in.
+    if (company) {
+      return NextResponse.json({ success: true });
+    }
 
     if (!name || !email || !message) {
       return NextResponse.json(

@@ -68,9 +68,15 @@ export default function ProjectCard({
           </Link>
         </h3>
 
-        {project.inProgress && (
+        {project.status === "in-progress" && (
           <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
             In Progress
+          </span>
+        )}
+
+        {project.status === "live" && (
+          <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
+            Live
           </span>
         )}
       </div>
@@ -99,7 +105,7 @@ export default function ProjectCard({
             rel="noopener noreferrer"
             className="text-accent transition-transform duration-200 hover:translate-x-1 hover:underline"
           >
-            GitHub →
+            {project.private ? "GitHub (Private) →" : "GitHub →"}
           </a>
         )}
 

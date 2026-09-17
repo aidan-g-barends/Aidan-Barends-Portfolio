@@ -4,17 +4,25 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About | Aidan Barends",
   description:
-    "Learn more about Aidan Barends — a Software Engineering student at CPUT with a background in IT support, networking, and hardware, working toward becoming an AI Engineer.",
+    "Learn more about Aidan Barends, a Software Engineering student at CPUT with a background in IT support, networking, and hardware, working toward becoming an AI Engineer.",
 };
 
 const traits = [
+  "Eager to Learn",
   "Patient",
   "Hardworking",
-  "Eager to Learn",
   "Good Listener",
   "Team Player",
   "Adaptable",
   "Detail-Oriented",
+];
+
+const currentlyExploring = [
+  "AI Agents",
+  "LLMs",
+  "Prompt Engineering",
+  "Automation",
+  "RAG Systems",
 ];
 
 export default function AboutPage() {
@@ -70,19 +78,24 @@ export default function AboutPage() {
             Wi-Fi assessments and router configuration to hardware
             repairs and PC builds for real clients. It&apos;s
             hands-on, problem-solving work, and it&apos;s taught me
-            a lot about troubleshooting under real-world conditions
-            — not just in a classroom.
+            a lot about troubleshooting under real-world conditions,
+            not just in a classroom.
           </p>
 
           <p>
             Outside of coursework, I&apos;m constantly upskilling
             myself. I&apos;ve completed Angela Yu&apos;s Complete Web
             Development Bootcamp, and I&apos;m currently working
-            through Ed Donner&apos;s AI course. What draws me to AI
-            specifically is the idea of building systems that can
-            automate the kind of hands-on technical work I already
-            do, that&apos;s the direction I want my career to keep
-            moving in.
+            through Ed Donner&apos;s AI course. Honestly, AI is what
+            gets me most excited about tech right now, especially{" "}
+            <span className="text-accent">AI agents</span> and what
+            it takes to build systems that can reason through and
+            automate real work. Most of what I read, watch, and
+            follow these days is about it, and I want to build a
+            career around it. I&apos;m eager to learn from people
+            who&apos;ve already spent years in this industry, so if
+            that&apos;s you, I&apos;d genuinely love to pick your
+            brain.
           </p>
 
           <p>
@@ -116,6 +129,32 @@ export default function AboutPage() {
                 className="rounded-full border border-surface-border bg-background px-4 py-1.5 text-sm transition-colors duration-300 hover:border-accent/50 hover:text-accent"
               >
                 {trait}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div
+          data-gsap="scale"
+          style={{
+            boxShadow: "var(--card-shadow)",
+          }}
+          className="mt-8 rounded-xl border border-surface-border bg-surface p-6"
+        >
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-foreground-muted">
+            Currently Exploring
+          </h2>
+
+          <div
+            data-gsap="stagger"
+            className="mt-4 flex flex-wrap gap-2"
+          >
+            {currentlyExploring.map((topic) => (
+              <span
+                key={topic}
+                className="rounded-full border border-accent/30 bg-accent/10 px-4 py-1.5 text-sm text-accent transition-colors duration-300 hover:border-accent/60"
+              >
+                {topic}
               </span>
             ))}
           </div>

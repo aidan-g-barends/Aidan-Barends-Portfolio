@@ -100,15 +100,16 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED PROJECTS */}
+      {/* BEST PROJECTS */}
       <section className="mx-auto max-w-5xl px-6 py-20">
         <div data-gsap="reveal">
           <h2 className="text-2xl font-bold">
-            Featured Projects
+            Best Projects
           </h2>
 
           <p className="mt-2 text-foreground-muted">
-            A couple of things I&apos;ve built recently.
+            A quick teaser of what I&apos;ve built so far, live
+            products, real clients, and code you can go read.
           </p>
         </div>
 
@@ -122,6 +123,18 @@ export default function Home() {
               project={project}
             />
           ))}
+        </div>
+
+        <div
+          data-gsap="reveal"
+          className="mt-8 text-center"
+        >
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-1 text-sm font-medium text-accent transition-transform duration-200 hover:translate-x-1 hover:underline"
+          >
+            See every project →
+          </Link>
         </div>
       </section>
 

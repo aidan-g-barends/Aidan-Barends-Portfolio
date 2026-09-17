@@ -30,7 +30,7 @@ export default async function ProjectDetailPage({
             {project.name}
           </h1>
 
-          {project.inProgress && (
+          {project.status === "in-progress" && (
             <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
               In Progress
             </span>
@@ -112,7 +112,31 @@ export default async function ProjectDetailPage({
             rel="noopener noreferrer"
             className="rounded-lg bg-accent px-5 py-2.5 text-background transition-transform duration-300 hover:-translate-y-1 hover:opacity-90"
           >
-            View on GitHub →
+            {project.private
+              ? "View on GitHub (Private) →"
+              : "View on GitHub →"}
+          </a>
+        )}
+
+        {project.githubFrontend && (
+          <a
+            href={project.githubFrontend}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-surface-border px-5 py-2.5 text-foreground transition-colors duration-300 hover:border-accent"
+          >
+            Frontend GitHub →
+          </a>
+        )}
+
+        {project.githubBackend && (
+          <a
+            href={project.githubBackend}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-lg border border-surface-border px-5 py-2.5 text-foreground transition-colors duration-300 hover:border-accent"
+          >
+            Backend GitHub →
           </a>
         )}
 
