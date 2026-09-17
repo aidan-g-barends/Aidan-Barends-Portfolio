@@ -1,10 +1,40 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import {
+  Briefcase,
+  GraduationCap,
+  Award,
+  Code2,
+  Wrench,
+  Zap,
+} from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Experience & Education | Aidan Barends",
   description:
     "Aidan Barends' professional experience as an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
 };
+
+const highlights = [
+  {
+    icon: Code2,
+    title: "Ships Real Products",
+    description:
+      "Live sites and full-stack apps built for actual clients and teams, not just tutorial follow-alongs.",
+  },
+  {
+    icon: Wrench,
+    title: "Client-Facing & Reliable",
+    description:
+      "I show up on-site, fix the problem, and keep client networks running with no one holding my hand.",
+  },
+  {
+    icon: Zap,
+    title: "Learns Fast, Alone",
+    description:
+      "Picked up Tailwind, GSAP, Supabase, and now AI agents largely by teaching myself outside of class.",
+  },
+];
 
 export default function ExperiencePage() {
   return (
@@ -28,25 +58,65 @@ export default function ExperiencePage() {
             Experience & Education
           </h1>
 
-          <p className="mt-3 text-foreground-muted">
-            Where I&apos;ve worked, studied, and what I&apos;ve been
-            building my skills with.
+          <p className="mx-auto mt-3 max-w-xl text-foreground-muted">
+            I spend my days fixing real networks and hardware for
+            paying clients, and my nights shipping full-stack apps
+            and studying Software Engineering. Here&apos;s the proof.
           </p>
+
+          <Link
+            href="/resume.pdf"
+            target="_blank"
+            className="mt-6 inline-block rounded-lg border border-surface-border px-6 py-3 text-sm font-medium text-foreground transition-transform duration-300 hover:-translate-y-1 hover:border-accent"
+          >
+            Download Resume
+          </Link>
+        </div>
+      </section>
+
+      {/* HIGHLIGHTS */}
+      <section className="mx-auto max-w-3xl px-6 pb-4">
+        <div
+          data-gsap="stagger"
+          className="grid gap-4 sm:grid-cols-3"
+        >
+          {highlights.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <div
+                key={item.title}
+                className="rounded-xl border border-surface-border bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
+                style={{
+                  boxShadow: "var(--card-shadow)",
+                }}
+              >
+                <Icon className="h-5 w-5 text-accent" />
+
+                <h3 className="mt-3 text-sm font-semibold">
+                  {item.title}
+                </h3>
+
+                <p className="mt-1 text-sm text-foreground-muted">
+                  {item.description}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       {/* EXPERIENCE */}
       <section className="mx-auto max-w-3xl px-6 py-16">
-        <div data-gsap="reveal">
+        <div
+          data-gsap="reveal"
+          className="flex items-center gap-2"
+        >
+          <Briefcase className="h-5 w-5 text-accent" />
+
           <h2 className="text-2xl font-bold">
             Experience
           </h2>
-
-          <p className="mt-2 max-w-xl text-sm text-foreground-muted">
-            A mix of hands-on IT fieldwork and hospitality roles
-            that built real-world problem solving skills, all while
-            I worked toward software engineering.
-          </p>
         </div>
 
         <div className="relative mt-10 border-l-2 border-surface-border pl-8">
@@ -82,24 +152,27 @@ export default function ExperiencePage() {
 
                 <ul className="mt-3 list-disc space-y-2 pl-5 text-foreground-muted">
                   <li>
-                    Perform Wi-Fi assessments, installations, and
-                    configurations for residential and business
-                    clients.
+                    Run Wi-Fi assessments, installs, and
+                    configurations solo, for residential and
+                    business clients, no supervision needed once
+                    on-site.
                   </li>
 
                   <li>
-                    Troubleshoot network connectivity issues and
-                    diagnose devices on-site using Fing.
+                    Diagnose and resolve live network outages under
+                    time pressure, using Fing to pinpoint the failing
+                    device fast.
                   </li>
 
                   <li>
-                    Configure routers and maintain client networks,
-                    responding to and resolving outages.
+                    Configure and maintain routers across multiple
+                    client networks, keeping them online and fixing
+                    what breaks.
                   </li>
 
                   <li>
-                    Carry out PC builds, hardware repairs, and
-                    system upgrades.
+                    Handle full PC builds and hardware repairs
+                    end-to-end, from diagnosis to fix.
                   </li>
                 </ul>
 
@@ -178,7 +251,12 @@ export default function ExperiencePage() {
 
       {/* EDUCATION */}
       <section className="mx-auto max-w-3xl px-6 py-16">
-        <div data-gsap="reveal">
+        <div
+          data-gsap="reveal"
+          className="flex items-center gap-2"
+        >
+          <GraduationCap className="h-5 w-5 text-accent" />
+
           <h2 className="text-2xl font-bold">
             Education
           </h2>
@@ -245,7 +323,12 @@ export default function ExperiencePage() {
 
       {/* CERTIFICATIONS */}
       <section className="mx-auto max-w-3xl px-6 py-16">
-        <div data-gsap="reveal">
+        <div
+          data-gsap="reveal"
+          className="flex items-center gap-2"
+        >
+          <Award className="h-5 w-5 text-accent" />
+
           <h2 className="text-2xl font-bold">
             Certifications
           </h2>

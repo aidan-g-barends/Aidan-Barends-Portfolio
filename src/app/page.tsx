@@ -44,6 +44,20 @@ export default function Home() {
     (project) => project.featured
   );
 
+  const liveProjectCount = projects.filter(
+    (project) => project.status === "live"
+  ).length;
+
+  const technologyCount = new Set(
+    projects.flatMap((project) => project.tech)
+  ).size;
+
+  const stats = [
+    { value: `${projects.length}+`, label: "Projects Built" },
+    { value: `${liveProjectCount}`, label: "Live in Production" },
+    { value: `${technologyCount}+`, label: "Technologies Used" },
+  ];
+
   return (
     <>
       {/* HERO */}
@@ -73,9 +87,9 @@ export default function Home() {
 
           <div data-gsap="hero">
             <p className="mt-6 max-w-xl text-lg text-foreground-muted">
-              A Software Engineering student at CPUT who builds full
-              stack web applications, and is working toward becoming
-              an AI Engineer.
+              A Software Engineering student at CPUT who ships full
+              stack apps for real clients, fixes real networks by
+              day, and is working toward becoming an AI Engineer.
             </p>
           </div>
 
@@ -96,6 +110,29 @@ export default function Home() {
                 Download Resume
               </Link>
             </div>
+          </div>
+
+          <div
+            data-gsap="stagger"
+            className="mt-16 grid w-full grid-cols-3 gap-4 sm:max-w-lg"
+          >
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-xl border border-surface-border bg-surface px-3 py-4 text-center"
+                style={{
+                  boxShadow: "var(--card-shadow)",
+                }}
+              >
+                <p className="text-2xl font-bold text-accent sm:text-3xl">
+                  {stat.value}
+                </p>
+
+                <p className="mt-1 text-xs text-foreground-muted sm:text-sm">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
