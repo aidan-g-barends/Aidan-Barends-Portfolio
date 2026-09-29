@@ -1,5 +1,95 @@
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { projects } from "../../../data/projects";
+
+function getDomain(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+}
+
+function ImageFrame({
+  image,
+  name,
+  live,
+  liveIsProduction,
+}: {
+  image: string;
+  name: string;
+  live?: string;
+  liveIsProduction?: boolean;
+}) {
+  const liveLabel = liveIsProduction ? "Live Site" : "Live Demo";
+
+  const frameContent = (
+    <>
+      {live && (
+        <div className="flex items-center gap-1.5 border-b border-surface-border bg-surface px-4 py-2.5">
+          <span className="h-3 w-3 rounded-full bg-red-400/70" />
+          <span className="h-3 w-3 rounded-full bg-amber-400/70" />
+          <span className="h-3 w-3 rounded-full bg-emerald-400/70" />
+
+          <span className="ml-2 flex-1 truncate rounded-md bg-background px-3 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground-muted">
+            {getDomain(live)}
+          </span>
+        </div>
+      )}
+
+      <div className="relative aspect-[16/10] w-full overflow-hidden">
+        <Image
+          src={image}
+          alt={`${name} screenshot`}
+          fill
+          sizes="(min-width: 768px) 768px, 100vw"
+          className="object-cover object-top transition-transform duration-500 group-hover/image:scale-[1.03]"
+          priority
+        />
+
+        {live && (
+          <div className="absolute inset-0 flex items-end justify-end bg-gradient-to-t from-black/55 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover/image:opacity-100">
+            <span className="rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-black shadow-sm">
+              Visit {liveLabel} ↗
+            </span>
+          </div>
+        )}
+      </div>
+    </>
+  );
+
+  const frameClassName =
+    "group/image relative mt-8 block w-full overflow-hidden rounded-xl border border-surface-border bg-surface";
+
+  if (!live) {
+    return (
+      <div
+        data-gsap="reveal"
+        className={frameClassName}
+        style={{
+          boxShadow: "var(--card-shadow)",
+        }}
+      >
+        {frameContent}
+      </div>
+    );
+  }
+
+  return (
+    <a
+      data-gsap="reveal"
+      href={live}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={frameClassName}
+      style={{
+        boxShadow: "var(--card-shadow)",
+      }}
+    >
+      {frameContent}
+    </a>
+  );
+}
 
 export function generateStaticParams() {
   return projects.map((project) => ({
@@ -48,6 +138,15 @@ export default async function ProjectDetailPage({
           ))}
         </div>
       </div>
+
+      {project.image && (
+        <ImageFrame
+          image={project.image}
+          name={project.name}
+          live={project.live}
+          liveIsProduction={project.liveIsProduction}
+        />
+      )}
 
       <div className="mt-10 space-y-8">
         {project.problem && (
@@ -147,10 +246,32 @@ export default async function ProjectDetailPage({
             rel="noopener noreferrer"
             className="rounded-lg border border-surface-border px-5 py-2.5 text-foreground transition-colors duration-300 hover:border-accent"
           >
-            Live Demo →
+            {project.liveIsProduction ? "Live Site" : "Live Demo"} →
           </a>
         )}
       </div>
+
+      {project.demoCredentials && (
+        <div
+          data-gsap="reveal"
+          className="mt-6 rounded-xl border border-accent/30 bg-accent/5 p-4 text-sm"
+        >
+          <p className="font-semibold text-foreground">
+            Try it yourself
+          </p>
+
+          {project.demoCredentials.note && (
+            <p className="mt-1 text-foreground-muted">
+              {project.demoCredentials.note}
+            </p>
+          )}
+
+          <div className="mt-3 flex flex-wrap gap-x-6 gap-y-1 font-[family-name:var(--font-mono)] text-xs text-foreground">
+            <span>Email: {project.demoCredentials.email}</span>
+            <span>Password: {project.demoCredentials.password}</span>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

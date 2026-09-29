@@ -174,14 +174,21 @@ export default function ExperiencePage() {
                     Handle full PC builds and hardware repairs
                     end-to-end, from diagnosis to fix.
                   </li>
+
+                  <li>
+                    Work through a ticketing system daily, picking up
+                    client-logged tickets, triaging the issue, and
+                    resolving or escalating it through to close-out.
+                  </li>
                 </ul>
 
                 <div className="mt-4 flex flex-wrap gap-2">
                   {[
                     "Networking",
+                    "Hardware",
+                    "Ticketing Systems",
                     "Troubleshooting",
                     "Client Communication",
-                    "Hardware",
                   ].map((skill) => (
                     <span
                       key={skill}

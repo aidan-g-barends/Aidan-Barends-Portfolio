@@ -1,14 +1,19 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "../lib/site";
+import { projects } from "../data/projects";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://aidan-barends.vercel.app";
-
   const staticRoutes = ["", "/about", "/projects", "/experience", "/contact"].map(
     (route) => ({
-      url: `${baseUrl}${route}`,
+      url: `${SITE_URL}${route}`,
       lastModified: new Date(),
     })
   );
 
-  return staticRoutes;
+  const projectRoutes = projects.map((project) => ({
+    url: `${SITE_URL}/projects/${project.slug}`,
+    lastModified: new Date(),
+  }));
+
+  return [...staticRoutes, ...projectRoutes];
 }

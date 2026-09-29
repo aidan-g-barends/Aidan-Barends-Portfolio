@@ -7,9 +7,12 @@ import {
 
 import "./globals.css";
 
+import { Analytics } from "@vercel/analytics/next";
+
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MotionProvider from "../components/MotionProvider";
+import { SITE_URL } from "../lib/site";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -27,6 +30,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
   description:
     "Portfolio of Aidan Barends, a Software Engineering student at CPUT building full stack web applications and AI-powered tools.",
@@ -35,6 +39,14 @@ export const metadata: Metadata = {
     description:
       "Portfolio of Aidan Barends, a Software Engineering student at CPUT building full stack web applications and AI-powered tools.",
     type: "website",
+    url: SITE_URL,
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
+    description:
+      "Portfolio of Aidan Barends, a Software Engineering student at CPUT building full stack web applications and AI-powered tools.",
     images: ["/og-image.png"],
   },
 };
@@ -69,6 +81,8 @@ export default function RootLayout({
         </main>
 
         <Footer />
+
+        <Analytics />
       </body>
     </html>
   );

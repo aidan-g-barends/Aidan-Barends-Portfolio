@@ -9,13 +9,20 @@ export type Project = {
   githubFrontend?: string;
   githubBackend?: string;
   live?: string;
+  liveIsProduction?: boolean;
   private?: boolean;
+  image?: string;
   status: ProjectStatus;
   featured: boolean;
   role?: string;
   problem?: string;
   features?: string[];
   challenges?: string;
+  demoCredentials?: {
+    email: string;
+    password: string;
+    note?: string;
+  };
 };
 
 export const projects: Project[] = [
@@ -78,7 +85,9 @@ export const projects: Project[] = [
       "A professional business website developed for JJS Business Solutions to establish a modern digital presence and clearly communicate the organisation's training, consulting, and project-focused services. The website was designed to present the organisation in a credible and professional way while making important business information easy for prospective clients, partners, and visitors to discover.",
     tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     github: "https://github.com/aidan-g-barends/jjs-website",
-    live: "https://jjs-website-omega.vercel.app/",
+    live: "https://jjsbussol.co.za/",
+    liveIsProduction: true,
+    image: "/projects/jjs.png",
     status: "live",
     featured: false,
     role:
@@ -194,6 +203,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Supabase"],
     github: "https://github.com/aidan-g-barends/practiceflow-crm",
     live: "https://practiceflow-crm-iota.vercel.app/",
+    image: "/projects/practiceFlow.png",
     status: "live",
     featured: true,
     role:
@@ -250,27 +260,35 @@ export const projects: Project[] = [
     slug: "golden-way",
     name: "GoldenWay",
     description:
-      "A digital public transport ticketing platform designed to modernise the way Golden Arrow Bus commuters purchase and manage bus tickets. The project moves the traditional in-person ticket purchasing experience into a digital platform, combining a React/Vite frontend with a Spring Boot backend and MySQL database.",
-    tech: ["React", "Vite", "Spring Boot", "Java", "MySQL"],
+      "A digital public transport ticketing platform designed to modernise the way Golden Arrow Bus commuters purchase and manage bus tickets. The project moves the traditional in-person ticket purchasing experience into a digital platform, combining a React/Vite frontend with Supabase for authentication, the database, and backend services.",
+    tech: ["React", "Vite", "Supabase", "PostgreSQL"],
     github: "https://github.com/aidan-g-barends/GoldenWayApp",
-    status: "in-progress",
+    live: "https://goldenwayapp.vercel.app/",
+    image: "/projects/golden.png",
+    status: "live",
     featured: false,
     role:
-      "Working as a full-stack developer within a team, with a strong focus on the Spring Boot backend, REST API development, database layer, and integration between the backend and React frontend.",
+      "Working as a full-stack developer within a team, integrating a Supabase backend, authentication, database, and API, with the React frontend and building out the ticketing and admin workflows.",
     problem:
       "Golden Arrow Bus commuters traditionally have limited options for purchasing and managing their bus tickets digitally. This creates unnecessary friction for passengers who need a faster and more convenient way to access their transport tickets.",
     features: [
       "Digital bus ticket purchasing",
       "Passenger-facing React/Vite application",
-      "Spring Boot REST API backend",
-      "MySQL database integration",
+      "Supabase authentication, database, and backend services",
+      "PostgreSQL database integration",
       "Digital ticket management",
       "Passenger booking workflows",
-      "Separation between frontend, backend, and database layers",
+      "Admin dashboard for managing tickets and passengers",
       "Team-based Git development workflow",
+      "Production deployment on Vercel",
     ],
     challenges:
-      "The project required the team to translate a real-world public transport problem into a practical software solution while developing the frontend and backend in parallel. One of the biggest challenges has been keeping the database structure, API contracts, and React application aligned as functionality continues to be developed.",
+      "The project required the team to translate a real-world public transport problem into a practical software solution while developing the frontend and backend in parallel. One of the biggest challenges was keeping the database structure, Supabase integration, and React application aligned as functionality continued to be developed, including a mid-project switch from a planned Spring Boot backend to Supabase.",
+    demoCredentials: {
+      email: "admin@goldenway.demo",
+      password: "GoldeWay!2026",
+      note: "Demo admin account, log in to try the ticketing and admin dashboard.",
+    },
   },
 
   {
@@ -287,6 +305,7 @@ export const projects: Project[] = [
     ],
     github: "https://github.com/aidan-g-barends/The_HairBra",
     live: "https://the-hair-bra.vercel.app/",
+    image: "/projects/hairbra.png",
     status: "live",
     featured: true,
     role:
@@ -323,6 +342,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "GSAP"],
     github: "https://github.com/aidan-g-barends/2G-Architecture",
     live: "https://2-g-architecture.vercel.app/",
+    image: "/projects/2G.png",
     status: "live",
     featured: true,
     role:
@@ -358,6 +378,7 @@ export const projects: Project[] = [
     tech: ["Next.js", "TypeScript", "React", "Tailwind CSS", "Vercel"],
     github: "https://github.com/aidan-g-barends/BouplanOntwerpers",
     live: "https://bouplan-ontwerpers.vercel.app/",
+    image: "/projects/bouplan.png",
     status: "live",
     featured: true,
     role:
@@ -388,23 +409,26 @@ export const projects: Project[] = [
     slug: "dfv-dental-booking",
     name: "DFV Dental Booking",
     description:
-      "A practice website and online booking system currently in development for Dr Frans Venter's dental practice. The goal is to give patients a simple way to learn about the practice and request appointments online, instead of relying on phone calls to book a visit.",
+      "A practice website and online booking system built for Dr Frans Venter's dental practice. It gives patients a simple way to learn about the practice and request appointments online, instead of relying on phone calls to book a visit.",
     tech: ["Next.js", "TypeScript", "Tailwind CSS"],
     github: "https://github.com/aidan-g-barends/DFV",
+    live: "https://dfv-mocha.vercel.app/",
+    image: "/projects/dfv.png",
     private: true,
-    status: "in-progress",
+    status: "live",
     featured: false,
     role:
       "Sole developer responsible for the site structure, the patient-facing booking flow, and the overall design and build of the application.",
     problem:
-      "The practice currently manages appointments over the phone, which is slower for both patients and staff and offers no way for patients to see availability or request a booking outside of office hours. This project is building a practice website with an online booking flow to make scheduling easier for everyone involved.",
+      "The practice previously managed appointments over the phone, which was slower for both patients and staff and offered no way for patients to see availability or request a booking outside of office hours. This project delivers a practice website with an online booking flow to make scheduling easier for everyone involved.",
     features: [
       "Practice information and services overview",
       "Online appointment booking flow",
       "Patient-facing scheduling interface",
       "Responsive layouts for desktop and mobile",
+      "Production deployment on Vercel",
     ],
     challenges:
-      "Still early in development. The main challenge so far has been designing a booking flow that actually fits how the practice schedules patients day to day, while keeping the interface simple enough for patients of any age to use without help.",
+      "The main challenge was designing a booking flow that actually fits how the practice schedules patients day to day, while keeping the interface simple enough for patients of any age to use without help.",
   },
 ];
