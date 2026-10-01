@@ -431,4 +431,38 @@ export const projects: Project[] = [
     challenges:
       "The main challenge was designing a booking flow that actually fits how the practice schedules patients day to day, while keeping the interface simple enough for patients of any age to use without help.",
   },
+
+  {
+    slug: "beauty-spot",
+    name: "Beauty Spot",
+    description:
+      "A website and online booking system for Beauty Spot Health & Skincare, a salon in Langebaan offering nails, pedicures, lashes, waxing, facials, and massage. Clients can browse services and prices, meet the therapists, and book a treatment online at any time, while the salon team manages the day's appointments from a private staff diary.",
+    tech: ["React", "Vite", "React Router", "Tailwind CSS", "Supabase", "PostgreSQL"],
+    github: "https://github.com/aidan-g-barends/BSSH",
+    live: "https://beautyspot-eta.vercel.app/",
+    image: "/projects/beautyspot.png",
+    private: true,
+    status: "live",
+    featured: false,
+    role:
+      "Sole developer responsible for the design, the client-facing booking flow, the staff diary, the Supabase integration, and deployment.",
+    problem:
+      "The salon took bookings by phone, which only works while someone is free to answer and the salon is open. Clients needed a way to see services and prices and book outside of trading hours, and the team needed one shared diary to see who is booked with whom.",
+    features: [
+      "Services and prices, team, gallery, about, and contact pages",
+      "Online booking flow with service, therapist, and time slot selection",
+      "15-minute slot scheduling with booking reference numbers",
+      "Staff sign-in backed by Supabase authentication",
+      "Staff diary with 'My day' and 'Whole salon' views",
+      "Appointment statuses: requested, confirmed, completed, no-show, and cancelled",
+      "Walk-in bookings and time-off blocking for staff",
+      "Live open/closed indicator based on trading hours",
+      "WhatsApp, phone, and email contact options",
+      "LocalBusiness (BeautySalon) structured data for local search",
+      "Responsive layouts for desktop and mobile",
+      "Production deployment on Vercel",
+    ],
+    challenges:
+      "The hardest part was modelling availability correctly: several therapists, different treatment lengths, trading hours that change on Saturdays, and staff time off all affect which slots can be offered, and two clients must never be able to book the same therapist at the same time. The staff side also had to be simple enough for the team to use between clients, so the diary focuses on a few clear actions like confirming, marking arrivals, and recording no-shows.",
+  },
 ];
