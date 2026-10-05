@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 import { projects } from "../../data/projects";
 import type { Project, ProjectStatus } from "../../data/projects";
 import ProjectCard from "../../components/ProjectCard";
@@ -11,37 +13,94 @@ export const metadata: Metadata = {
     "Client websites, independent builds, and university team projects by Aidan Barends, including JJS Business Solutions, UniExchange, and MediTicket 2.",
 };
 
-// Live work first, then what's still being built, then code-only builds
-const statusOrder: Record<ProjectStatus, number> = {
-  live: 0,
-  "in-progress": 1,
-  "github-only": 2,
-};
+// Within each group, projects are split by status in this order
+const statuses: {
+  status: ProjectStatus;
+  title: string;
+  description: string;
+}[] = [
+  {
+    status: "live",
+    title: "Live + GitHub",
+    description: "Shipped and deployed, with the source code on GitHub too.",
+  },
+  {
+    status: "in-progress",
+    title: "In Progress",
+    description: "Still under active development.",
+  },
+  {
+    status: "github-only",
+    title: "GitHub Only",
+    description: "Finished builds that aren't deployed, but the code is public.",
+  },
+];
 
-function byStatus(a: Project, b: Project) {
-  return statusOrder[a.status] - statusOrder[b.status];
-}
-
-const groups = [
+const groups: {
+  id: string;
+  title: string;
+  description: string;
+  projects: Project[];
+  inviteCard?: boolean;
+}[] = [
+  {
+    id: "client",
+    title: "Client Work",
+    description: "Websites built for paying clients as a freelance web developer.",
+    projects: projects.filter((project) => project.clientWork),
+    inviteCard: true,
+  },
   {
     id: "independent",
-    title: "Independent & Client Work",
+    title: "Independent Work",
     description:
-      "Websites for real clients and apps I designed and built on my own, from first idea to deployment.",
-    projects: projects
-      .filter((project) => !project.university)
-      .sort(byStatus),
+      "Apps and websites I designed and built on my own, from first idea to deployment.",
+    projects: projects.filter(
+      (project) => !project.clientWork && !project.university
+    ),
   },
   {
     id: "university",
     title: "University Projects",
     description:
       "Team projects built with classmates as part of my Software Engineering diploma at CPUT.",
-    projects: projects
-      .filter((project) => project.university)
-      .sort(byStatus),
+    projects: projects.filter((project) => project.university),
   },
-].filter((group) => group.projects.length > 0);
+];
+
+const visibleGroups = groups.filter((group) => group.projects.length > 0);
+
+// Fills the client grid and points potential clients to the contact form
+function InviteCard() {
+  return (
+    <Link
+      href="/contact?topic=freelance"
+      className="group flex min-h-64 flex-col items-center justify-center rounded-xl border-2 border-dashed border-surface-border p-8 text-center transition-colors duration-300 hover:border-accent/60 hover:bg-accent/5"
+    >
+      <span className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
+        Taking on new clients
+      </span>
+
+      <p className="mt-3 text-lg font-semibold">
+        Your website could be next.
+      </p>
+
+      <p className="mt-2 max-w-xs text-sm text-foreground-muted">
+        Need a site built properly, from design to launch? Let&apos;s
+        talk about your project.
+      </p>
+
+      <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
+        Start a project
+        <ArrowRight
+          size={14}
+          aria-hidden="true"
+          className="transition-transform duration-300 group-hover:translate-x-1"
+        />
+      </span>
+    </Link>
+  );
+}
 
 export default function ProjectsPage() {
   return (
@@ -50,7 +109,7 @@ export default function ProjectsPage() {
         eyebrow="Projects"
         title="Everything I've"
         highlight="built."
-        description="From live client sites to university team projects and things I'm still putting together."
+        description="Client websites, my own builds, and university team projects."
         width="max-w-5xl"
       >
         {/* Jump links double as a quick summary of the counts */}
@@ -58,7 +117,7 @@ export default function ProjectsPage() {
           aria-label="Project groups"
           className="mt-8 flex flex-wrap gap-3"
         >
-          {groups.map((group) => (
+          {visibleGroups.map((group) => (
             <a
               key={group.id}
               href={`#${group.id}`}
@@ -74,42 +133,78 @@ export default function ProjectsPage() {
       </PageHeader>
 
       <section className="mx-auto max-w-5xl px-6 pb-20">
-        {groups.map((group, index) => (
-          <div
-            key={group.id}
-            id={group.id}
-            className="scroll-mt-24 pt-12 first:pt-4"
-          >
-            <div data-gsap="reveal">
-              <Eyebrow
-                index={String(index + 1).padStart(2, "0")}
-                label={`${group.projects.length} ${
-                  group.projects.length === 1 ? "project" : "projects"
-                }`}
-              />
+        {visibleGroups.map((group, index) => {
+          const statusSections = statuses
+            .map((section) => ({
+              ...section,
+              projects: group.projects.filter(
+                (project) => project.status === section.status
+              ),
+            }))
+            .filter((section) => section.projects.length > 0);
 
-              <h2 className="text-2xl font-bold sm:text-3xl">
-                {group.title}
-              </h2>
-
-              <p className="mt-1 text-sm text-foreground-muted">
-                {group.description}
-              </p>
-            </div>
-
+          return (
             <div
-              data-gsap="stagger"
-              className="mt-6 grid gap-6 sm:grid-cols-2"
+              key={group.id}
+              id={group.id}
+              className="scroll-mt-24 border-t border-surface-border pt-14 first:border-t-0 first:pt-4 [&:not(:first-child)]:mt-14"
             >
-              {group.projects.map((project) => (
-                <ProjectCard
-                  key={project.slug}
-                  project={project}
+              <div data-gsap="reveal">
+                <Eyebrow
+                  index={String(index + 1).padStart(2, "0")}
+                  label={`${group.projects.length} ${
+                    group.projects.length === 1 ? "project" : "projects"
+                  }`}
                 />
+
+                <h2 className="text-2xl font-bold sm:text-3xl">
+                  {group.title}
+                </h2>
+
+                <p className="mt-1 text-foreground-muted">
+                  {group.description}
+                </p>
+              </div>
+
+              {statusSections.map((section, sectionIndex) => (
+                <div
+                  key={section.status}
+                  className="mt-8"
+                >
+                  <div
+                    data-gsap="reveal"
+                    className="flex flex-wrap items-baseline gap-x-3 gap-y-1"
+                  >
+                    <h3 className="text-lg font-semibold">
+                      {section.title}
+                    </h3>
+
+                    <p className="text-sm text-foreground-muted">
+                      {section.description}
+                    </p>
+                  </div>
+
+                  <div
+                    data-gsap="stagger"
+                    className="mt-4 grid gap-6 sm:grid-cols-2"
+                  >
+                    {section.projects.map((project) => (
+                      <ProjectCard
+                        key={project.slug}
+                        project={project}
+                      />
+                    ))}
+
+                    {group.inviteCard &&
+                      sectionIndex === statusSections.length - 1 && (
+                        <InviteCard />
+                      )}
+                  </div>
+                </div>
               ))}
             </div>
-          </div>
-        ))}
+          );
+        })}
       </section>
     </>
   );
