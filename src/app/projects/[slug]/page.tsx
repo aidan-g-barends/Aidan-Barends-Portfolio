@@ -202,7 +202,13 @@ export default async function ProjectDetailPage({
 
           <div data-gsap="hero">
             <p className="mt-8 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
-              {statusLabels[project.status]}
+              {[
+                project.university && "University project",
+                project.clientWork && "Client work",
+                statusLabels[project.status],
+              ]
+                .filter(Boolean)
+                .join(" · ")}
             </p>
 
             <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">

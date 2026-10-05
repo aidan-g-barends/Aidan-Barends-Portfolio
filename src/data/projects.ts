@@ -16,6 +16,8 @@ export type Project = {
   imageIsIllustration?: boolean;
   // Freelance work for a real client (listed on the Experience page)
   clientWork?: boolean;
+  // Built as part of my CPUT Software Engineering diploma
+  university?: boolean;
   status: ProjectStatus;
   featured: boolean;
   role?: string;
@@ -32,6 +34,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "task-flow-pro",
+    university: true,
     name: "Task Flow Pro",
     description:
       "A full-stack task management platform developed as a university group project to help teams organise, assign, monitor, and complete work through one centralised system. The application was built with Laravel and MySQL, using a structured backend architecture with dedicated models, services, policies, and notification functionality.",
@@ -123,6 +126,7 @@ export const projects: Project[] = [
 
   {
     slug: "mediticket-2",
+    university: true,
     name: "MediTicket 2",
     description:
       "A full-stack medical practice management platform focused on connecting patients, doctors, and staff through a centralised healthcare system. The backend is built with Spring Boot and Java and manages core workflows such as appointments, digital tickets, payments, and notifications. The project applies Domain-Driven Design and object-oriented design patterns to create a structured and maintainable codebase.",
@@ -155,6 +159,7 @@ export const projects: Project[] = [
 
    {
     slug: "uni-exchange",
+    university: true,
     name: "UniExchange",
     description:
       "A campus marketplace platform developed as a university group project for students at the Cape Peninsula University of Technology (CPUT). The platform is designed to provide a centralised space where students can buy, sell, and exchange goods and services within the university community.",
@@ -170,8 +175,8 @@ export const projects: Project[] = [
     ],
 
     github: "https://github.com/AidanBarends/UniExchange",
-    image: "/projects/cover-uniexchange.webp",
-    imageIsIllustration: true,
+    live: "https://uniexchange-rust.vercel.app/",
+    image: "/projects/uniexchange.webp",
 
     status: "in-progress",
     featured: false,
@@ -210,6 +215,7 @@ export const projects: Project[] = [
 
   {
     slug: "practiceflow-crm",
+    university: true,
     name: "PracticeFlow CRM",
     description:
       "A full-stack medical practice CRM designed to centralise patient management, appointment scheduling, clinical workflows, and staff administration within one modern application. The project combines a Next.js and React frontend with Supabase for authentication, database functionality, and backend services, and was developed collaboratively as part of a 6-person software engineering team.",
@@ -273,6 +279,7 @@ export const projects: Project[] = [
 
   {
     slug: "golden-way",
+    university: true,
     name: "GoldenWay",
     description:
       "A digital public transport ticketing platform designed to modernise the way Golden Arrow Bus commuters purchase and manage bus tickets. The project moves the traditional in-person ticket purchasing experience into a digital platform, combining a React/Vite frontend with Supabase for authentication, the database, and backend services.",

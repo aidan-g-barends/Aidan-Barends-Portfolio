@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import type { MouseEvent } from "react";
 import gsap from "gsap";
+import { GraduationCap } from "lucide-react";
 import type { Project } from "../data/projects";
 
 function getDomain(url: string) {
@@ -138,7 +139,14 @@ export default function ProjectCard({
             </span>
           )}
 
-          <div className="flex shrink-0 gap-1.5">
+          <div className="flex shrink-0 flex-wrap justify-end gap-1.5">
+            {project.university && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-violet-500/15 px-2 py-0.5 text-xs font-medium text-violet-700 dark:text-violet-300">
+                <GraduationCap size={12} aria-hidden="true" />
+                Uni project
+              </span>
+            )}
+
             {project.clientWork && (
               <span className="rounded-full bg-accent-2/15 px-2 py-0.5 text-xs font-medium text-blue-700 dark:text-accent-2">
                 Client
