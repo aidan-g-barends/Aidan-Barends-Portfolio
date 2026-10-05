@@ -101,21 +101,21 @@ const craythorne = {
   role: "IT Field Technician",
   company: "CraythorneIT",
   summary:
-    "Out in the field solo, keeping residential and business clients connected. CraythorneIT brought me back for a second stint, covering networks, hardware, and support tickets through to close-out, both on-site and remotely.",
+    "I started out shadowing experienced technicians to learn the work. When CraythorneIT brought me back for a second stint, I took on more: working client tickets through to close-out and handling remote support on top of the field work. Click a period below to see how the role grew.",
   stints: [
     {
-      label: "Current",
+      label: "Current: tickets & remote support",
       period: "Jul 2026 – Present",
       current: true,
       description:
-        "CraythorneIT brought me back for a second stint. I'm out in the field solo again doing Wi-Fi, router, and hardware work for residential and business clients, working through the ticketing system daily, and handling remote support like Outlook issues and email and account setup.",
+        "CraythorneIT brought me back, and this time I stepped up. I now work through the ticketing system, picking up client-logged tickets, triaging them, and resolving or escalating them through to close-out. I also started doing remote support: troubleshooting Outlook issues, setting up Outlook email and user accounts, and handling first-line troubleshooting, alongside the on-site Wi-Fi, router, and hardware work.",
     },
     {
-      label: "First stint",
+      label: "First stint: learning the ropes",
       period: "Aug 2025 – Jan 2026",
       current: false,
       description:
-        "My first IT role. Field work for residential and business clients: Wi-Fi assessments and installs, router configuration, PC builds and hardware repairs, and resolving network outages on-site. It's where I learnt to troubleshoot under real-world pressure instead of in a classroom.",
+        "My first IT role. I mostly shadowed experienced technicians to learn how the work is done on real client jobs: Wi-Fi installs, router configuration, hardware repairs, and fixing network issues on-site. By the end I was also handling a few jobs on my own.",
     },
   ],
   areas: [
@@ -461,7 +461,11 @@ export default function ExperiencePage() {
             </p>
 
             {/* Areas of responsibility */}
-            <div className="mt-8 grid gap-4 md:grid-cols-3">
+            <h4 className="mt-8 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
+              What I handle now
+            </h4>
+
+            <div className="mt-4 grid gap-4 md:grid-cols-3">
               {craythorne.areas.map((area) => {
                 const Icon = area.icon;
 
