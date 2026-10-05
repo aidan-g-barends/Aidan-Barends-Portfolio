@@ -3,6 +3,12 @@ import { NextResponse } from "next/server";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+const topicLabels: Record<string, string> = {
+  job: "Job opportunity",
+  freelance: "Freelance project",
+  other: "Something else",
+};
+
 function escapeHtml(value: string) {
   return value
     .replace(/&/g, "&amp;")
@@ -14,7 +20,8 @@ function escapeHtml(value: string) {
 
 export async function POST(request: Request) {
   try {
-    const { name, email, message, company } = await request.json();
+    const { topic, name, email, message, company } =
+      await request.json();
 
     // Honeypot field: real visitors never fill this in.
     if (company) {
@@ -28,6 +35,12 @@ export async function POST(request: Request) {
       );
     }
 
+    // Only accept known topics, so arbitrary text never reaches the subject
+    const topicLabel =
+      typeof topic === "string" && Object.hasOwn(topicLabels, topic)
+        ? topicLabels[topic]
+        : topicLabels.other;
+
     const safeName = escapeHtml(name);
     const safeEmail = escapeHtml(email);
     const safeMessage = escapeHtml(message);
@@ -36,8 +49,8 @@ export async function POST(request: Request) {
       from: "Portfolio Contact <onboarding@resend.dev>",
       to: "aidanbarends95@gmail.com",
       replyTo: email,
-      subject: `New message from ${name}`,
-      text: `From: ${name} (${email})\n\n${message}`,
+      subject: `[${topicLabel}] New message from ${name}`,
+      text: `Topic: ${topicLabel}\nFrom: ${name} (${email})\n\n${message}`,
       html: `
         <div style="font-family: Arial, sans-serif; max-width: 500px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px;">
           <h2 style="color: #0B0F14; margin-top: 0;">New message from your portfolio</h2>
@@ -45,6 +58,10 @@ export async function POST(request: Request) {
             Someone reached out through your contact form.
           </p>
           <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+            <tr>
+              <td style="padding: 8px 0; color: #57626F; font-size: 13px; font-weight: bold; width: 80px;">Topic</td>
+              <td style="padding: 8px 0; color: #0B0F14; font-size: 14px;">${topicLabel}</td>
+            </tr>
             <tr>
               <td style="padding: 8px 0; color: #57626F; font-size: 13px; font-weight: bold; width: 80px;">Name</td>
               <td style="padding: 8px 0; color: #0B0F14; font-size: 14px;">${safeName}</td>

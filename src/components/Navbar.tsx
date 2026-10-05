@@ -90,9 +90,17 @@ export default function Navbar() {
       <nav className="grid grid-cols-3 items-center px-6 py-4 sm:px-10">
         <Link
           href="/"
-          className="justify-self-start font-[family-name:var(--font-heading)] text-lg font-semibold transition-opacity hover:opacity-70"
+          className="group inline-flex items-center gap-2 justify-self-start font-[family-name:var(--font-heading)] text-lg font-semibold"
         >
-          Aidan Barends
+          <span
+            aria-hidden="true"
+            className="flex h-7 w-7 items-center justify-center rounded-lg bg-linear-to-br from-accent to-accent-2 font-[family-name:var(--font-mono)] text-xs font-bold text-background transition-transform duration-300 group-hover:rotate-6"
+          >
+            AB
+          </span>
+          <span className="transition-colors group-hover:text-accent">
+            Aidan Barends
+          </span>
         </Link>
 
         <div className="hidden items-center justify-self-center gap-6 sm:flex">
@@ -104,10 +112,10 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`text-sm transition-colors duration-200 ${
+                className={`relative py-1 text-sm transition-colors duration-200 after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-left after:rounded-full after:bg-accent after:transition-transform after:duration-300 ${
                   isActive
-                    ? "font-medium text-foreground"
-                    : "text-foreground-muted hover:text-foreground"
+                    ? "font-medium text-foreground after:scale-x-100"
+                    : "text-foreground-muted after:scale-x-0 hover:text-foreground hover:after:scale-x-100"
                 }`}
               >
                 {link.label}

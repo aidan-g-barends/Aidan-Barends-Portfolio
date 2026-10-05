@@ -138,11 +138,19 @@ export default function ProjectCard({
             </span>
           )}
 
-          {project.status === "live" && (
-            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
-              Live
-            </span>
-          )}
+          <div className="flex shrink-0 gap-1.5">
+            {project.clientWork && (
+              <span className="rounded-full bg-accent-2/15 px-2 py-0.5 text-xs font-medium text-blue-700 dark:text-accent-2">
+                Client
+              </span>
+            )}
+
+            {project.status === "live" && (
+              <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
+                Live
+              </span>
+            )}
+          </div>
         </div>
 
         <p className="mt-2 flex-1 text-sm text-foreground-muted">

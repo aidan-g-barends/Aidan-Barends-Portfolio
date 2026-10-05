@@ -14,6 +14,8 @@ export type Project = {
   image?: string;
   // Generated cover art rather than a real screenshot of the app
   imageIsIllustration?: boolean;
+  // Freelance work for a real client (listed on the Experience page)
+  clientWork?: boolean;
   status: ProjectStatus;
   featured: boolean;
   role?: string;
@@ -93,6 +95,7 @@ export const projects: Project[] = [
     github: "https://github.com/aidan-g-barends/jjs-website",
     live: "https://jjsbussol.co.za/",
     liveIsProduction: true,
+    clientWork: true,
     image: "/projects/jjs.png",
     status: "live",
     featured: false,

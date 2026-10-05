@@ -1,18 +1,72 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import {
-  Briefcase,
-  GraduationCap,
+  ArrowRight,
+  ArrowUpRight,
   Award,
+  Briefcase,
+  Clapperboard,
   Code2,
+  Cpu,
+  Download,
+  GraduationCap,
+  LifeBuoy,
+  RotateCcw,
+  School,
+  Ticket,
+  Utensils,
+  Wifi,
+  Wine,
   Wrench,
   Zap,
 } from "lucide-react";
+import Eyebrow from "../../components/Eyebrow";
+import PageHeader from "../../components/PageHeader";
+import { projects } from "../../data/projects";
+
+function getDomain(url: string) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, "");
+  } catch {
+    return url;
+  }
+}
+
+// Client sites come from projects.ts (clientWork: true), so a new
+// client only needs to be added there.
+const freelanceClients = projects.filter(
+  (project) => project.clientWork
+);
+
+const freelance = {
+  role: "Freelance Web Developer",
+  period: "Jul 2025 – Present",
+  summary:
+    "I build websites for small businesses that need a proper online presence. I handle the whole job myself, from turning what the business does into clear pages through to deploying the live site. I started taking on web design work in July 2025, and since September 2026 I've been growing it seriously as a business.",
+  milestones: [
+    {
+      label: "Started freelancing",
+      period: "Jul 2025",
+      current: false,
+    },
+    {
+      label: "Growing it as a business",
+      period: "Sep 2026 – Present",
+      current: true,
+    },
+  ],
+  services: [
+    "Turning a business's services and information into a clear, professional website",
+    "Responsive UI that works across mobile, tablet, and desktop",
+    "Reusable, maintainable components so the site is easy to update",
+    "Deployment and launch of the live production site",
+  ],
+};
 
 export const metadata: Metadata = {
   title: "Experience & Education | Aidan Barends",
   description:
-    "Aidan Barends' professional experience as an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
+    "Aidan Barends' experience as a freelance web developer and an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
 };
 
 const highlights = [
@@ -36,46 +90,158 @@ const highlights = [
   },
 ];
 
+const craythorne = {
+  role: "IT Field Technician",
+  company: "CraythorneIT",
+  summary:
+    "Out in the field solo, keeping residential and business clients connected. CraythorneIT brought me back for a second stint, covering networks, hardware, and support tickets through to close-out, both on-site and remotely.",
+  stints: [
+    {
+      label: "Current",
+      period: "Jul 2026 – Present",
+      current: true,
+    },
+    {
+      label: "First stint",
+      period: "Aug 2025 – Jan 2026",
+      current: false,
+    },
+  ],
+  areas: [
+    {
+      icon: Wifi,
+      title: "Networking",
+      items: [
+        "Run Wi-Fi assessments, installs, and configurations solo for residential and business clients, with no supervision needed once on-site.",
+        "Configure and maintain routers across multiple client networks, keeping them online and fixing what breaks.",
+        "Diagnose and resolve live network outages under time pressure, using Fing to pinpoint the failing device fast.",
+      ],
+    },
+    {
+      icon: Cpu,
+      title: "Hardware",
+      items: [
+        "Handle full PC builds and hardware repairs end-to-end, from diagnosis to fix.",
+        "Carry out system upgrades for clients.",
+      ],
+    },
+    {
+      icon: Ticket,
+      title: "Support, on-site & remote",
+      items: [
+        "Work through a ticketing system daily: pick up client-logged tickets, triage the issue, and resolve or escalate it through to close-out.",
+        "Provide remote support for clients: troubleshoot Outlook issues and set up Outlook email and user accounts.",
+        "Handle first-line troubleshooting remotely, escalating anything that needs admin-portal access.",
+      ],
+    },
+  ],
+  skills: [
+    "Networking",
+    "Router Config",
+    "Fing",
+    "Hardware",
+    "Ticketing Systems",
+    "Remote Support",
+    "Microsoft Outlook",
+    "Troubleshooting",
+    "Client Communication",
+  ],
+};
+
+const otherRoles = [
+  {
+    icon: Utensils,
+    role: "Waiter",
+    place: "Cape Town Fish Market",
+  },
+  {
+    icon: Wine,
+    role: "Barman",
+    place: "Die Strandloper",
+  },
+  {
+    icon: School,
+    role: "Classroom & Music Assistant",
+    place: "Longacres Private School",
+  },
+  {
+    icon: Clapperboard,
+    role: "Background Actor",
+    place: "39 Steps Agency",
+  },
+  {
+    icon: LifeBuoy,
+    role: "Lifeguard",
+    place: "NSRI",
+  },
+];
+
+const education = [
+  {
+    title: "Diploma in ICT: Application Development",
+    place: "Cape Peninsula University of Technology (CPUT)",
+    period: "2024 – Present",
+    note: "Expected completion 2027",
+    current: true,
+  },
+  {
+    title: "National Senior Certificate (NSC)",
+    place: "Hopefield High School",
+    period: "2018 – 2022",
+    current: false,
+  },
+];
+
+const certifications = [
+  {
+    title: "The Complete Web Development Bootcamp",
+    issuer: "Angela Yu, Udemy",
+    done: true,
+  },
+  {
+    title: "4IR Digital Skills Training Programme",
+    done: true,
+  },
+  {
+    title: "AI course",
+    issuer: "Ed Donner",
+    done: false,
+  },
+];
+
+function StatusBadge({ done }: { done: boolean }) {
+  return done ? (
+    <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
+      Completed
+    </span>
+  ) : (
+    <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
+      In Progress
+    </span>
+  );
+}
+
 export default function ExperiencePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <div
-          data-gsap="parallax"
-          className="pointer-events-none absolute left-1/2 top-0 h-[350px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
-          style={{
-            background:
-              "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
-          }}
-        />
-
-        <div
-          data-gsap="hero"
-          className="relative mx-auto max-w-3xl px-6 py-20 text-center"
+      <PageHeader
+        eyebrow="Experience & Education"
+        title="Where I've"
+        highlight="put in the work."
+        description="I spend my days fixing real networks and hardware for paying clients, and my nights shipping full-stack apps and studying Software Engineering. Here's the proof."
+      >
+        <Link
+          href="/resume.pdf"
+          target="_blank"
+          className="mt-8 inline-flex items-center gap-2 rounded-lg border border-surface-border bg-surface/60 px-6 py-3 text-sm font-medium text-foreground backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-accent"
         >
-          <h1 className="text-3xl font-bold">
-            Experience & Education
-          </h1>
-
-          <p className="mx-auto mt-3 max-w-xl text-foreground-muted">
-            I spend my days fixing real networks and hardware for
-            paying clients, and my nights shipping full-stack apps
-            and studying Software Engineering. Here&apos;s the proof.
-          </p>
-
-          <Link
-            href="/resume.pdf"
-            target="_blank"
-            className="mt-6 inline-block rounded-lg border border-surface-border px-6 py-3 text-sm font-medium text-foreground transition-transform duration-300 hover:-translate-y-1 hover:border-accent"
-          >
-            Download Resume
-          </Link>
-        </div>
-      </section>
+          <Download size={16} aria-hidden="true" />
+          Download Resume
+        </Link>
+      </PageHeader>
 
       {/* HIGHLIGHTS */}
-      <section className="mx-auto max-w-3xl px-6 pb-4">
+      <section className="mx-auto max-w-3xl px-6">
         <div
           data-gsap="stagger"
           className="grid gap-4 sm:grid-cols-3"
@@ -91,7 +257,12 @@ export default function ExperiencePage() {
                   boxShadow: "var(--card-shadow)",
                 }}
               >
-                <Icon className="h-5 w-5 text-accent" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10">
+                  <Icon
+                    className="h-5 w-5 text-accent"
+                    aria-hidden="true"
+                  />
+                </div>
 
                 <h3 className="mt-3 text-sm font-semibold">
                   {item.title}
@@ -107,280 +278,457 @@ export default function ExperiencePage() {
       </section>
 
       {/* EXPERIENCE */}
-      <section className="mx-auto max-w-3xl px-6 py-16">
-        <div
-          data-gsap="reveal"
-          className="flex items-center gap-2"
-        >
-          <Briefcase className="h-5 w-5 text-accent" />
+      <section className="mx-auto max-w-3xl px-6 py-20">
+        <div data-gsap="reveal">
+          <Eyebrow index="01" label="Work" />
 
-          <h2 className="text-2xl font-bold">
+          <h2 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
+            <Briefcase
+              className="h-6 w-6 text-accent"
+              aria-hidden="true"
+            />
             Experience
           </h2>
         </div>
 
-        <div className="relative mt-10 border-l-2 border-surface-border pl-8">
+        {/* FREELANCE */}
+        <article
+          data-gsap="scale"
+          className="relative mt-10 overflow-hidden rounded-2xl border border-accent/30 bg-surface"
+          style={{
+            boxShadow: "var(--card-shadow)",
+          }}
+        >
           <div
-            data-gsap="timeline-line"
-            className="pointer-events-none absolute -left-0.5 top-0 h-full w-0.5 origin-top bg-accent"
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-24 -top-24 h-64 w-64 rounded-full opacity-30 blur-3xl dark:opacity-20"
+            style={{
+              background:
+                "radial-gradient(circle, var(--accent-2) 0%, transparent 70%)",
+            }}
           />
 
-          <div
-            data-gsap="stagger"
-            className="space-y-4"
-          >
-            <div
-              data-gsap="timeline"
-              className="group relative"
-            >
-              <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-accent transition-transform duration-300 group-hover:scale-125" />
+          <div className="relative p-6 sm:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-bold sm:text-2xl">
+                  {freelance.role}
+                </h3>
 
-              <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-accent">
-                    IT Field Technician
-                  </h3>
-
-                  <span className="text-sm text-foreground-muted">
-                    Jul 2026 – Present
-                  </span>
-                </div>
-
-                <p className="text-sm text-foreground-muted">
-                  CraythorneIT
+                <p className="mt-1 font-medium text-accent">
+                  Self-employed · {freelance.period}
                 </p>
+              </div>
 
-                <ul className="mt-3 list-disc space-y-2 pl-5 text-foreground-muted">
-                  <li>
-                    Run Wi-Fi assessments, installs, and
-                    configurations solo, for residential and
-                    business clients, no supervision needed once
-                    on-site.
-                  </li>
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
+                <span className="relative flex h-2 w-2">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:hidden" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                </span>
+                Taking on new clients
+              </span>
+            </div>
 
-                  <li>
-                    Diagnose and resolve live network outages under
-                    time pressure, using Fing to pinpoint the failing
-                    device fast.
-                  </li>
+            <ol className="mt-6 grid gap-3 sm:grid-cols-2">
+              {freelance.milestones.map((milestone) => (
+                <li
+                  key={milestone.period}
+                  className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${
+                    milestone.current
+                      ? "border-accent/40 bg-accent/5"
+                      : "border-surface-border bg-background"
+                  }`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`h-2.5 w-2.5 shrink-0 rounded-full ${
+                      milestone.current
+                        ? "bg-accent"
+                        : "bg-foreground-muted/50"
+                    }`}
+                  />
 
-                  <li>
-                    Configure and maintain routers across multiple
-                    client networks, keeping them online and fixing
-                    what breaks.
-                  </li>
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-foreground-muted">
+                      {milestone.label}
+                    </p>
 
-                  <li>
-                    Handle full PC builds and hardware repairs
-                    end-to-end, from diagnosis to fix.
-                  </li>
+                    <p className="font-[family-name:var(--font-mono)] text-sm font-medium">
+                      {milestone.period}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
 
-                  <li>
-                    Work through a ticketing system daily, picking up
-                    client-logged tickets, triaging the issue, and
-                    resolving or escalating it through to close-out.
-                  </li>
+            <p className="mt-6 text-foreground-muted">
+              {freelance.summary}
+            </p>
+
+            <div className="mt-8 grid gap-6 md:grid-cols-2">
+              <div>
+                <h4 className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
+                  What I handle
+                </h4>
+
+                <ul className="mt-4 space-y-3 text-sm text-foreground-muted">
+                  {freelance.services.map((service) => (
+                    <li
+                      key={service}
+                      className="flex gap-2"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
+                      />
+                      {service}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
+                  Client work
+                </h4>
+
+                <ul className="mt-4 space-y-3">
+                  {freelanceClients.map((client) => (
+                    <li key={client.slug}>
+                      <Link
+                        href={`/projects/${client.slug}`}
+                        className="group flex items-center justify-between gap-3 rounded-xl border border-surface-border bg-background p-4 transition-colors duration-300 hover:border-accent/50"
+                      >
+                        <div className="min-w-0">
+                          <p className="font-semibold transition-colors group-hover:text-accent">
+                            {client.name}
+                          </p>
+
+                          {client.live && (
+                            <p className="truncate font-[family-name:var(--font-mono)] text-xs text-foreground-muted">
+                              {getDomain(client.live)}
+                            </p>
+                          )}
+                        </div>
+
+                        <ArrowUpRight
+                          size={18}
+                          aria-hidden="true"
+                          className="shrink-0 text-foreground-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                        />
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
 
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {[
-                    "Networking",
-                    "Hardware",
-                    "Ticketing Systems",
-                    "Troubleshooting",
-                    "Client Communication",
-                  ].map((skill) => (
-                    <span
-                      key={skill}
-                      className="rounded-md bg-background px-2 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground-muted"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div
-              data-gsap="timeline"
-              className="group relative"
-            >
-              <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-surface-border transition-transform duration-300 group-hover:scale-125 group-hover:bg-accent" />
-
-              <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-accent">
-                    IT Field Technician
-                  </h3>
-
-                  <span className="text-sm text-foreground-muted">
-                    Aug 2025 – Jan 2026
-                  </span>
-                </div>
-
-                <p className="text-sm text-foreground-muted">
-                  CraythorneIT
-                </p>
-              </div>
-            </div>
-
-            <div
-              data-gsap="timeline"
-              className="group relative"
-            >
-              <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-surface-border transition-transform duration-300 group-hover:scale-125 group-hover:bg-accent" />
-
-              <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-sm font-semibold text-foreground-muted transition-colors group-hover:text-accent">
-                    Other Experience
-                  </h3>
-
-                  <span className="text-sm text-foreground-muted">
-                    2022 – 2025
-                  </span>
-                </div>
-
-                <p className="mt-2 text-sm text-foreground-muted">
-                  Waiter (Cape Town Fish Market), Barman (Die
-                  Strandloper), Classroom & Music Assistant
-                  (Longacres Private School), Background Actor
-                  (39 Steps Agency), and Lifeguard (NSRI). Roles
-                  spanning hospitality, education, and emergency
-                  response, building customer service, teamwork, and
-                  reliability under pressure.
-                </p>
+                <Link
+                  href="/contact?topic=freelance"
+                  className="group mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+                >
+                  Need a website? Let&apos;s talk
+                  <ArrowRight
+                    size={14}
+                    aria-hidden="true"
+                    className="transition-transform duration-300 group-hover:translate-x-1"
+                  />
+                </Link>
               </div>
             </div>
           </div>
+        </article>
+
+        {/* CRAYTHORNE IT */}
+        <article
+          data-gsap="scale"
+          className="relative mt-8 overflow-hidden rounded-2xl border border-surface-border bg-surface"
+          style={{
+            boxShadow: "var(--card-shadow)",
+          }}
+        >
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full opacity-30 blur-3xl dark:opacity-20"
+            style={{
+              background:
+                "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+            }}
+          />
+
+          <div className="relative p-6 sm:p-8">
+            <div className="flex flex-wrap items-start justify-between gap-4">
+              <div>
+                <h3 className="text-xl font-bold sm:text-2xl">
+                  {craythorne.role}
+                </h3>
+
+                <p className="mt-1 font-medium text-accent">
+                  {craythorne.company}
+                </p>
+              </div>
+
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+                <RotateCcw size={12} aria-hidden="true" />
+                Brought back for a second stint
+              </span>
+            </div>
+
+            {/* Stints */}
+            <ol className="mt-6 grid gap-3 sm:grid-cols-2">
+              {craythorne.stints.map((stint) => (
+                <li
+                  key={stint.period}
+                  className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${
+                    stint.current
+                      ? "border-accent/40 bg-accent/5"
+                      : "border-surface-border bg-background"
+                  }`}
+                >
+                  <span className="relative flex h-2.5 w-2.5 shrink-0">
+                    {stint.current && (
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:hidden" />
+                    )}
+
+                    <span
+                      className={`relative inline-flex h-2.5 w-2.5 rounded-full ${
+                        stint.current
+                          ? "bg-emerald-500"
+                          : "bg-foreground-muted/50"
+                      }`}
+                    />
+                  </span>
+
+                  <div>
+                    <p className="text-xs uppercase tracking-wide text-foreground-muted">
+                      {stint.label}
+                    </p>
+
+                    <p className="font-[family-name:var(--font-mono)] text-sm font-medium">
+                      {stint.period}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+
+            <p className="mt-6 text-foreground-muted">
+              {craythorne.summary}
+            </p>
+
+            {/* Areas of responsibility */}
+            <div className="mt-8 grid gap-4 md:grid-cols-3">
+              {craythorne.areas.map((area) => {
+                const Icon = area.icon;
+
+                return (
+                  <div
+                    key={area.title}
+                    className="rounded-xl border border-surface-border bg-background p-5 transition-colors duration-300 hover:border-accent/40"
+                  >
+                    <div className="flex items-center gap-2">
+                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10">
+                        <Icon
+                          className="h-4 w-4 text-accent"
+                          aria-hidden="true"
+                        />
+                      </div>
+
+                      <h4 className="font-semibold">
+                        {area.title}
+                      </h4>
+                    </div>
+
+                    <ul className="mt-4 space-y-3 text-sm text-foreground-muted">
+                      {area.items.map((item) => (
+                        <li
+                          key={item}
+                          className="flex gap-2"
+                        >
+                          <span
+                            aria-hidden="true"
+                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
+                          />
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {craythorne.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-md bg-background px-2 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground-muted"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </article>
+
+        {/* OTHER EXPERIENCE */}
+        <div
+          data-gsap="reveal"
+          className="mt-14"
+        >
+          <h3 className="text-lg font-semibold">
+            Before tech
+          </h3>
+
+          <p className="mt-1 text-sm text-foreground-muted">
+            2022 – 2025. Different worlds, but all of them taught me
+            the same things: show up, deal with people properly, and
+            stay reliable when things get busy or stressful.
+          </p>
         </div>
+
+        <ul
+          data-gsap="stagger"
+          className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {otherRoles.map((item) => {
+            const Icon = item.icon;
+
+            return (
+              <li
+                key={item.role}
+                className="flex items-center gap-3 rounded-xl border border-surface-border bg-surface p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40"
+              >
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-background">
+                  <Icon
+                    className="h-4 w-4 text-foreground-muted"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <div className="min-w-0">
+                  <p className="text-sm font-medium">
+                    {item.role}
+                  </p>
+
+                  <p className="truncate text-xs text-foreground-muted">
+                    {item.place}
+                  </p>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       </section>
 
       {/* EDUCATION */}
-      <section className="mx-auto max-w-3xl px-6 py-16">
-        <div
-          data-gsap="reveal"
-          className="flex items-center gap-2"
-        >
-          <GraduationCap className="h-5 w-5 text-accent" />
+      <section className="border-y border-surface-border bg-surface/50">
+        <div className="mx-auto max-w-3xl px-6 py-20">
+          <div data-gsap="reveal">
+            <Eyebrow index="02" label="Study" />
 
-          <h2 className="text-2xl font-bold">
-            Education
-          </h2>
-        </div>
+            <h2 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
+              <GraduationCap
+                className="h-6 w-6 text-accent"
+                aria-hidden="true"
+              />
+              Education
+            </h2>
+          </div>
 
-        <div className="relative mt-10 border-l-2 border-surface-border pl-8">
-          <div
-            data-gsap="timeline-line"
-            className="pointer-events-none absolute -left-0.5 top-0 h-full w-0.5 origin-top bg-accent"
-          />
-
-          <div
-            data-gsap="stagger"
-            className="space-y-4"
-          >
+          <div className="relative mt-10 border-l-2 border-surface-border pl-8">
             <div
-              data-gsap="timeline"
-              className="group relative"
-            >
-              <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-accent transition-transform duration-300 group-hover:scale-125" />
+              data-gsap="timeline-line"
+              className="pointer-events-none absolute -left-0.5 top-0 h-full w-0.5 origin-top bg-accent"
+            />
 
-              <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-accent">
-                    Diploma in ICT: Application Development
-                  </h3>
+            <div className="space-y-6">
+              {education.map((item) => (
+                <div
+                  key={item.title}
+                  data-gsap="timeline"
+                  className="group relative"
+                >
+                  <span
+                    className={`absolute -left-[41px] top-6 h-4 w-4 rounded-full border-2 border-background transition-transform duration-300 group-hover:scale-125 ${
+                      item.current
+                        ? "bg-accent"
+                        : "bg-surface-border group-hover:bg-accent"
+                    }`}
+                  />
 
-                  <span className="text-sm text-foreground-muted">
-                    2024 – Present
-                  </span>
+                  <div className="rounded-xl border border-surface-border bg-background p-5 transition-colors duration-300 group-hover:border-accent/40">
+                    <div className="flex flex-wrap items-baseline justify-between gap-2">
+                      <h3 className="text-lg font-semibold">
+                        {item.title}
+                      </h3>
+
+                      <span className="font-[family-name:var(--font-mono)] text-sm text-foreground-muted">
+                        {item.period}
+                      </span>
+                    </div>
+
+                    <p className="mt-1 text-sm text-foreground-muted">
+                      {item.place}
+                    </p>
+
+                    {item.note && (
+                      <p className="mt-3 inline-block rounded-full bg-accent/10 px-2.5 py-0.5 text-xs font-medium text-accent">
+                        {item.note}
+                      </p>
+                    )}
+                  </div>
                 </div>
-
-                <p className="text-sm text-foreground-muted">
-                  Cape Peninsula University of Technology (CPUT)
-                </p>
-              </div>
-            </div>
-
-            <div
-              data-gsap="timeline"
-              className="group relative"
-            >
-              <span className="absolute -left-[41px] top-5 h-4 w-4 rounded-full border-2 border-background bg-surface-border transition-transform duration-300 group-hover:scale-125 group-hover:bg-accent" />
-
-              <div className="-ml-4 rounded-lg p-4 transition-colors duration-300 group-hover:bg-surface">
-                <div className="flex flex-wrap items-baseline justify-between gap-2">
-                  <h3 className="text-lg font-semibold transition-colors group-hover:text-accent">
-                    National Senior Certificate (NSC)
-                  </h3>
-
-                  <span className="text-sm text-foreground-muted">
-                    2018 – 2022
-                  </span>
-                </div>
-
-                <p className="text-sm text-foreground-muted">
-                  Hopefield High School
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* CERTIFICATIONS */}
-      <section className="mx-auto max-w-3xl px-6 py-16">
-        <div
-          data-gsap="reveal"
-          className="flex items-center gap-2"
-        >
-          <Award className="h-5 w-5 text-accent" />
+      <section className="mx-auto max-w-3xl px-6 py-20">
+        <div data-gsap="reveal">
+          <Eyebrow index="03" label="Upskilling" />
 
-          <h2 className="text-2xl font-bold">
+          <h2 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
+            <Award
+              className="h-6 w-6 text-accent"
+              aria-hidden="true"
+            />
             Certifications
           </h2>
         </div>
 
         <ul
           data-gsap="stagger"
-          className="mt-4 space-y-1"
+          className="mt-8 grid gap-4 sm:grid-cols-3"
         >
-          <li className="group -mx-4 flex flex-wrap items-center gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
-            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 self-start rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
+          {certifications.map((cert) => (
+            <li
+              key={cert.title}
+              className="flex flex-col rounded-xl border border-surface-border bg-surface p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
+              style={{
+                boxShadow: "var(--card-shadow)",
+              }}
+            >
+              <Award
+                className="h-5 w-5 text-accent"
+                aria-hidden="true"
+              />
 
-            <span className="text-foreground-muted transition-colors group-hover:text-foreground">
-              The Complete Web Development Bootcamp (Angela Yu,
-              Udemy)
-            </span>
+              <p className="mt-3 flex-1 text-sm font-semibold">
+                {cert.title}
+              </p>
 
-            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
-              Completed
-            </span>
-          </li>
+              {cert.issuer && (
+                <p className="mt-1 text-xs text-foreground-muted">
+                  {cert.issuer}
+                </p>
+              )}
 
-          <li className="group -mx-4 flex flex-wrap items-center gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
-            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 self-start rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
-
-            <span className="text-foreground-muted transition-colors group-hover:text-foreground">
-              4IR Digital Skills Training Programme
-            </span>
-
-            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
-              Completed
-            </span>
-          </li>
-
-          <li className="group -mx-4 flex flex-wrap items-center gap-3 rounded-lg p-4 transition-colors duration-300 hover:bg-surface">
-            <span className="mt-1.5 h-1.5 w-1.5 shrink-0 self-start rounded-full bg-accent transition-transform duration-300 group-hover:scale-150" />
-
-            <span className="text-foreground-muted transition-colors group-hover:text-foreground">
-              AI course (Ed Donner)
-            </span>
-
-            <span className="rounded-full bg-amber-500/15 px-2 py-0.5 text-xs font-medium text-amber-600 dark:text-amber-400">
-              In Progress
-            </span>
-          </li>
+              <div className="mt-4">
+                <StatusBadge done={cert.done} />
+              </div>
+            </li>
+          ))}
         </ul>
       </section>
     </>

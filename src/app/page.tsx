@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { projects } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
+import Eyebrow from "../components/Eyebrow";
 
 const skillGroups = [
   {
@@ -39,20 +40,6 @@ const skillGroups = [
     ],
   },
 ];
-
-function Eyebrow({
-  index,
-  label,
-}: {
-  index: string;
-  label: string;
-}) {
-  return (
-    <p className="mb-3 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
-      {index} / {label}
-    </p>
-  );
-}
 
 export default function Home() {
   const featuredProjects = projects.filter(
@@ -118,7 +105,7 @@ export default function Home() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:hidden" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              Open to junior developer roles
+              Open to junior roles &amp; freelance projects
             </span>
           </div>
 
@@ -138,9 +125,10 @@ export default function Home() {
 
           <div data-gsap="hero">
             <p className="mt-6 max-w-xl text-lg text-foreground-muted">
-              A Software Engineering student at CPUT who ships full
-              stack apps for real clients, fixes real networks by
-              day, and is working toward becoming an AI Engineer.
+              A Software Engineering student at CPUT and freelance web
+              developer who ships full stack apps for real clients,
+              fixes real networks by day, and is working toward
+              becoming an AI Engineer.
             </p>
           </div>
 
@@ -340,21 +328,31 @@ export default function Home() {
           </h2>
 
           <p className="relative mx-auto mt-4 max-w-md text-foreground-muted">
-            I&apos;m open to junior developer roles and opportunities
-            to keep learning and building.
+            I&apos;m open to junior developer roles, and I&apos;m
+            taking on new freelance clients who need a website built
+            properly.
           </p>
 
-          <Link
-            href="/contact"
-            className="group relative mt-8 inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
-          >
-            Get In Touch
-            <ArrowRight
-              size={16}
-              aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Link>
+          <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
+            >
+              Get In Touch
+              <ArrowRight
+                size={16}
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+
+            <Link
+              href="/contact?topic=freelance"
+              className="inline-flex items-center gap-2 rounded-lg border border-surface-border bg-background/60 px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-1 hover:border-accent"
+            >
+              Start a Freelance Project
+            </Link>
+          </div>
         </div>
       </section>
     </>

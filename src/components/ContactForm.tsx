@@ -1,9 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import type { FormEvent } from "react";
-import { Mail, Phone, ArrowRight } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import {
+  Mail,
+  Phone,
+  ArrowRight,
+  Send,
+  LoaderCircle,
+} from "lucide-react";
 import gsap from "gsap";
+import PageHeader from "./PageHeader";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -19,6 +27,55 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
       <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.15 1.45-2.15 2.94v5.67H9.34V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45Z" />
     </svg>
   );
+}
+
+const topics = [
+  { value: "job", label: "Job opportunity" },
+  { value: "freelance", label: "Freelance project" },
+  { value: "other", label: "Something else" },
+] as const;
+
+function TopicOptions({ defaultTopic }: { defaultTopic: string }) {
+  return (
+    <fieldset>
+      <legend className="text-sm font-medium">
+        What&apos;s this about?
+      </legend>
+
+      <div className="mt-2 flex flex-wrap gap-2">
+        {topics.map((topic) => (
+          <label
+            key={topic.value}
+            className="cursor-pointer"
+          >
+            <input
+              type="radio"
+              name="topic"
+              value={topic.value}
+              defaultChecked={topic.value === defaultTopic}
+              className="peer sr-only"
+            />
+
+            <span className="inline-block rounded-full border border-surface-border bg-background px-4 py-1.5 text-sm text-foreground-muted transition-colors duration-200 hover:border-accent/50 peer-checked:border-accent peer-checked:bg-accent/10 peer-checked:text-accent peer-focus-visible:ring-2 peer-focus-visible:ring-accent/40">
+              {topic.label}
+            </span>
+          </label>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+// Reads ?topic= so links like "Start a Freelance Project" preselect it.
+function TopicPicker() {
+  const searchParams = useSearchParams();
+  const requested = searchParams.get("topic");
+
+  const defaultTopic = topics.some((topic) => topic.value === requested)
+    ? (requested as string)
+    : "job";
+
+  return <TopicOptions defaultTopic={defaultTopic} />;
 }
 
 export default function ContactForm() {
@@ -42,6 +99,7 @@ export default function ContactForm() {
     setStatus("sending");
 
     const data = {
+      topic: formData.get("topic"),
       name: formData.get("name"),
       email: formData.get("email"),
       message: formData.get("message"),
@@ -121,31 +179,25 @@ export default function ContactForm() {
   ];
 
   return (
-    <section className="relative overflow-hidden">
-      {/* Background glow */}
-      <div
-        data-gsap="parallax"
-        className="pointer-events-none absolute left-1/2 top-0 h-[350px] w-[700px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
-        style={{
-          background:
-            "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
-        }}
-      />
+    <>
+      <PageHeader
+        eyebrow="Contact"
+        title="Let's"
+        highlight="build something."
+        description="Hiring, need a website built, or just want to connect? Send me a message, or reach out directly."
+        width="max-w-5xl"
+      >
+        <span className="mt-6 inline-flex items-center gap-2 rounded-full border border-surface-border bg-surface/70 px-3 py-1 text-xs font-medium text-foreground-muted backdrop-blur">
+          <span className="relative flex h-2 w-2">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:hidden" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+          </span>
+          Open to junior roles &amp; freelance projects
+        </span>
+      </PageHeader>
 
-      <div className="relative mx-auto max-w-3xl px-6 py-20">
-        {/* Heading */}
-        <div data-gsap="hero">
-          <h1 className="text-3xl font-bold">
-            Get In Touch
-          </h1>
-
-          <p className="mt-3 text-foreground-muted">
-            Have an opportunity, a question, or just want to
-            connect? Send me a message below, or reach out directly.
-          </p>
-        </div>
-
-        <div className="mt-10 grid gap-12">
+      <section className="mx-auto max-w-5xl px-6 pb-20">
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr]">
           {/* FORM */}
           <form
             onSubmit={handleSubmit}
@@ -153,7 +205,7 @@ export default function ContactForm() {
             style={{
               boxShadow: "var(--card-shadow)",
             }}
-            className="space-y-5 rounded-xl border border-surface-border bg-surface p-6"
+            className="h-fit space-y-5 rounded-2xl border border-surface-border bg-surface p-6 sm:p-8"
           >
             {/* Honeypot field, hidden from real visitors */}
             <input
@@ -164,6 +216,10 @@ export default function ContactForm() {
               aria-hidden="true"
               className="absolute -left-[9999px] h-0 w-0 opacity-0"
             />
+
+            <Suspense fallback={<TopicOptions defaultTopic="job" />}>
+              <TopicPicker />
+            </Suspense>
 
             <div>
               <label
@@ -178,7 +234,7 @@ export default function ContactForm() {
                 name="name"
                 type="text"
                 required
-                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
               />
             </div>
 
@@ -195,7 +251,7 @@ export default function ContactForm() {
                 name="email"
                 type="email"
                 required
-                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
               />
             </div>
 
@@ -212,33 +268,47 @@ export default function ContactForm() {
                 name="message"
                 required
                 rows={5}
-                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent"
+                className="mt-2 w-full rounded-lg border border-surface-border bg-background px-4 py-2.5 text-foreground outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
               />
             </div>
 
             <button
               type="submit"
               disabled={status === "sending"}
-              className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition-transform duration-300 hover:-translate-y-1 hover:opacity-90 disabled:opacity-50"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)] disabled:translate-y-0 disabled:opacity-60 sm:w-auto"
             >
-              {status === "sending"
-                ? "Sending..."
-                : "Send Message"}
+              {status === "sending" ? (
+                <>
+                  <LoaderCircle
+                    size={16}
+                    aria-hidden="true"
+                    className="animate-spin"
+                  />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  <Send size={16} aria-hidden="true" />
+                  Send Message
+                </>
+              )}
             </button>
 
-            {status === "sent" && (
-              <p className="text-sm text-accent">
-                Thanks for reaching out. I&apos;ll get back to you
-                soon.
-              </p>
-            )}
+            <div aria-live="polite">
+              {status === "sent" && (
+                <p className="text-sm text-accent">
+                  Thanks for reaching out. I&apos;ll get back to you
+                  soon.
+                </p>
+              )}
 
-            {status === "error" && (
-              <p className="text-sm text-red-500">
-                Something went wrong. Please try again, or email me
-                directly.
-              </p>
-            )}
+              {status === "error" && (
+                <p className="text-sm text-red-500">
+                  Something went wrong. Please try again, or email me
+                  directly.
+                </p>
+              )}
+            </div>
           </form>
 
           {/* DIRECT CONTACT */}
@@ -268,10 +338,13 @@ export default function ContactForm() {
                     key={card.label}
                     onMouseEnter={handleCardMouseEnter}
                     onMouseLeave={handleCardMouseLeave}
-                    className="flex items-start gap-4 rounded-lg border border-surface-border bg-surface p-4 will-change-transform transition-shadow hover:shadow-md"
+                    className="flex items-start gap-4 rounded-xl border border-surface-border bg-surface p-4 will-change-transform transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_12px_32px_-16px_var(--accent)]"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10">
-                      <Icon className="h-5 w-5 text-accent" />
+                      <Icon
+                        className="h-5 w-5 text-accent"
+                        aria-hidden="true"
+                      />
                     </div>
 
                     <div className="min-w-0">
@@ -289,7 +362,7 @@ export default function ContactForm() {
                         className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-accent hover:underline"
                       >
                         {card.cta}
-                        <ArrowRight size={14} />
+                        <ArrowRight size={14} aria-hidden="true" />
                       </a>
                     </div>
                   </div>
@@ -298,7 +371,7 @@ export default function ContactForm() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

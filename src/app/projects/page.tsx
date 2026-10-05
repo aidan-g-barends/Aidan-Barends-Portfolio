@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { projects } from "../../data/projects";
 import type { ProjectStatus } from "../../data/projects";
 import ProjectCard from "../../components/ProjectCard";
+import PageHeader from "../../components/PageHeader";
+import Eyebrow from "../../components/Eyebrow";
 
 export const metadata: Metadata = {
   title: "Projects | Aidan Barends",
@@ -34,31 +36,60 @@ const sections: {
 ];
 
 export default function ProjectsPage() {
+  const visibleSections = sections
+    .map((section) => ({
+      ...section,
+      projects: projects.filter(
+        (project) => project.status === section.status
+      ),
+    }))
+    .filter((section) => section.projects.length > 0);
+
   return (
-    <section className="mx-auto max-w-5xl px-6 py-20">
-      <div data-gsap="hero">
-        <h1 className="text-3xl font-bold">Projects</h1>
+    <>
+      <PageHeader
+        eyebrow="Projects"
+        title="Everything I've"
+        highlight="built."
+        description="From live client sites to things I'm still putting together."
+        width="max-w-5xl"
+      >
+        {/* Jump links double as a quick summary of the counts */}
+        <nav
+          aria-label="Project sections"
+          className="mt-8 flex flex-wrap gap-3"
+        >
+          {visibleSections.map((section) => (
+            <a
+              key={section.status}
+              href={`#${section.status}`}
+              className="inline-flex items-center gap-2 rounded-full border border-surface-border bg-surface/70 px-4 py-1.5 text-sm backdrop-blur transition-colors duration-300 hover:border-accent hover:text-accent"
+            >
+              {section.title}
+              <span className="rounded-full bg-accent/15 px-2 font-[family-name:var(--font-mono)] text-xs text-accent">
+                {section.projects.length}
+              </span>
+            </a>
+          ))}
+        </nav>
+      </PageHeader>
 
-        <p className="mt-3 max-w-2xl text-foreground-muted">
-          Everything I&apos;ve built, from live client sites to
-          things I&apos;m still putting together.
-        </p>
-      </div>
-
-      {sections.map((section) => {
-        const sectionProjects = projects.filter(
-          (project) => project.status === section.status
-        );
-
-        if (sectionProjects.length === 0) return null;
-
-        return (
+      <section className="mx-auto max-w-5xl px-6 pb-20">
+        {visibleSections.map((section, index) => (
           <div
             key={section.status}
-            className="mt-16 first:mt-10"
+            id={section.status}
+            className="scroll-mt-24 pt-12 first:pt-4"
           >
             <div data-gsap="reveal">
-              <h2 className="text-xl font-bold">
+              <Eyebrow
+                index={String(index + 1).padStart(2, "0")}
+                label={`${section.projects.length} ${
+                  section.projects.length === 1 ? "project" : "projects"
+                }`}
+              />
+
+              <h2 className="text-2xl font-bold">
                 {section.title}
               </h2>
 
@@ -71,7 +102,7 @@ export default function ProjectsPage() {
               data-gsap="stagger"
               className="mt-6 grid gap-6 sm:grid-cols-2"
             >
-              {sectionProjects.map((project) => (
+              {section.projects.map((project) => (
                 <ProjectCard
                   key={project.slug}
                   project={project}
@@ -79,8 +110,8 @@ export default function ProjectsPage() {
               ))}
             </div>
           </div>
-        );
-      })}
-    </section>
+        ))}
+      </section>
+    </>
   );
 }
