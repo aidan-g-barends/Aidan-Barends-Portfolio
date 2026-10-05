@@ -178,11 +178,11 @@ export const projects: Project[] = [
     live: "https://uniexchange-rust.vercel.app/",
     image: "/projects/uniexchange.webp",
 
-    status: "in-progress",
+    status: "live",
     featured: false,
 
     role:
-      "Contributing as part of a university software development team, working primarily on the backend domain layer and collaborating with team members through a structured Git workflow. My contributions involve implementing and maintaining domain entities, applying object-oriented design principles, and working within the project's Spring Boot architecture.",
+      "Contributed as part of a university software development team, working primarily on the backend domain layer and collaborating with team members through a structured Git workflow. My contributions involved implementing and maintaining domain entities, applying object-oriented design principles, and working within the project's Spring Boot architecture.",
 
     problem:
       "University students often rely on informal platforms and social media to buy, sell, and exchange goods and services with other students. UniExchange aims to provide a dedicated campus marketplace where members of the university community can discover listings, communicate with other users, complete transactions, and build trust within a structured platform.",
@@ -206,11 +206,11 @@ export const projects: Project[] = [
       "MySQL database integration",
       "Domain-driven backend structure",
       "JUnit and Spring Boot testing",
-      "React and Vite frontend foundation",
+      "React and Vite frontend",
     ],
 
     challenges:
-      "Working on UniExchange as a group project required coordinating a large domain model across multiple developers while keeping the architecture and database relationships consistent. A major challenge has been establishing a structured backend foundation containing 22 domain entities and 13 enums, while ensuring the different parts of the system follow consistent object-oriented and JPA design patterns. The project also requires keeping frontend and backend development aligned as the platform progresses through its planned feature milestones.",
+      "Working on UniExchange as a group project required coordinating a large domain model across multiple developers while keeping the architecture and database relationships consistent. A major challenge was establishing a structured backend foundation containing 22 domain entities and 13 enums, while ensuring the different parts of the system follow consistent object-oriented and JPA design patterns. The project also required keeping frontend and backend development aligned as the platform progressed through its planned feature milestones to a finished, deployed product.",
   },
 
   {
