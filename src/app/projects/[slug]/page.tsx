@@ -15,11 +15,13 @@ function ImageFrame({
   name,
   live,
   liveIsProduction,
+  isIllustration,
 }: {
   image: string;
   name: string;
   live?: string;
   liveIsProduction?: boolean;
+  isIllustration?: boolean;
 }) {
   const liveLabel = liveIsProduction ? "Live Site" : "Live Demo";
 
@@ -40,11 +42,15 @@ function ImageFrame({
       <div className="relative aspect-[16/10] w-full overflow-hidden">
         <Image
           src={image}
-          alt={`${name} screenshot`}
+          alt={
+            isIllustration
+              ? `Illustration representing ${name}`
+              : `${name} screenshot`
+          }
           fill
           sizes="(min-width: 768px) 768px, 100vw"
           className="object-cover object-top transition-transform duration-500 group-hover/image:scale-[1.03]"
-          priority
+          preload
         />
 
         {live && (
@@ -145,6 +151,7 @@ export default async function ProjectDetailPage({
           name={project.name}
           live={project.live}
           liveIsProduction={project.liveIsProduction}
+          isIllustration={project.imageIsIllustration}
         />
       )}
 

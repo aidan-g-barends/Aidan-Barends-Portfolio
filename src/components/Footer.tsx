@@ -27,9 +27,9 @@ export default function Footer() {
         <p>&copy; {new Date().getFullYear()} Aidan Barends.</p>
 
         <div className="flex items-center gap-4">
-          <a href={githubUrl} aria-label="GitHub" target="_blank" rel="noopener noreferrer"><GithubIcon /></a>
-          <a href={linkedinUrl} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer"><LinkedinIcon /></a>
-          <a href={emailUrl} aria-label="Email"><Mail size={18} className="hover:text-foreground transition" /></a>
+          <a href={githubUrl} aria-label="GitHub" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent"><GithubIcon /></a>
+          <a href={linkedinUrl} aria-label="LinkedIn" target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-accent"><LinkedinIcon /></a>
+          <a href={emailUrl} aria-label="Email" className="transition-colors hover:text-accent"><Mail size={18} aria-hidden="true" /></a>
         </div>
       </div>
     </footer>

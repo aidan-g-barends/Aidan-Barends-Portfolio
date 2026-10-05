@@ -12,6 +12,8 @@ export type Project = {
   liveIsProduction?: boolean;
   private?: boolean;
   image?: string;
+  // Generated cover art rather than a real screenshot of the app
+  imageIsIllustration?: boolean;
   status: ProjectStatus;
   featured: boolean;
   role?: string;
@@ -33,6 +35,8 @@ export const projects: Project[] = [
       "A full-stack task management platform developed as a university group project to help teams organise, assign, monitor, and complete work through one centralised system. The application was built with Laravel and MySQL, using a structured backend architecture with dedicated models, services, policies, and notification functionality.",
     tech: ["Laravel", "PHP", "MySQL"],
     github: "https://github.com/aidan-g-barends/Task-Flow-Pro",
+    image: "/projects/cover-task-flow-pro.webp",
+    imageIsIllustration: true,
     status: "github-only",
     featured: false,
     role:
@@ -58,6 +62,8 @@ export const projects: Project[] = [
       "A responsive multi-page website developed for a real local restaurant to establish a professional online presence and make important business information easily accessible to customers. The website combines restaurant information, menu presentation, photography, and a working contact system into a simple customer-facing experience.",
     tech: ["HTML", "Tailwind CSS", "JavaScript"],
     github: "https://github.com/aidan-g-barends/DieStrandloper",
+    image: "/projects/cover-die-strandloper.webp",
+    imageIsIllustration: true,
     status: "github-only",
     featured: false,
     role:
@@ -120,6 +126,8 @@ export const projects: Project[] = [
     tech: ["Spring Boot", "Java", "JPA/Hibernate", "MySQL"],
     githubFrontend: "https://github.com/AidanBarends/MediTicketApp",
     githubBackend: "https://github.com/AidanBarends/MediTicket2",
+    image: "/projects/cover-mediticket-2.webp",
+    imageIsIllustration: true,
     status: "github-only",
     featured: false,
     role:
@@ -159,6 +167,8 @@ export const projects: Project[] = [
     ],
 
     github: "https://github.com/AidanBarends/UniExchange",
+    image: "/projects/cover-uniexchange.webp",
+    imageIsIllustration: true,
 
     status: "in-progress",
     featured: false,
@@ -235,6 +245,8 @@ export const projects: Project[] = [
       "A full-stack task management application built to explore the integration of a modern Angular single-page application with a Java Spring Boot REST API. The project demonstrates the separation of frontend and backend responsibilities while providing a practical environment for working with REST endpoints, TypeScript, Java, and application data.",
     tech: ["Angular", "Spring Boot", "Java", "TypeScript"],
     github: "https://github.com/aidan-g-barends/Task-Manager-App",
+    image: "/projects/cover-task-manager-app.webp",
+    imageIsIllustration: true,
     status: "github-only",
     featured: false,
     role:

@@ -6,12 +6,13 @@
   --surface-border: #D7DEE7;
   --foreground: #0B0F14;
   --foreground-muted: #57626F;
-  --accent: #0D9C9A;
+  --accent: #0A7573;
   --accent-2: #3D6BE0;
   --card-shadow:
     0 1px 3px rgba(15, 23, 42, 0.06),
     0 1px 2px rgba(15, 23, 42, 0.04);
   --pattern-dot: rgba(11, 15, 20, 0.06);
+  --grid-line: rgba(11, 15, 20, 0.06);
 }
 
 .dark {
@@ -24,6 +25,7 @@
   --accent-2: #5B8DEF;
   --card-shadow: none;
   --pattern-dot: rgba(255, 255, 255, 0.05);
+  --grid-line: rgba(255, 255, 255, 0.05);
 }
 
 @theme inline {
@@ -88,6 +90,104 @@ textarea {
   will-change: transform;
 }
 
+/*
+ * HERO
+ */
+.text-gradient {
+  background: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--accent-2) 50%,
+    var(--accent) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 6s linear infinite;
+}
+
+@keyframes gradient-shift {
+  to {
+    background-position: -200% center;
+  }
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(
+    ellipse 70% 60% at 50% 30%,
+    #000 30%,
+    transparent 100%
+  );
+}
+
+/*
+ * TECH MARQUEE
+ */
+.marquee {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 10%,
+    #000 90%,
+    transparent
+  );
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 45s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/*
+ * PROJECT CARD SPOTLIGHT
+ * --mx / --my are set from the cursor position in ProjectCard.
+ */
+.spotlight-card {
+  position: relative;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(
+    360px circle at var(--mx, 50%) var(--my, 50%),
+    var(--accent),
+    transparent 45%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -100,5 +200,31 @@ textarea {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .text-gradient,
+  .marquee-track {
+    animation: none !important;
+  }
+
+  /* Show the tech list as a static, wrapped row instead of scrolling */
+  .marquee {
+    mask-image: none;
+  }
+
+  .marquee-track {
+    width: auto;
+  }
+
+  .marquee-track > ul:first-child {
+    flex-wrap: wrap;
+    justify-content: center;
+    row-gap: 0.75rem;
+    width: 100%;
+    padding-inline: 1.5rem;
+  }
+
+  .marquee-track > ul:last-child {
+    display: none;
   }
 }

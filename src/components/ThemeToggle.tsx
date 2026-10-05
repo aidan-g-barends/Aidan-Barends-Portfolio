@@ -1,36 +1,40 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
+
+const THEME_EVENT = "themechange";
+
+// The initial "dark" class is set before paint by the inline script in
+// layout.tsx, so the toggle only has to read it from the DOM.
+function subscribe(callback: () => void) {
+  window.addEventListener(THEME_EVENT, callback);
+  window.addEventListener("storage", callback);
+
+  return () => {
+    window.removeEventListener(THEME_EVENT, callback);
+    window.removeEventListener("storage", callback);
+  };
+}
+
+function getSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+
+// Unknown on the server, so render the placeholder button.
+function getServerSnapshot() {
+  return null;
+}
 
 export default function ThemeToggle() {
-  const [isDark, setIsDark] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const stored = localStorage.getItem("theme");
-
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-
-    const shouldUseDark = stored
-      ? stored === "dark"
-      : prefersDark;
-
-    document.documentElement.classList.toggle(
-      "dark",
-      shouldUseDark
-    );
-
-    setIsDark(shouldUseDark);
-    setMounted(true);
-  }, []);
+  const isDark = useSyncExternalStore(
+    subscribe,
+    getSnapshot,
+    getServerSnapshot
+  );
 
   function toggleTheme() {
     const nextIsDark = !isDark;
-
-    setIsDark(nextIsDark);
 
     document.documentElement.classList.toggle(
       "dark",
@@ -41,10 +45,12 @@ export default function ThemeToggle() {
       "theme",
       nextIsDark ? "dark" : "light"
     );
+
+    window.dispatchEvent(new Event(THEME_EVENT));
   }
 
   // Keep the server and initial client render identical.
-  if (!mounted) {
+  if (isDark === null) {
     return (
       <button
         type="button"

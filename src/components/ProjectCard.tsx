@@ -33,6 +33,16 @@ export default function ProjectCard({
     const x = event.clientX - rect.left;
     const y = event.clientY - rect.top;
 
+    // Spotlight border position (static glow, so fine for reduced motion)
+    card.style.setProperty("--mx", `${x}px`);
+    card.style.setProperty("--my", `${y}px`);
+
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
     const rotateY = (x / rect.width - 0.5) * 5;
     const rotateX = (y / rect.height - 0.5) * -5;
 
@@ -66,7 +76,7 @@ export default function ProjectCard({
       ref={cardRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group flex h-full flex-col overflow-hidden rounded-xl border border-surface-border bg-surface will-change-transform transition-colors hover:border-accent/50"
+      className="spotlight-card group flex h-full flex-col overflow-hidden rounded-xl border border-surface-border bg-surface will-change-transform transition-[border-color,box-shadow] duration-300 hover:border-accent/30 hover:shadow-[0_20px_50px_-20px_var(--accent)]"
     >
       {project.image && (
         <a
@@ -90,7 +100,11 @@ export default function ProjectCard({
           <div className="relative aspect-[16/10] w-full overflow-hidden">
             <Image
               src={project.image}
-              alt={`${project.name} screenshot`}
+              alt={
+                project.imageIsIllustration
+                  ? `Illustration representing ${project.name}`
+                  : `${project.name} screenshot`
+              }
               fill
               sizes="(min-width: 640px) 50vw, 100vw"
               className="object-cover object-top transition-transform duration-500 group-hover/image:scale-[1.04]"

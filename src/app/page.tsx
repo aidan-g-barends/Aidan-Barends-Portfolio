@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowRight, Download } from "lucide-react";
 import { projects } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 
@@ -39,6 +40,20 @@ const skillGroups = [
   },
 ];
 
+function Eyebrow({
+  index,
+  label,
+}: {
+  index: string;
+  label: string;
+}) {
+  return (
+    <p className="mb-3 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
+      {index} / {label}
+    </p>
+  );
+}
+
 export default function Home() {
   const featuredProjects = projects.filter(
     (project) => project.featured
@@ -52,6 +67,15 @@ export default function Home() {
     projects.flatMap((project) => project.tech)
   ).size;
 
+  const technologies = Array.from(
+    new Set([
+      ...projects.flatMap((project) => project.tech),
+      ...skillGroups
+        .filter((group) => group.label !== "Networking & Hardware")
+        .flatMap((group) => group.items),
+    ])
+  );
+
   const stats = [
     { value: `${projects.length}+`, label: "Projects Built" },
     { value: `${liveProjectCount}`, label: "Live in Production" },
@@ -63,7 +87,13 @@ export default function Home() {
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div
+          aria-hidden="true"
+          className="hero-grid pointer-events-none absolute inset-0"
+        />
+
+        <div
           data-gsap="parallax"
+          aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
           style={{
             background:
@@ -71,9 +101,29 @@ export default function Home() {
           }}
         />
 
+        <div
+          data-gsap="parallax"
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-32 top-48 h-[380px] w-[380px] rounded-full opacity-30 blur-3xl dark:opacity-20"
+          style={{
+            background:
+              "radial-gradient(circle, var(--accent-2) 0%, transparent 70%)",
+          }}
+        />
+
         <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-28 text-center sm:py-40">
           <div data-gsap="hero">
-            <p className="font-[family-name:var(--font-mono)] text-sm text-accent">
+            <span className="inline-flex items-center gap-2 rounded-full border border-surface-border bg-surface/70 px-3 py-1 text-xs font-medium text-foreground-muted backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:hidden" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              Open to junior developer roles
+            </span>
+          </div>
+
+          <div data-gsap="hero">
+            <p className="mt-6 font-[family-name:var(--font-mono)] text-sm text-accent">
               IT Field Technician → Software Engineering Student →
               Aspiring AI Engineer
             </p>
@@ -81,7 +131,8 @@ export default function Home() {
 
           <div data-gsap="hero">
             <h1 className="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">
-              Hey, I&apos;m Aidan Barends.
+              Hey, I&apos;m{" "}
+              <span className="text-gradient">Aidan Barends</span>.
             </h1>
           </div>
 
@@ -97,16 +148,22 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/projects"
-                className="rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition-transform duration-300 hover:-translate-y-1 hover:opacity-90"
+                className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
               >
                 View My Work
+                <ArrowRight
+                  size={16}
+                  aria-hidden="true"
+                  className="transition-transform duration-300 group-hover:translate-x-1"
+                />
               </Link>
 
               <Link
                 href="/resume.pdf"
                 target="_blank"
-                className="rounded-lg border border-surface-border px-6 py-3 text-sm font-medium text-foreground transition-transform duration-300 hover:-translate-y-1 hover:border-accent"
+                className="inline-flex items-center gap-2 rounded-lg border border-surface-border bg-surface/60 px-6 py-3 text-sm font-medium text-foreground backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-accent"
               >
+                <Download size={16} aria-hidden="true" />
                 Download Resume
               </Link>
             </div>
@@ -119,12 +176,12 @@ export default function Home() {
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-xl border border-surface-border bg-surface px-3 py-4 text-center"
+                className="rounded-xl border border-surface-border bg-surface/80 px-3 py-4 text-center backdrop-blur transition-colors duration-300 hover:border-accent/50"
                 style={{
                   boxShadow: "var(--card-shadow)",
                 }}
               >
-                <p className="text-2xl font-bold text-accent sm:text-3xl">
+                <p className="font-[family-name:var(--font-heading)] text-2xl font-bold text-accent sm:text-3xl">
                   {stat.value}
                 </p>
 
@@ -137,10 +194,43 @@ export default function Home() {
         </div>
       </section>
 
+      {/* TECH MARQUEE */}
+      <section
+        aria-label="Technologies I've worked with"
+        className="border-y border-surface-border bg-surface/40 py-5"
+      >
+        <div className="marquee overflow-hidden">
+          <div className="marquee-track">
+            {[0, 1].map((copy) => (
+              <ul
+                key={copy}
+                aria-hidden={copy === 1 ? true : undefined}
+                className="flex shrink-0 items-center gap-10 pr-10"
+              >
+                {technologies.map((tech) => (
+                  <li
+                    key={tech}
+                    className="flex items-center gap-10 whitespace-nowrap font-[family-name:var(--font-mono)] text-sm text-foreground-muted"
+                  >
+                    {tech}
+                    <span
+                      aria-hidden="true"
+                      className="h-1 w-1 rounded-full bg-accent"
+                    />
+                  </li>
+                ))}
+              </ul>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* BEST PROJECTS */}
       <section className="mx-auto max-w-5xl px-6 py-20">
         <div data-gsap="reveal">
-          <h2 className="text-2xl font-bold">
+          <Eyebrow index="01" label="Featured work" />
+
+          <h2 className="text-2xl font-bold sm:text-3xl">
             Best Projects
           </h2>
 
@@ -179,7 +269,9 @@ export default function Home() {
       <section className="border-y border-surface-border bg-surface/50">
         <div className="mx-auto max-w-5xl px-6 py-20">
           <div data-gsap="reveal">
-            <h2 className="text-2xl font-bold">Skills</h2>
+            <Eyebrow index="02" label="Toolkit" />
+
+            <h2 className="text-2xl font-bold sm:text-3xl">Skills</h2>
 
             <p className="mt-2 text-foreground-muted">
               Technologies and tools I work with.
@@ -223,22 +315,45 @@ export default function Home() {
       <section className="mx-auto max-w-5xl px-6 py-24">
         <div
           data-gsap="scale"
-          className="rounded-2xl border border-surface-border bg-surface px-6 py-16 text-center sm:px-16"
+          className="relative overflow-hidden rounded-2xl border border-surface-border bg-surface px-6 py-16 text-center sm:px-16"
         >
-          <h2 className="text-2xl font-bold sm:text-3xl">
+          <div
+            aria-hidden="true"
+            className="hero-grid pointer-events-none absolute inset-0"
+          />
+
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -bottom-32 left-1/2 h-64 w-[600px] -translate-x-1/2 rounded-full opacity-30 blur-3xl dark:opacity-20"
+            style={{
+              background:
+                "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
+            }}
+          />
+
+          <div className="relative">
+            <Eyebrow index="03" label="What's next" />
+          </div>
+
+          <h2 className="relative text-2xl font-bold sm:text-3xl">
             Interested in working together?
           </h2>
 
-          <p className="mx-auto mt-4 max-w-md text-foreground-muted">
+          <p className="relative mx-auto mt-4 max-w-md text-foreground-muted">
             I&apos;m open to junior developer roles and opportunities
             to keep learning and building.
           </p>
 
           <Link
             href="/contact"
-            className="mt-8 inline-block rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background transition-transform duration-300 hover:-translate-y-1 hover:opacity-90"
+            className="group relative mt-8 inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
           >
             Get In Touch
+            <ArrowRight
+              size={16}
+              aria-hidden="true"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
           </Link>
         </div>
       </section>

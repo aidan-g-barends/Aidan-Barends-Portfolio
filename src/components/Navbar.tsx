@@ -25,6 +25,12 @@ export default function Navbar() {
   useEffect(() => {
     if (!navRef.current) return;
 
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return;
+    }
+
     gsap.fromTo(
       navRef.current,
       {
@@ -97,6 +103,7 @@ export default function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
+                aria-current={isActive ? "page" : undefined}
                 className={`text-sm transition-colors duration-200 ${
                   isActive
                     ? "font-medium text-foreground"
@@ -142,6 +149,7 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
+                aria-current={isActive ? "page" : undefined}
                 className={`text-sm transition-colors ${
                   isActive
                     ? "font-medium text-foreground"
