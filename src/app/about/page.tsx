@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import {
+  ArrowRight,
   Briefcase,
   Code2,
   GraduationCap,
@@ -10,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import PageHeader from "../../components/PageHeader";
+import { lessons } from "../../data/lessons";
 
 export const metadata: Metadata = {
   title: "About | Aidan Barends",
@@ -143,6 +145,16 @@ export default function AboutPage() {
             </p>
 
             <p>
+              Working with real clients has taught me things a
+              classroom can&apos;t: how to actually communicate with
+              people, how much patience matters when someone is
+              stressed about their tech, and how to handle very
+              different kinds of clients, from homes to businesses,
+              and from people who are confident with tech to people
+              who aren&apos;t.
+            </p>
+
+            <p>
               Outside of coursework, I&apos;m constantly upskilling
               myself. I&apos;ve completed Angela Yu&apos;s Complete
               Web Development Bootcamp, and I&apos;m currently
@@ -213,6 +225,70 @@ export default function AboutPage() {
               })}
             </dl>
           </aside>
+        </div>
+
+        {/* LESSONS */}
+        <div className="mt-16">
+          <div
+            data-gsap="reveal"
+            className="flex flex-wrap items-end justify-between gap-4"
+          >
+            <div>
+              <p className="mb-3 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
+                Lessons from the field
+              </p>
+
+              <h2 className="text-2xl font-bold">
+                What real clients have taught me
+              </h2>
+            </div>
+
+            <Link
+              href="/experience"
+              className="group inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+            >
+              See all of them
+              <ArrowRight
+                size={14}
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+          </div>
+
+          <ul
+            data-gsap="stagger"
+            className="mt-6 grid gap-4 md:grid-cols-3"
+          >
+            {lessons.slice(0, 3).map((lesson) => {
+              const Icon = lesson.icon;
+
+              return (
+                <li
+                  key={lesson.title}
+                  className="rounded-2xl border border-surface-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
+                  style={{
+                    boxShadow: "var(--card-shadow)",
+                  }}
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10">
+                    <Icon
+                      className="h-5 w-5 text-accent"
+                      aria-hidden="true"
+                    />
+                  </div>
+
+                  <h3 className="mt-4 font-semibold">
+                    {lesson.title}
+                  </h3>
+
+                  <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
+                    {lesson.description}
+                  </p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
 
         {/* CARDS */}

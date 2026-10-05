@@ -11,6 +11,7 @@ import {
   Download,
   GraduationCap,
   LifeBuoy,
+  Lightbulb,
   RotateCcw,
   School,
   Ticket,
@@ -22,7 +23,9 @@ import {
 } from "lucide-react";
 import Eyebrow from "../../components/Eyebrow";
 import PageHeader from "../../components/PageHeader";
+import PeriodTabs from "../../components/PeriodTabs";
 import { projects } from "../../data/projects";
+import { lessons } from "../../data/lessons";
 
 function getDomain(url: string) {
   try {
@@ -48,11 +51,15 @@ const freelance = {
       label: "Started freelancing",
       period: "Jul 2025",
       current: false,
+      description:
+        "I started taking on web design work alongside my studies and my IT job, building websites for small businesses that needed a proper online presence.",
     },
     {
       label: "Growing it as a business",
       period: "Sep 2026 – Present",
       current: true,
+      description:
+        "This is when I got serious about it. I'm treating freelancing as a business now and actively looking for new clients who need a website designed, built, and launched properly.",
     },
   ],
   services: [
@@ -100,11 +107,15 @@ const craythorne = {
       label: "Current",
       period: "Jul 2026 – Present",
       current: true,
+      description:
+        "CraythorneIT brought me back for a second stint. I'm out in the field solo again doing Wi-Fi, router, and hardware work for residential and business clients, working through the ticketing system daily, and handling remote support like Outlook issues and email and account setup.",
     },
     {
       label: "First stint",
       period: "Aug 2025 – Jan 2026",
       current: false,
+      description:
+        "My first IT role. Field work for residential and business clients: Wi-Fi assessments and installs, router configuration, PC builds and hardware repairs, and resolving network outages on-site. It's where I learnt to troubleshoot under real-world pressure instead of in a classroom.",
     },
   ],
   areas: [
@@ -329,37 +340,7 @@ export default function ExperiencePage() {
               </span>
             </div>
 
-            <ol className="mt-6 grid gap-3 sm:grid-cols-2">
-              {freelance.milestones.map((milestone) => (
-                <li
-                  key={milestone.period}
-                  className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${
-                    milestone.current
-                      ? "border-accent/40 bg-accent/5"
-                      : "border-surface-border bg-background"
-                  }`}
-                >
-                  <span
-                    aria-hidden="true"
-                    className={`h-2.5 w-2.5 shrink-0 rounded-full ${
-                      milestone.current
-                        ? "bg-accent"
-                        : "bg-foreground-muted/50"
-                    }`}
-                  />
-
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-foreground-muted">
-                      {milestone.label}
-                    </p>
-
-                    <p className="font-[family-name:var(--font-mono)] text-sm font-medium">
-                      {milestone.period}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <PeriodTabs periods={freelance.milestones} />
 
             <p className="mt-6 text-foreground-muted">
               {freelance.summary}
@@ -473,42 +454,7 @@ export default function ExperiencePage() {
             </div>
 
             {/* Stints */}
-            <ol className="mt-6 grid gap-3 sm:grid-cols-2">
-              {craythorne.stints.map((stint) => (
-                <li
-                  key={stint.period}
-                  className={`flex items-center gap-3 rounded-lg border px-4 py-3 ${
-                    stint.current
-                      ? "border-accent/40 bg-accent/5"
-                      : "border-surface-border bg-background"
-                  }`}
-                >
-                  <span className="relative flex h-2.5 w-2.5 shrink-0">
-                    {stint.current && (
-                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:hidden" />
-                    )}
-
-                    <span
-                      className={`relative inline-flex h-2.5 w-2.5 rounded-full ${
-                        stint.current
-                          ? "bg-emerald-500"
-                          : "bg-foreground-muted/50"
-                      }`}
-                    />
-                  </span>
-
-                  <div>
-                    <p className="text-xs uppercase tracking-wide text-foreground-muted">
-                      {stint.label}
-                    </p>
-
-                    <p className="font-[family-name:var(--font-mono)] text-sm font-medium">
-                      {stint.period}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <PeriodTabs periods={craythorne.stints} />
 
             <p className="mt-6 text-foreground-muted">
               {craythorne.summary}
@@ -613,6 +559,71 @@ export default function ExperiencePage() {
                     {item.place}
                   </p>
                 </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      {/* LESSONS */}
+      <section className="mx-auto max-w-5xl px-6 pb-20">
+        <div
+          data-gsap="reveal"
+          className="mx-auto max-w-3xl"
+        >
+          <Eyebrow label="Lessons from the field" />
+
+          <h2 className="flex items-center gap-2 text-2xl font-bold sm:text-3xl">
+            <Lightbulb
+              className="h-6 w-6 text-accent"
+              aria-hidden="true"
+            />
+            What the industry has taught me
+          </h2>
+
+          <p className="mt-2 text-foreground-muted">
+            Real clients teach you things a classroom can&apos;t.
+            Between field work, remote support, and freelancing,
+            these are the lessons that stuck.
+          </p>
+        </div>
+
+        <ul
+          data-gsap="stagger"
+          className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        >
+          {lessons.map((lesson, index) => {
+            const Icon = lesson.icon;
+
+            return (
+              <li
+                key={lesson.title}
+                className="group relative overflow-hidden rounded-2xl border border-surface-border bg-surface p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
+                style={{
+                  boxShadow: "var(--card-shadow)",
+                }}
+              >
+                <span
+                  aria-hidden="true"
+                  className="absolute right-5 top-4 font-[family-name:var(--font-mono)] text-3xl font-bold text-foreground/5 transition-colors duration-300 group-hover:text-accent/15"
+                >
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 transition-colors duration-300 group-hover:bg-accent/20">
+                  <Icon
+                    className="h-5 w-5 text-accent"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <h3 className="mt-4 font-semibold">
+                  {lesson.title}
+                </h3>
+
+                <p className="mt-2 text-sm leading-relaxed text-foreground-muted">
+                  {lesson.description}
+                </p>
               </li>
             );
           })}
