@@ -8,6 +8,7 @@ import {
   Clapperboard,
   Code2,
   Cpu,
+  Eye,
   Download,
   GraduationCap,
   LifeBuoy,
@@ -15,12 +16,14 @@ import {
   RotateCcw,
   School,
   Ticket,
+  UserCheck,
   Utensils,
   Wifi,
   Wine,
   Wrench,
   Zap,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Eyebrow from "../../components/Eyebrow";
 import PageHeader from "../../components/PageHeader";
 import PeriodTabs from "../../components/PeriodTabs";
@@ -41,33 +44,82 @@ const freelanceClients = projects.filter(
   (project) => project.clientWork
 );
 
+type Area = {
+  icon: LucideIcon;
+  title: string;
+  items: string[];
+};
+
+type PeriodData = {
+  label: string;
+  period: string;
+  current: boolean;
+  description: string;
+  areas: Area[];
+  skills: string[];
+};
+
 const freelance = {
   role: "Freelance Web Developer",
   period: "Jul 2025 – Present",
   summary:
-    "I build websites for small businesses that need a proper online presence. I handle the whole job myself, from turning what the business does into clear pages through to deploying the live site. I started taking on web design work in July 2025, and since September 2026 I've been growing it seriously as a business.",
+    "I build websites for small businesses that need a proper online presence, handling the whole job myself. Click a period to see how it's grown.",
   milestones: [
-    {
-      label: "Started freelancing",
-      period: "Jul 2025",
-      current: false,
-      description:
-        "I started taking on web design work alongside my studies and my IT job, building websites for small businesses that needed a proper online presence.",
-    },
     {
       label: "Growing it as a business",
       period: "Sep 2026 – Present",
       current: true,
       description:
         "This is when I got serious about it. I'm treating freelancing as a business now and actively looking for new clients who need a website designed, built, and launched properly.",
+      areas: [
+        {
+          icon: Briefcase,
+          title: "Running it as a business",
+          items: [
+            "Treating freelancing as a business, not a side project",
+            "Actively looking for new clients",
+            "Taking on new website projects for small businesses",
+          ],
+        },
+        {
+          icon: Code2,
+          title: "What I deliver",
+          items: [
+            "Turning a business's services and information into a clear, professional website",
+            "Responsive UI that works across mobile, tablet, and desktop",
+            "Reusable, maintainable components so the site is easy to update",
+            "Deployment and launch of the live production site",
+          ],
+        },
+      ],
+      skills: [
+        "Web Design",
+        "Responsive UI",
+        "Reusable Components",
+        "Deployment",
+        "Client Communication",
+      ],
     },
-  ],
-  services: [
-    "Turning a business's services and information into a clear, professional website",
-    "Responsive UI that works across mobile, tablet, and desktop",
-    "Reusable, maintainable components so the site is easy to update",
-    "Deployment and launch of the live production site",
-  ],
+    {
+      label: "Started freelancing",
+      period: "Jul 2025",
+      current: false,
+      description:
+        "I started taking on web design work alongside my studies and my IT job.",
+      areas: [
+        {
+          icon: Code2,
+          title: "Getting started",
+          items: [
+            "Took on web design work alongside studying and working in IT",
+            "Built websites for small businesses that needed a proper online presence",
+            "Handled each job myself, from understanding what the business needed to deploying the live site",
+          ],
+        },
+      ],
+      skills: ["Web Design", "Responsive Layouts", "Client Work"],
+    },
+  ] satisfies PeriodData[],
 };
 
 export const metadata: Metadata = {
@@ -101,63 +153,152 @@ const craythorne = {
   role: "IT Field Technician",
   company: "CraythorneIT",
   summary:
-    "I started out shadowing experienced technicians to learn the work. When CraythorneIT brought me back for a second stint, I took on more: working client tickets through to close-out and handling remote support on top of the field work. Click a period below to see how the role grew.",
+    "I started out shadowing experienced technicians, and CraythorneIT brought me back for a second stint with more responsibility. Click a period to see what I did in each.",
   stints: [
     {
       label: "Current: tickets & remote support",
       period: "Jul 2026 – Present",
       current: true,
       description:
-        "CraythorneIT brought me back, and this time I stepped up. I now work through the ticketing system, picking up client-logged tickets, triaging them, and resolving or escalating them through to close-out. I also started doing remote support: troubleshooting Outlook issues, setting up Outlook email and user accounts, and handling first-line troubleshooting, alongside the on-site Wi-Fi, router, and hardware work.",
+        "CraythorneIT brought me back, and this time I stepped up: working client tickets through to close-out, doing remote support, and running field jobs on my own.",
+      areas: [
+        {
+          icon: Wifi,
+          title: "Networking",
+          items: [
+            "Run Wi-Fi assessments, installs, and configurations solo for residential and business clients, with no supervision needed once on-site.",
+            "Configure and maintain routers across multiple client networks, keeping them online and fixing what breaks.",
+            "Diagnose and resolve live network outages under time pressure, using Fing to pinpoint the failing device fast.",
+          ],
+        },
+        {
+          icon: Cpu,
+          title: "Hardware",
+          items: [
+            "Handle full PC builds and hardware repairs end-to-end, from diagnosis to fix.",
+            "Carry out system upgrades for clients.",
+          ],
+        },
+        {
+          icon: Ticket,
+          title: "Tickets & remote support",
+          items: [
+            "Work through the ticketing system: pick up client-logged tickets, triage the issue, and resolve or escalate it through to close-out.",
+            "Provide remote support: troubleshoot Outlook issues and set up Outlook email and user accounts.",
+            "Handle first-line troubleshooting remotely, escalating anything that needs admin-portal access.",
+          ],
+        },
+      ],
+      skills: [
+        "Networking",
+        "Router Config",
+        "Fing",
+        "Hardware",
+        "Ticketing Systems",
+        "Remote Support",
+        "Troubleshooting",
+        "Client Communication",
+      ],
     },
     {
       label: "First stint: learning the ropes",
       period: "Aug 2025 – Jan 2026",
       current: false,
       description:
-        "My first IT role. I mostly shadowed experienced technicians to learn how the work is done on real client jobs: Wi-Fi installs, router configuration, hardware repairs, and fixing network issues on-site. By the end I was also handling a few jobs on my own.",
-    },
-  ],
-  areas: [
-    {
-      icon: Wifi,
-      title: "Networking",
-      items: [
-        "Run Wi-Fi assessments, installs, and configurations solo for residential and business clients, with no supervision needed once on-site.",
-        "Configure and maintain routers across multiple client networks, keeping them online and fixing what breaks.",
-        "Diagnose and resolve live network outages under time pressure, using Fing to pinpoint the failing device fast.",
+        "My first IT role. I mostly shadowed experienced technicians to learn how the work is done on real client jobs, and by the end I was handling a few jobs on my own.",
+      areas: [
+        {
+          icon: Eye,
+          title: "Shadowing",
+          items: [
+            "Shadowed experienced technicians on real residential and business client jobs.",
+            "Learnt Wi-Fi installs and router configuration on the job.",
+            "Learnt hardware repairs and how to fix network issues on-site.",
+          ],
+        },
+        {
+          icon: UserCheck,
+          title: "First solo jobs",
+          items: [
+            "By the end of the stint, handled a few jobs on my own.",
+          ],
+        },
+      ],
+      skills: [
+        "Networking",
+        "Router Config",
+        "Hardware",
+        "Troubleshooting",
       ],
     },
-    {
-      icon: Cpu,
-      title: "Hardware",
-      items: [
-        "Handle full PC builds and hardware repairs end-to-end, from diagnosis to fix.",
-        "Carry out system upgrades for clients.",
-      ],
-    },
-    {
-      icon: Ticket,
-      title: "Support, on-site & remote",
-      items: [
-        "Work through a ticketing system daily: pick up client-logged tickets, triage the issue, and resolve or escalate it through to close-out.",
-        "Provide remote support for clients: troubleshoot Outlook issues and set up Outlook email and user accounts.",
-        "Handle first-line troubleshooting remotely, escalating anything that needs admin-portal access.",
-      ],
-    },
-  ],
-  skills: [
-    "Networking",
-    "Router Config",
-    "Fing",
-    "Hardware",
-    "Ticketing Systems",
-    "Remote Support",
-    "Microsoft Outlook",
-    "Troubleshooting",
-    "Client Communication",
-  ],
+  ] satisfies PeriodData[],
 };
+
+// One period's full content inside a role card's tabs
+function PeriodContent({ data }: { data: PeriodData }) {
+  const columns =
+    data.areas.length >= 3
+      ? "md:grid-cols-3"
+      : data.areas.length === 2
+        ? "md:grid-cols-2"
+        : "";
+
+  return (
+    <>
+      <p className="text-foreground-muted">{data.description}</p>
+
+      <div className={`mt-6 grid gap-4 ${columns}`}>
+        {data.areas.map((area) => {
+          const Icon = area.icon;
+
+          return (
+            <div
+              key={area.title}
+              className="rounded-xl border border-surface-border bg-background p-5 transition-colors duration-300 hover:border-accent/40"
+            >
+              <div className="flex items-center gap-2">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10">
+                  <Icon
+                    className="h-4 w-4 text-accent"
+                    aria-hidden="true"
+                  />
+                </div>
+
+                <h4 className="font-semibold">{area.title}</h4>
+              </div>
+
+              <ul className="mt-4 space-y-3 text-sm text-foreground-muted">
+                {area.items.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-2"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
+                    />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-2">
+        {data.skills.map((skill) => (
+          <span
+            key={skill}
+            className="rounded-md bg-background px-2 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground-muted"
+          >
+            {skill}
+          </span>
+        ))}
+      </div>
+    </>
+  );
+}
 
 const otherRoles = [
   {
@@ -340,71 +481,29 @@ export default function ExperiencePage() {
               </span>
             </div>
 
-            <PeriodTabs periods={freelance.milestones} />
-
-            <p className="mt-6 text-foreground-muted">
+            <p className="mt-4 text-foreground-muted">
               {freelance.summary}
             </p>
 
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              <div>
-                <h4 className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
-                  What I handle
-                </h4>
+            <PeriodTabs
+              periods={freelance.milestones.map((milestone) => ({
+                label: milestone.label,
+                period: milestone.period,
+                current: milestone.current,
+                content: <PeriodContent data={milestone} />,
+              }))}
+            />
 
-                <ul className="mt-4 space-y-3 text-sm text-foreground-muted">
-                  {freelance.services.map((service) => (
-                    <li
-                      key={service}
-                      className="flex gap-2"
-                    >
-                      <span
-                        aria-hidden="true"
-                        className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
-                      />
-                      {service}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <div>
+            {/* Client work is shared across both periods, so it sits outside the tabs */}
+            <div className="mt-8 border-t border-surface-border pt-6">
+              <div className="flex flex-wrap items-center justify-between gap-3">
                 <h4 className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
                   Client work
                 </h4>
 
-                <ul className="mt-4 space-y-3">
-                  {freelanceClients.map((client) => (
-                    <li key={client.slug}>
-                      <Link
-                        href={`/projects/${client.slug}`}
-                        className="group flex items-center justify-between gap-3 rounded-xl border border-surface-border bg-background p-4 transition-colors duration-300 hover:border-accent/50"
-                      >
-                        <div className="min-w-0">
-                          <p className="font-semibold transition-colors group-hover:text-accent">
-                            {client.name}
-                          </p>
-
-                          {client.live && (
-                            <p className="truncate font-[family-name:var(--font-mono)] text-xs text-foreground-muted">
-                              {getDomain(client.live)}
-                            </p>
-                          )}
-                        </div>
-
-                        <ArrowUpRight
-                          size={18}
-                          aria-hidden="true"
-                          className="shrink-0 text-foreground-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
-                        />
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
                 <Link
                   href="/contact?topic=freelance"
-                  className="group mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
+                  className="group inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline"
                 >
                   Need a website? Let&apos;s talk
                   <ArrowRight
@@ -414,6 +513,35 @@ export default function ExperiencePage() {
                   />
                 </Link>
               </div>
+
+              <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                {freelanceClients.map((client) => (
+                  <li key={client.slug}>
+                    <Link
+                      href={`/projects/${client.slug}`}
+                      className="group flex items-center justify-between gap-3 rounded-xl border border-surface-border bg-background p-4 transition-colors duration-300 hover:border-accent/50"
+                    >
+                      <div className="min-w-0">
+                        <p className="font-semibold transition-colors group-hover:text-accent">
+                          {client.name}
+                        </p>
+
+                        {client.live && (
+                          <p className="truncate font-[family-name:var(--font-mono)] text-xs text-foreground-muted">
+                            {getDomain(client.live)}
+                          </p>
+                        )}
+                      </div>
+
+                      <ArrowUpRight
+                        size={18}
+                        aria-hidden="true"
+                        className="shrink-0 text-foreground-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </article>
@@ -453,69 +581,18 @@ export default function ExperiencePage() {
               </span>
             </div>
 
-            {/* Stints */}
-            <PeriodTabs periods={craythorne.stints} />
-
-            <p className="mt-6 text-foreground-muted">
+            <p className="mt-4 text-foreground-muted">
               {craythorne.summary}
             </p>
 
-            {/* Areas of responsibility */}
-            <h4 className="mt-8 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
-              What I handle now
-            </h4>
-
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
-              {craythorne.areas.map((area) => {
-                const Icon = area.icon;
-
-                return (
-                  <div
-                    key={area.title}
-                    className="rounded-xl border border-surface-border bg-background p-5 transition-colors duration-300 hover:border-accent/40"
-                  >
-                    <div className="flex items-center gap-2">
-                      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-accent/10">
-                        <Icon
-                          className="h-4 w-4 text-accent"
-                          aria-hidden="true"
-                        />
-                      </div>
-
-                      <h4 className="font-semibold">
-                        {area.title}
-                      </h4>
-                    </div>
-
-                    <ul className="mt-4 space-y-3 text-sm text-foreground-muted">
-                      {area.items.map((item) => (
-                        <li
-                          key={item}
-                          className="flex gap-2"
-                        >
-                          <span
-                            aria-hidden="true"
-                            className="mt-2 h-1 w-1 shrink-0 rounded-full bg-accent"
-                          />
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
-            </div>
-
-            <div className="mt-6 flex flex-wrap gap-2">
-              {craythorne.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-md bg-background px-2 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground-muted"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
+            <PeriodTabs
+              periods={craythorne.stints.map((stint) => ({
+                label: stint.label,
+                period: stint.period,
+                current: stint.current,
+                content: <PeriodContent data={stint} />,
+              }))}
+            />
           </div>
         </article>
 

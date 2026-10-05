@@ -1,17 +1,17 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
-import type { KeyboardEvent } from "react";
+import type { KeyboardEvent, ReactNode } from "react";
 
 export type Period = {
   label: string;
   period: string;
   current: boolean;
-  description: string;
+  content: ReactNode;
 };
 
-// Clickable date boxes on an experience card. Selecting one shows what
-// that period was about underneath.
+// Clickable date boxes on an experience card. Selecting one swaps in
+// that period's own content, so nothing is shown twice.
 export default function PeriodTabs({ periods }: { periods: Period[] }) {
   const baseId = useId();
 
@@ -33,8 +33,6 @@ export default function PeriodTabs({ periods }: { periods: Period[] }) {
     setSelected(next);
     tabRefs.current[next]?.focus();
   }
-
-  const active = periods[selected];
 
   return (
     <div className="mt-6">
@@ -108,9 +106,9 @@ export default function PeriodTabs({ periods }: { periods: Period[] }) {
         role="tabpanel"
         id={`${baseId}-panel`}
         aria-labelledby={`${baseId}-tab-${selected}`}
-        className="period-panel mt-3 rounded-lg border-l-2 border-accent bg-background px-4 py-3 text-sm leading-relaxed text-foreground-muted"
+        className="period-panel mt-6"
       >
-        {active.description}
+        {periods[selected].content}
       </div>
     </div>
   );
