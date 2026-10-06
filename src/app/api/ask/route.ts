@@ -1,15 +1,44 @@
 import { ApiError, GoogleGenAI, ThinkingLevel } from "@google/genai";
-import type { Content } from "@google/genai";
+import type { Content, ThinkingConfig } from "@google/genai";
 import { NextResponse } from "next/server";
 import { ASK_SYSTEM_PROMPT } from "../../../lib/ask-context";
 
-// Gemini's free tier covers this model (rate-limited per day/minute)
-const MODEL = "gemini-3.8-flash";
+// All of these are on Gemini's free tier, tried in order when a model is
+// overloaded (free-tier models often return 503 "high demand") or stalls.
+// The lite models answer in about a second and are plenty for short answers
+// from a fixed context; the full flash model is the last resort. Models get
+// no thinking setting so each uses its own default.
+// (The 2.5 models were checked too: they're closed to new API keys.)
+const ATTEMPTS: { model: string; thinkingConfig?: ThinkingConfig }[] = [
+  { model: "gemini-3.5-flash-lite" },
+  { model: "gemini-3.1-flash-lite" },
+  { model: "gemini-flash-lite-latest" },
+  {
+    model: "gemini-3.8-flash",
+    // LOW is the lowest thinking level this model accepts
+    thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
+  },
+];
+
+// Short pause before trying the next model after a failure
+const RETRY_DELAY_MS = 1_000;
+
+// Give up on a model if it goes this long without sending anything
+const IDLE_TIMEOUT_MS = 15_000;
+
+function isRetryable(error: unknown, signal: AbortSignal) {
+  if (signal.aborted) return true;
+  return (
+    error instanceof ApiError &&
+    (error.status === 429 || error.status >= 500)
+  );
+}
 
 // Public endpoint, so keep every request small and bounded
 const MAX_MESSAGES = 8;
 const MAX_MESSAGE_CHARS = 500;
-const MAX_OUTPUT_TOKENS = 1024;
+// Thinking tokens count toward this cap, so leave headroom for the answer
+const MAX_OUTPUT_TOKENS = 2048;
 
 // Best-effort per-IP limit. Serverless instances don't share memory, so this
 // slows abuse down rather than guaranteeing a hard cap; the free tier's own
@@ -105,56 +134,90 @@ export async function POST(request: Request) {
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       let sentText = false;
+      let lastError: unknown = null;
 
-      try {
-        const response = await ai.models.generateContentStream({
-          model: MODEL,
-          contents,
-          config: {
-            systemInstruction: ASK_SYSTEM_PROMPT,
-            maxOutputTokens: MAX_OUTPUT_TOKENS,
-            // Short factual answers from a fixed context don't need deep reasoning
-            thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
-          },
-        });
+      // Try the main model first; if it's overloaded or stalls before saying
+      // anything, try the backup. Once text has been sent we can't switch.
+      for (const [index, attempt] of ATTEMPTS.entries()) {
+        if (index > 0) {
+          await new Promise((resolve) => setTimeout(resolve, RETRY_DELAY_MS));
+        }
 
-        for await (const chunk of response) {
-          const text = chunk.text;
+        const abort = new AbortController();
+        let idleTimer = setTimeout(() => abort.abort(), IDLE_TIMEOUT_MS);
+        const resetIdleTimer = () => {
+          clearTimeout(idleTimer);
+          idleTimer = setTimeout(() => abort.abort(), IDLE_TIMEOUT_MS);
+        };
 
-          if (text) {
-            sentText = true;
-            controller.enqueue(encoder.encode(text));
+        try {
+          const response = await ai.models.generateContentStream({
+            model: attempt.model,
+            contents,
+            config: {
+              systemInstruction: ASK_SYSTEM_PROMPT,
+              maxOutputTokens: MAX_OUTPUT_TOKENS,
+              abortSignal: abort.signal,
+              ...(attempt.thinkingConfig
+                ? { thinkingConfig: attempt.thinkingConfig }
+                : {}),
+            },
+          });
+
+          for await (const chunk of response) {
+            resetIdleTimer();
+            const text = chunk.text;
+
+            if (text) {
+              sentText = true;
+              controller.enqueue(encoder.encode(text));
+            }
           }
-        }
 
-        if (!sentText) {
-          controller.enqueue(
-            encoder.encode(
-              "I can't help with that one. I can answer questions about Aidan's work, skills, and experience."
-            )
-          );
-        }
-      } catch (error) {
-        const busy = error instanceof ApiError && error.status === 429;
+          lastError = null;
+          break;
+        } catch (error) {
+          lastError = error;
 
-        if (error instanceof ApiError) {
-          console.error(`Ask route Gemini error ${error.status}:`, error.message);
-        } else {
-          console.error("Ask route error:", error);
-        }
+          if (error instanceof ApiError) {
+            console.error(
+              `Ask route ${attempt.model} error ${error.status}:`,
+              error.message
+            );
+          } else {
+            console.error(`Ask route ${attempt.model} error:`, error);
+          }
 
-        if (!sentText) {
-          controller.enqueue(
-            encoder.encode(
-              busy
-                ? "I've had a lot of questions today and hit my limit. Try again later, or reach Aidan directly on WhatsApp at 071 680 8399."
-                : "Sorry, I couldn't answer that right now. You can reach Aidan directly on WhatsApp at 071 680 8399."
-            )
-          );
+          // Only fall back to the next model if nothing has reached the visitor
+          if (sentText || !isRetryable(error, abort.signal)) break;
+        } finally {
+          clearTimeout(idleTimer);
         }
-      } finally {
-        controller.close();
       }
+
+      if (sentText && lastError) {
+        controller.enqueue(
+          encoder.encode(
+            "\n\n(Sorry, my answer got cut off. Try asking again, or reach Aidan on WhatsApp at 071 680 8399.)"
+          )
+        );
+      } else if (!sentText) {
+        const busy =
+          lastError instanceof ApiError &&
+          (lastError.status === 429 || lastError.status === 503);
+
+        controller.enqueue(
+          encoder.encode(
+            lastError
+              ? busy
+                ? "I'm getting a lot of questions right now and hit my limit. Try again in a bit, or reach Aidan directly on WhatsApp at 071 680 8399."
+                : "Sorry, I couldn't answer that right now. You can reach Aidan directly on WhatsApp at 071 680 8399."
+              : "I can't help with that one. I can answer questions about Aidan's work, skills, and experience."
+          )
+        );
+      }
+
+      controller.close();
     },
   });
 
