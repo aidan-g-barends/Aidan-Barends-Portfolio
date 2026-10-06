@@ -9,9 +9,11 @@ import {
   ArrowRight,
   Send,
   LoaderCircle,
+  MessageCircle,
 } from "lucide-react";
 import gsap from "gsap";
 import PageHeader from "./PageHeader";
+import { WHATSAPP_URL } from "../lib/site";
 
 function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -144,6 +146,14 @@ export default function ContactForm() {
   }
 
   const contactCards = [
+    {
+      icon: MessageCircle,
+      label: "WhatsApp",
+      value: "071 680 8399",
+      href: WHATSAPP_URL,
+      cta: "Chat on WhatsApp",
+      external: true,
+    },
     {
       icon: Mail,
       label: "Email",

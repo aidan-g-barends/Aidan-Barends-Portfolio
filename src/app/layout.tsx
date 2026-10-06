@@ -14,8 +14,8 @@ import Footer from "../components/Footer";
 import MotionProvider from "../components/MotionProvider";
 import CommandPalette from "../components/CommandPalette";
 import { projects } from "../data/projects";
-import { ArrowUp } from "lucide-react";
-import { SITE_URL } from "../lib/site";
+import { ArrowUp, MessageCircle } from "lucide-react";
+import { SITE_URL, WHATSAPP_URL } from "../lib/site";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
@@ -101,9 +101,23 @@ export default function RootLayout({
         <a
           href="#main-content"
           aria-label="Back to top"
-          className="back-to-top fixed bottom-6 right-6 z-40 h-11 w-11 items-center justify-center rounded-full border border-surface-border bg-surface/80 text-foreground-muted shadow-lg backdrop-blur transition-colors hover:border-accent hover:text-accent"
+          className="back-to-top fixed bottom-24 right-6 z-40 h-11 w-11 items-center justify-center rounded-full border border-surface-border bg-surface/80 text-foreground-muted shadow-lg backdrop-blur transition-colors hover:border-accent hover:text-accent"
         >
           <ArrowUp size={18} aria-hidden="true" />
+        </a>
+
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Chat with Aidan on WhatsApp"
+          className="group fixed bottom-6 right-6 z-40 flex h-14 items-center gap-2 rounded-full bg-emerald-700 px-4 text-white shadow-[0_10px_30px_-8px_rgba(5,150,105,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-800"
+        >
+          <MessageCircle size={22} aria-hidden="true" />
+
+          <span className="hidden text-sm font-semibold sm:inline">
+            WhatsApp
+          </span>
         </a>
 
         <CommandPalette

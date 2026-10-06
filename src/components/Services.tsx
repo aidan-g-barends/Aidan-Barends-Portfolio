@@ -7,8 +7,10 @@ import {
   PenTool,
   Code2,
   Rocket,
+  MessageCircle,
 } from "lucide-react";
 import Eyebrow from "./Eyebrow";
+import { WHATSAPP_URL } from "../lib/site";
 
 const services = [
   {
@@ -88,17 +90,29 @@ export default function Services() {
             </p>
           </div>
 
-          <Link
-            href="/contact?topic=freelance"
-            className="group inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
-          >
-            Start a project
-            <ArrowRight
-              size={16}
-              aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-1"
-            />
-          </Link>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              href="/contact?topic=freelance"
+              className="group inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
+            >
+              Start a project
+              <ArrowRight
+                size={16}
+                aria-hidden="true"
+                className="transition-transform duration-300 group-hover:translate-x-1"
+              />
+            </Link>
+
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-5 py-2.5 text-sm font-medium text-emerald-700 transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500 dark:text-emerald-400"
+            >
+              <MessageCircle size={16} aria-hidden="true" />
+              WhatsApp me
+            </a>
+          </div>
         </div>
 
         <div
