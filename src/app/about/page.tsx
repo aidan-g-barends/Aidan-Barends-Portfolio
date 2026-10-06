@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import PageHeader from "../../components/PageHeader";
+import GitHubActivity from "../../components/GitHubActivity";
 import { lessons } from "../../data/lessons";
 
 export const metadata: Metadata = {
@@ -225,6 +226,13 @@ export default function AboutPage() {
               })}
             </dl>
           </aside>
+        </div>
+
+        <div
+          data-gsap="reveal"
+          className="mt-16"
+        >
+          <GitHubActivity />
         </div>
 
         {/* LESSONS */}
