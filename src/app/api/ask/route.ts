@@ -1,15 +1,19 @@
-import Anthropic from "@anthropic-ai/sdk";
+import { ApiError, GoogleGenAI, ThinkingLevel } from "@google/genai";
+import type { Content } from "@google/genai";
 import { NextResponse } from "next/server";
 import { ASK_SYSTEM_PROMPT } from "../../../lib/ask-context";
+
+// Gemini's free tier covers this model (rate-limited per day/minute)
+const MODEL = "gemini-3.8-flash";
 
 // Public endpoint, so keep every request small and bounded
 const MAX_MESSAGES = 8;
 const MAX_MESSAGE_CHARS = 500;
-const MAX_OUTPUT_TOKENS = 2048;
+const MAX_OUTPUT_TOKENS = 1024;
 
 // Best-effort per-IP limit. Serverless instances don't share memory, so this
-// slows abuse down rather than guaranteeing a hard cap; the real backstop is
-// the spend limit set on the Anthropic account.
+// slows abuse down rather than guaranteeing a hard cap; the free tier's own
+// quota is the backstop.
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_REQUESTS_PER_WINDOW = 15;
 const requestLog = new Map<string, number[]>();
@@ -31,7 +35,8 @@ function isRateLimited(ip: string) {
 
 type IncomingMessage = { role: "user" | "assistant"; content: string };
 
-function parseMessages(body: unknown): Anthropic.Beta.BetaMessageParam[] | null {
+// Validate the visitor's chat history and convert it to Gemini's format
+function parseMessages(body: unknown): Content[] | null {
   if (!body || typeof body !== "object") return null;
 
   const messages = (body as { messages?: unknown }).messages;
@@ -53,15 +58,17 @@ function parseMessages(body: unknown): Anthropic.Beta.BetaMessageParam[] | null 
   }
 
   return recent.map((message) => ({
-    role: message.role,
-    content: message.content.trim(),
+    role: message.role === "assistant" ? "model" : "user",
+    parts: [{ text: message.content.trim() }],
   }));
 }
 
-const client = process.env.ANTHROPIC_API_KEY ? new Anthropic() : null;
+const ai = process.env.GEMINI_API_KEY
+  ? new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY })
+  : null;
 
 export async function POST(request: Request) {
-  if (!client) {
+  if (!ai) {
     return NextResponse.json(
       { error: "The assistant isn't set up yet." },
       { status: 503 }
@@ -85,8 +92,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request." }, { status: 400 });
   }
 
-  const messages = parseMessages(body);
-  if (!messages) {
+  const contents = parseMessages(body);
+  if (!contents) {
     return NextResponse.json(
       { error: `Questions must be under ${MAX_MESSAGE_CHARS} characters.` },
       { status: 400 }
@@ -100,38 +107,27 @@ export async function POST(request: Request) {
       let sentText = false;
 
       try {
-        const response = client.beta.messages.stream({
-          model: "claude-opus-5-5",
-          max_tokens: MAX_OUTPUT_TOKENS,
-          // Short factual answers from a fixed context: low effort is enough
-          output_config: { effort: "low" },
-          // If a safety classifier declines, retry on Anthropic's recommended model
-          betas: ["server-side-fallback-2026-07-01"],
-          fallbacks: "default",
-          // The system prompt never changes, so it is cached between visitors
-          system: [
-            {
-              type: "text",
-              text: ASK_SYSTEM_PROMPT,
-              cache_control: { type: "ephemeral" },
-            },
-          ],
-          messages,
+        const response = await ai.models.generateContentStream({
+          model: MODEL,
+          contents,
+          config: {
+            systemInstruction: ASK_SYSTEM_PROMPT,
+            maxOutputTokens: MAX_OUTPUT_TOKENS,
+            // Short factual answers from a fixed context don't need deep reasoning
+            thinkingConfig: { thinkingLevel: ThinkingLevel.LOW },
+          },
         });
 
-        for await (const event of response) {
-          if (
-            event.type === "content_block_delta" &&
-            event.delta.type === "text_delta"
-          ) {
+        for await (const chunk of response) {
+          const text = chunk.text;
+
+          if (text) {
             sentText = true;
-            controller.enqueue(encoder.encode(event.delta.text));
+            controller.enqueue(encoder.encode(text));
           }
         }
 
-        const final = await response.finalMessage();
-
-        if (final.stop_reason === "refusal" && !sentText) {
+        if (!sentText) {
           controller.enqueue(
             encoder.encode(
               "I can't help with that one. I can answer questions about Aidan's work, skills, and experience."
@@ -139,10 +135,10 @@ export async function POST(request: Request) {
           );
         }
       } catch (error) {
-        if (error instanceof Anthropic.RateLimitError) {
-          console.error("Ask route rate limited by the API");
-        } else if (error instanceof Anthropic.APIError) {
-          console.error(`Ask route API error ${error.status}:`, error.message);
+        const busy = error instanceof ApiError && error.status === 429;
+
+        if (error instanceof ApiError) {
+          console.error(`Ask route Gemini error ${error.status}:`, error.message);
         } else {
           console.error("Ask route error:", error);
         }
@@ -150,7 +146,9 @@ export async function POST(request: Request) {
         if (!sentText) {
           controller.enqueue(
             encoder.encode(
-              "Sorry, I couldn't answer that right now. You can reach Aidan directly on WhatsApp at 071 680 8399."
+              busy
+                ? "I've had a lot of questions today and hit my limit. Try again later, or reach Aidan directly on WhatsApp at 071 680 8399."
+                : "Sorry, I couldn't answer that right now. You can reach Aidan directly on WhatsApp at 071 680 8399."
             )
           );
         }

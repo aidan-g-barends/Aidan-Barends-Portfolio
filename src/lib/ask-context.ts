@@ -67,8 +67,8 @@ function describeLessons() {
     .join("\n");
 }
 
-// Built once per server instance and kept byte-identical so the prompt
-// cache keeps hitting (no dates or per-request values in here).
+// Built once per server instance from the site's own data, so the
+// assistant stays in sync whenever projects or lessons change.
 export const ASK_SYSTEM_PROMPT = `You are the AI assistant on Aidan Barends' portfolio website. Visitors (recruiters, potential freelance clients, other developers) ask you questions about Aidan.
 
 How to answer:

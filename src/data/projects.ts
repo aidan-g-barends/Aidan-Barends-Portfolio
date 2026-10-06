@@ -44,26 +44,25 @@ export const projects: Project[] = [
     slug: "ask-aidan-ai-assistant",
     name: "Ask Aidan: AI Portfolio Assistant",
     description:
-      "An AI chat assistant built into this portfolio that answers visitors' questions about my projects, experience, and availability. It runs on Claude through the Anthropic API, streams answers word by word, and only answers from my resume and project data, so it doesn't make things up.",
-    tech: ["Next.js", "TypeScript", "Claude API", "Streaming", "Tailwind CSS"],
+      "An AI chat assistant built into this portfolio that answers visitors' questions about my projects, experience, and availability. It runs on Google's Gemini API (free tier), streams answers word by word, and only answers from my resume and project data, so it doesn't make things up.",
+    tech: ["Next.js", "TypeScript", "Gemini API", "Streaming", "Tailwind CSS"],
     github: "https://github.com/aidan-g-barends/Aidan-Barends-Portfolio",
     status: "in-progress",
     featured: false,
     role:
-      "Sole developer: designed the chat UI, wrote the Next.js route handler that calls the Anthropic API, built the knowledge base from the site's own project data, and added the safeguards for a public endpoint.",
+      "Sole developer: designed the chat UI, wrote the Next.js route handler that calls the Gemini API, built the knowledge base from the site's own project data, and added the safeguards for a public endpoint.",
     problem:
       "Recruiters and potential clients often have one quick question, like what stack I use or whether I'm available, and won't read every page to find it.",
     features: [
       "Streaming answers rendered as they are generated",
       "Knowledge base generated from the same project data the site uses, so it stays in sync",
       "Instructions to answer only from that data and say so when something isn't covered",
-      "Prompt caching on the fixed system prompt to cut cost and latency",
-      "Server-side fallback if a request is declined by a safety classifier",
+      "Low thinking level and a small output limit for fast, short answers",
       "Input limits, short conversation history, and per-visitor rate limiting",
       "Suggested questions and a graceful fallback to WhatsApp if the assistant is unavailable",
     ],
     challenges:
-      "A public AI endpoint costs money on every request, so the main work was keeping it bounded: capped message length and history, a small output limit, low reasoning effort for short factual answers, rate limiting, and a cached system prompt.",
+      "A public AI endpoint can be spammed and the free tier has daily limits, so the main work was keeping it bounded: capped message length and history, a small output limit, low thinking level for short factual answers, per-visitor rate limiting, and a friendly fallback to WhatsApp when the limit is hit.",
   },
   {
     slug: "task-flow-pro",

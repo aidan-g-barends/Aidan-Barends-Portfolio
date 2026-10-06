@@ -95,7 +95,7 @@ export default function AskAidan() {
           <p className="mt-3 text-foreground-muted">
             Got a question about my work, skills, or availability? Ask
             my AI assistant. It answers from my resume and project
-            write-ups, and it&apos;s built with Claude, Next.js and
+            write-ups, and it&apos;s built with Google Gemini, Next.js and
             streaming responses.
           </p>
 
