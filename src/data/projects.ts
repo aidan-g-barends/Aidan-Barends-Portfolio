@@ -476,6 +476,7 @@ export const projects: Project[] = [
     github: "https://github.com/aidan-g-barends/BSSH",
     live: "https://beautyspot-eta.vercel.app/",
     image: "/projects/beautyspot.png",
+    preview: { src: "/projects/previews/beautyspot.webp", height: 3958 },
     private: true,
     status: "live",
     featured: false,
