@@ -14,6 +14,7 @@ import Footer from "../components/Footer";
 import MotionProvider from "../components/MotionProvider";
 import CommandPalette from "../components/CommandPalette";
 import { projects } from "../data/projects";
+import { ArrowUp } from "lucide-react";
 import { SITE_URL } from "../lib/site";
 
 const spaceGrotesk = Space_Grotesk({
@@ -91,6 +92,19 @@ export default function RootLayout({
         </main>
 
         <Footer />
+
+        <div
+          aria-hidden="true"
+          className="scroll-progress"
+        />
+
+        <a
+          href="#main-content"
+          aria-label="Back to top"
+          className="back-to-top fixed bottom-6 right-6 z-40 h-11 w-11 items-center justify-center rounded-full border border-surface-border bg-surface/80 text-foreground-muted shadow-lg backdrop-blur transition-colors hover:border-accent hover:text-accent"
+        >
+          <ArrowUp size={18} aria-hidden="true" />
+        </a>
 
         <CommandPalette
           projects={projects.map(({ slug, name, tech }) => ({

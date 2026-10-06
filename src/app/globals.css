@@ -223,6 +223,60 @@ textarea {
 }
 
 /*
+ * SCROLL PROGRESS + BACK TO TOP
+ * Driven by the page's scroll position in CSS, no JavaScript. Browsers
+ * without scroll-driven animations simply don't show them.
+ */
+.scroll-progress,
+.back-to-top {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress {
+    display: block;
+    position: fixed;
+    inset-inline: 0;
+    top: 0;
+    z-index: 60;
+    height: 3px;
+    transform-origin: left;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    animation: scroll-progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+
+  .back-to-top {
+    display: flex;
+    animation: back-to-top-show linear both;
+    animation-timeline: scroll(root);
+    animation-range: 0 500px;
+  }
+}
+
+@keyframes scroll-progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes back-to-top-show {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+  }
+}
+
+/*
  * COMMAND PALETTE
  */
 .command-palette[open] {
@@ -312,6 +366,13 @@ textarea {
   .marquee-track,
   .aurora-blob {
     animation: none !important;
+  }
+
+  /* Scroll-linked, not timed: keep them working (the rule above would
+     otherwise shrink their duration to nothing) */
+  .scroll-progress,
+  .back-to-top {
+    animation-duration: auto !important;
   }
 
   /* Show the tech list as a static, wrapped row instead of scrolling */
