@@ -1,0 +1,175 @@
+<!--
+  Source for public/resume.pdf. To regenerate after editing, print it with headless Chrome:
+  chrome --headless=new --no-pdf-header-footer --print-to-pdf=public/resume.pdf docs/resume.html
+-->
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Aidan Barends - Resume</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm 14mm 15mm; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: "Calibri", "Segoe UI", Arial, sans-serif;
+    font-size: 10.4pt;
+    line-height: 1.38;
+    color: #1d2433;
+  }
+  a { color: inherit; text-decoration: none; }
+  h1 {
+    margin: 0;
+    font-size: 21pt;
+    letter-spacing: 0.5px;
+    color: #1f2a44;
+  }
+  .subtitle {
+    margin: 2px 0 6px;
+    font-weight: 700;
+    font-size: 11pt;
+    color: #0f7c78;
+  }
+  .contact { color: #4b5563; font-size: 9.8pt; }
+  .contact span + span::before { content: "  |  "; white-space: pre; color: #9ca3af; }
+  .header-rule { border: 0; border-top: 1.4px solid #1f2a44; margin: 6px 0 0; }
+  h2 {
+    margin: 13px 0 5px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid #1f2a44;
+    font-size: 11pt;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #1f2a44;
+  }
+  p { margin: 0 0 4px; }
+  ul { margin: 2px 0 4px; padding-left: 16px; }
+  li { margin: 1px 0; }
+  .entry { margin-bottom: 7px; break-inside: avoid; }
+  .entry-title { font-weight: 700; color: #1f2a44; }
+  .entry-meta { font-style: italic; color: #6b7280; font-size: 9.8pt; }
+  .links { color: #6b7280; font-size: 9.4pt; }
+  .skills li { margin: 1.5px 0; }
+  .skills b { color: #1f2a44; }
+</style>
+</head>
+<body>
+
+<h1>AIDAN BARENDS</h1>
+<div class="subtitle">Software Engineering Student | Freelance Web Developer | Aspiring AI Engineer</div>
+<div class="contact">
+  <span>Langebaan, Western Cape</span><span>+27 71 680 8399</span><span>aidanbarends95@gmail.com</span>
+</div>
+<div class="contact">
+  <span>github.com/aidan-g-barends</span><span>aidan-barends.vercel.app</span><span>linkedin.com/in/aidan-barends</span>
+</div>
+<hr class="header-rule">
+
+<h2>Professional Summary</h2>
+<p>Software Engineering student (Application Development) at CPUT, finishing in 2027, who spends more time building things than talking about building them. Freelance web developer since July 2025, building and launching websites for small businesses, with full-stack apps shipped in React, Next.js, Java/Spring Boot and Laravel. Also an IT Field Technician at CraythorneIT, rehired with more responsibility: client tickets, remote support, networks and hardware for real clients with real problems. Looking for a junior developer role or freelance work where I can put that same energy into practical, useful software.</p>
+
+<h2>Technical Skills</h2>
+<ul class="skills">
+  <li><b>Languages:</b> JavaScript, TypeScript, Java, Python, PHP, SQL, HTML, CSS</li>
+  <li><b>Frameworks &amp; Libraries:</b> React, Next.js, Node.js, Express, Spring Boot, Laravel, Angular, Bootstrap, Tailwind CSS</li>
+  <li><b>Databases &amp; Backend Services:</b> MySQL, PostgreSQL, Supabase, JPA/Hibernate</li>
+  <li><b>IT Support &amp; Networking:</b> ticketing systems, remote support (Outlook troubleshooting, email and account setup), router configuration, Wi-Fi installation and troubleshooting, network diagnostics (Fing), PC builds, hardware repair</li>
+  <li><b>Tools:</b> Git, GitHub, VS Code, IntelliJ, Cursor, Figma, Postman, Vercel</li>
+</ul>
+
+<h2>Experience</h2>
+
+<div class="entry">
+  <div class="entry-title">Freelance Web Developer, Self-employed</div>
+  <div class="entry-meta">Jul 2025 – Present</div>
+  <ul>
+    <li>Build websites for small businesses end to end: turning what the business does into clear pages, responsive UI, reusable components, and deployment.</li>
+    <li>Designed, built and launched the production website for JJS Business Solutions (jjsbussol.co.za) as sole developer.</li>
+    <li>Since September 2026, growing freelancing as a business and actively taking on new clients.</li>
+  </ul>
+</div>
+
+<div class="entry">
+  <div class="entry-title">IT Field Technician, CraythorneIT</div>
+  <div class="entry-meta">Aug 2025 – Jan 2026, rehired Jul 2026 – Present</div>
+  <ul>
+    <li>Started out shadowing experienced technicians on residential and business jobs; brought back for a second stint with more responsibility.</li>
+    <li>Work client-logged tickets through the ticketing system: triage, resolve, or escalate through to close-out.</li>
+    <li>Provide remote support: troubleshoot Outlook issues, set up Outlook email and user accounts, and handle first-line troubleshooting, escalating admin-level changes.</li>
+    <li>Run Wi-Fi assessments, installations and router configuration for residential and business clients, and diagnose outages on-site using Fing.</li>
+    <li>Carry out PC builds, hardware repairs, and system upgrades for clients.</li>
+  </ul>
+</div>
+
+<p><b>Other Experience:</b> Waiter (Cape Town Fish Market), Barman (Die Strandloper), Classroom &amp; Music Assistant (Longacres Private School), Background Actor (39 Steps Agency), Lifeguard (NSRI), 2022 to 2025. Different worlds, but all of them taught me the same things: show up, deal with people properly, and stay reliable when things get busy or stressful.</p>
+
+<h2>Projects</h2>
+
+<div class="entry">
+  <div class="entry-title">JJS Business Solutions: Business Website (Paid Client)</div>
+  <div class="entry-meta">React · TypeScript · Tailwind CSS · Vite</div>
+  <ul>
+    <li>Sole developer of a professional website presenting the organisation's training, consulting, and project services.</li>
+    <li>Built responsive, reusable components with a clear content structure across mobile, tablet, and desktop, then deployed it to production.</li>
+  </ul>
+  <div class="links">Live: jjsbussol.co.za</div>
+</div>
+
+<div class="entry">
+  <div class="entry-title">Beauty Spot: Salon Website &amp; Online Booking System</div>
+  <div class="entry-meta">React · Vite · Supabase · PostgreSQL · Tailwind CSS</div>
+  <ul>
+    <li>Online booking with service, therapist, and 15-minute slot selection, modelling treatment lengths, trading hours, and staff time off so a therapist can't be double-booked.</li>
+    <li>Staff diary backed by Supabase authentication with "My day" and "Whole salon" views, appointment statuses, walk-ins, and time-off blocking.</li>
+  </ul>
+  <div class="links">Live: beautyspot-eta.vercel.app</div>
+</div>
+
+<div class="entry">
+  <div class="entry-title">UniExchange: Campus Marketplace for CPUT (University Team Project)</div>
+  <div class="entry-meta">Java · Spring Boot · Spring Data JPA · Hibernate · MySQL · React · Vite</div>
+  <ul>
+    <li>Worked mainly on the backend domain layer: 22 domain entities and 13 enums following consistent object-oriented and JPA patterns across a multi-developer team.</li>
+    <li>Finished and deployed: verified student accounts, listings, messaging, reviews, and wallet payments held until the buyer confirms.</li>
+  </ul>
+  <div class="links">GitHub: github.com/AidanBarends/UniExchange  |  Live: uniexchange-rust.vercel.app</div>
+</div>
+
+<div class="entry">
+  <div class="entry-title">PracticeFlow CRM: Medical Practice CRM (6-person team project)</div>
+  <div class="entry-meta">Next.js · React · TypeScript · Tailwind CSS · Supabase</div>
+  <ul>
+    <li>Worked as part of a 6-person team to build a full-stack CRM handling patient management, appointment scheduling, and staff admin.</li>
+    <li>Built frontend features in Next.js/React/TypeScript and hooked up Supabase for auth and the database side of things.</li>
+  </ul>
+  <div class="links">GitHub: github.com/aidan-g-barends/practiceflow-crm  |  Live: practiceflow-crm-iota.vercel.app</div>
+</div>
+
+<div class="entry">
+  <div class="entry-title">MediTicket 2: Healthcare Practice Management Platform (7-person team project)</div>
+  <div class="entry-meta">Java · Spring Boot · JPA/Hibernate · MySQL</div>
+  <ul>
+    <li>Built backend functionality for a platform connecting patients, doctors, and staff, using Domain-Driven Design and proper OOP structure.</li>
+    <li>Handled appointments, digital tickets, payments, and notifications, split cleanly across separate frontend and backend repos.</li>
+  </ul>
+  <div class="links">Frontend: github.com/AidanBarends/MediTicketApp  |  Backend: github.com/AidanBarends/MediTicket2</div>
+</div>
+
+<h2>Education</h2>
+<ul>
+  <li>Diploma in ICT: Application Development, Cape Peninsula University of Technology (CPUT), 2024 to present, expected completion 2027</li>
+  <li>National Senior Certificate (NSC), Hopefield High School, 2018 to 2022</li>
+</ul>
+
+<h2>Certifications</h2>
+<ul>
+  <li>The Complete Web Development Bootcamp, Angela Yu (Udemy)</li>
+  <li>4IR Digital Skills Training Programme</li>
+  <li>AI course, Ed Donner (in progress)</li>
+</ul>
+
+<h2>References</h2>
+<p>Available upon request.</p>
+
+</body>
+</html>
