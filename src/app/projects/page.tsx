@@ -13,62 +13,91 @@ export const metadata: Metadata = {
     "Client websites, independent builds, and university team projects by Aidan Barends, including JJS Business Solutions, UniExchange, and MediTicket 2.",
 };
 
-// Within each group, projects are split by status in this order
-const statuses: {
-  status: ProjectStatus;
-  title: string;
-  description: string;
-}[] = [
-  {
-    status: "live",
-    title: "Live + GitHub",
-    description: "Shipped and deployed, with the source code on GitHub too.",
-  },
-  {
-    status: "in-progress",
-    title: "In Progress",
-    description: "Still under active development.",
-  },
-  {
-    status: "github-only",
-    title: "GitHub Only",
-    description: "Finished builds that aren't deployed, but the code is public.",
-  },
-];
-
-const groups: {
+type Group = {
   id: string;
   title: string;
   description: string;
-  projects: Project[];
+  matches: (project: Project) => boolean;
   inviteCard?: boolean;
-}[] = [
+};
+
+// Each project goes in the first group it matches, so nothing is listed
+// twice. The badges on each card still show the rest (Live, Uni, Client).
+const groupDefinitions: Group[] = [
   {
     id: "client",
     title: "Client Work",
-    description: "Websites built for paying clients as a freelance web developer.",
-    projects: projects.filter((project) => project.clientWork),
-    inviteCard: true,
-  },
-  {
-    id: "independent",
-    title: "Independent Work",
     description:
-      "Apps and websites I designed and built on my own, from first idea to deployment.",
-    projects: projects.filter(
-      (project) => !project.clientWork && !project.university
-    ),
+      "Websites built for paying clients as a freelance web developer.",
+    matches: (project) => Boolean(project.clientWork),
+    inviteCard: true,
   },
   {
     id: "university",
     title: "University Projects",
     description:
       "Team projects built with classmates as part of my Software Engineering diploma at CPUT.",
-    projects: projects.filter((project) => project.university),
+    matches: (project) => Boolean(project.university),
+  },
+  {
+    id: "in-progress",
+    title: "In Progress",
+    description: "Things I'm still building.",
+    matches: (project) => project.status === "in-progress",
+  },
+  {
+    id: "live",
+    title: "Live Work",
+    description:
+      "My own builds, designed and developed by me and deployed for anyone to try.",
+    matches: (project) => project.status === "live",
+  },
+  {
+    id: "independent",
+    title: "Independent Work",
+    description:
+      "My own builds that aren't deployed, with the code up on GitHub.",
+    matches: () => true,
   },
 ];
 
-const visibleGroups = groups.filter((group) => group.projects.length > 0);
+// Display order on the page
+const displayOrder = [
+  "client",
+  "live",
+  "independent",
+  "university",
+  "in-progress",
+];
+
+const assigned = new Map<string, Project[]>(
+  groupDefinitions.map((group) => [group.id, []])
+);
+
+for (const project of projects) {
+  const group = groupDefinitions.find((item) => item.matches(project));
+  assigned.get(group!.id)!.push(project);
+}
+
+// Within a group, live work first, then in progress, then GitHub only
+const statusOrder: Record<ProjectStatus, number> = {
+  live: 0,
+  "in-progress": 1,
+  "github-only": 2,
+};
+
+const visibleGroups = displayOrder
+  .map((id) => {
+    const definition = groupDefinitions.find((group) => group.id === id)!;
+
+    return {
+      ...definition,
+      projects: [...assigned.get(id)!].sort(
+        (a, b) => statusOrder[a.status] - statusOrder[b.status]
+      ),
+    };
+  })
+  .filter((group) => group.projects.length > 0);
 
 // Fills the client grid and points potential clients to the contact form
 function InviteCard() {
@@ -133,78 +162,44 @@ export default function ProjectsPage() {
       </PageHeader>
 
       <section className="mx-auto max-w-5xl px-6 pb-20">
-        {visibleGroups.map((group, index) => {
-          const statusSections = statuses
-            .map((section) => ({
-              ...section,
-              projects: group.projects.filter(
-                (project) => project.status === section.status
-              ),
-            }))
-            .filter((section) => section.projects.length > 0);
+        {visibleGroups.map((group, index) => (
+          <div
+            key={group.id}
+            id={group.id}
+            className="scroll-mt-24 border-t border-surface-border pt-14 first:border-t-0 first:pt-4 [&:not(:first-child)]:mt-14"
+          >
+            <div data-gsap="reveal">
+              <Eyebrow
+                index={String(index + 1).padStart(2, "0")}
+                label={`${group.projects.length} ${
+                  group.projects.length === 1 ? "project" : "projects"
+                }`}
+              />
 
-          return (
-            <div
-              key={group.id}
-              id={group.id}
-              className="scroll-mt-24 border-t border-surface-border pt-14 first:border-t-0 first:pt-4 [&:not(:first-child)]:mt-14"
-            >
-              <div data-gsap="reveal">
-                <Eyebrow
-                  index={String(index + 1).padStart(2, "0")}
-                  label={`${group.projects.length} ${
-                    group.projects.length === 1 ? "project" : "projects"
-                  }`}
-                />
+              <h2 className="text-2xl font-bold sm:text-3xl">
+                {group.title}
+              </h2>
 
-                <h2 className="text-2xl font-bold sm:text-3xl">
-                  {group.title}
-                </h2>
-
-                <p className="mt-1 text-foreground-muted">
-                  {group.description}
-                </p>
-              </div>
-
-              {statusSections.map((section, sectionIndex) => (
-                <div
-                  key={section.status}
-                  className="mt-8"
-                >
-                  <div
-                    data-gsap="reveal"
-                    className="flex flex-wrap items-baseline gap-x-3 gap-y-1"
-                  >
-                    <h3 className="text-lg font-semibold">
-                      {section.title}
-                    </h3>
-
-                    <p className="text-sm text-foreground-muted">
-                      {section.description}
-                    </p>
-                  </div>
-
-                  <div
-                    data-gsap="stagger"
-                    className="mt-4 grid gap-6 sm:grid-cols-2"
-                  >
-                    {section.projects.map((project) => (
-                      <ProjectCard
-                        key={project.slug}
-                        project={project}
-                      />
-                    ))}
-
-                    {group.inviteCard &&
-                      sectionIndex === statusSections.length - 1 && (
-                        <InviteCard />
-                      )}
-                  </div>
-                </div>
-              ))}
+              <p className="mt-1 text-foreground-muted">
+                {group.description}
+              </p>
             </div>
-          );
-        })}
+
+            <div
+              data-gsap="stagger"
+              className="mt-6 grid gap-6 sm:grid-cols-2"
+            >
+              {group.projects.map((project) => (
+                <ProjectCard
+                  key={project.slug}
+                  project={project}
+                />
+              ))}
+
+              {group.inviteCard && <InviteCard />}
+            </div>
+          </div>
+        ))}
       </section>
     </>
   );
