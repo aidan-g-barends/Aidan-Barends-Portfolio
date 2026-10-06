@@ -5,6 +5,7 @@ import ProjectCard from "../components/ProjectCard";
 import Eyebrow from "../components/Eyebrow";
 import TypedRoles from "../components/TypedRoles";
 import Services from "../components/Services";
+import AskAidan from "../components/AskAidan";
 import { SITE_URL } from "../lib/site";
 
 const personJsonLd = {
@@ -297,6 +298,8 @@ export default function Home() {
       </section>
 
       <Services />
+
+      <AskAidan />
 
       {/* SKILLS */}
       <section className="border-y border-surface-border bg-surface/50">
