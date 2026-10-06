@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import ProjectShot from "../../../components/ProjectShot";
 import {
   ArrowLeft,
@@ -58,23 +59,8 @@ function ImageFrame({ project }: { project: Project }) {
   const frameClassName =
     "group/image relative mt-8 block w-full overflow-hidden rounded-xl border border-surface-border bg-surface";
 
-  if (!live) {
-    return (
-      <div
-        data-gsap="reveal"
-        className={frameClassName}
-        style={{
-          boxShadow: "var(--card-shadow)",
-        }}
-      >
-        {frameContent}
-      </div>
-    );
-  }
-
-  return (
+  const frame = live ? (
     <a
-      data-gsap="reveal"
       href={live}
       target="_blank"
       rel="noopener noreferrer"
@@ -85,6 +71,51 @@ function ImageFrame({ project }: { project: Project }) {
     >
       {frameContent}
     </a>
+  ) : (
+    <div
+      className={frameClassName}
+      style={{
+        boxShadow: "var(--card-shadow)",
+      }}
+    >
+      {frameContent}
+    </div>
+  );
+
+  if (!project.mobileImage) {
+    return <div data-gsap="reveal">{frame}</div>;
+  }
+
+  // Phone mockup overlapping the desktop frame shows the responsive layout
+  return (
+    <div
+      data-gsap="reveal"
+      className="relative mb-12 sm:mb-16"
+    >
+      {frame}
+
+      <figure className="absolute -bottom-12 -right-2 w-[110px] sm:-bottom-16 sm:-right-8 sm:w-[160px] md:w-[180px]">
+        <div className="relative overflow-hidden rounded-[1.6rem] border-[5px] border-[#0B0F14] bg-[#0B0F14] shadow-[0_24px_60px_-12px_rgba(0,0,0,0.55)] dark:border-[#232C38]">
+          <span
+            aria-hidden="true"
+            className="absolute left-1/2 top-1.5 z-10 h-1.5 w-10 -translate-x-1/2 rounded-full bg-[#0B0F14]/80"
+          />
+
+          <Image
+            src={project.mobileImage}
+            alt={`${project.name} on a phone`}
+            width={390}
+            height={844}
+            sizes="180px"
+            className="h-auto w-full rounded-[1.2rem]"
+          />
+        </div>
+
+        <figcaption className="mt-2 text-center font-[family-name:var(--font-mono)] text-[11px] text-foreground-muted">
+          Mobile view
+        </figcaption>
+      </figure>
+    </div>
   );
 }
 
@@ -346,6 +377,50 @@ export default async function ProjectDetailPage({
         )}
 
         <div className="mt-14 space-y-12">
+          {project.buildNotes && (
+            <div
+              data-gsap="reveal"
+              className="relative overflow-hidden rounded-2xl border border-accent/30 bg-surface p-6 sm:p-8"
+              style={{
+                boxShadow: "var(--card-shadow)",
+              }}
+            >
+              <div
+                aria-hidden="true"
+                className="hero-grid pointer-events-none absolute inset-0 opacity-60"
+              />
+
+              <div className="relative">
+                <SectionHeading>How I built it</SectionHeading>
+
+                <ol className="mt-6 grid gap-6 md:grid-cols-3">
+                  {[
+                    { label: "The problem", text: project.buildNotes.problem },
+                    { label: "Key decision", text: project.buildNotes.decision },
+                    { label: "The result", text: project.buildNotes.result },
+                  ].map((step, index) => (
+                    <li
+                      key={step.label}
+                      className="relative"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-accent/50 bg-background font-[family-name:var(--font-mono)] text-xs font-semibold text-accent">
+                          {index + 1}
+                        </span>
+
+                        <h3 className="font-semibold">{step.label}</h3>
+                      </div>
+
+                      <p className="mt-3 text-sm leading-relaxed text-foreground-muted">
+                        {step.text}
+                      </p>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          )}
+
           {(project.problem || project.role) && (
             <div className="grid gap-6 sm:grid-cols-2">
               {project.problem && (

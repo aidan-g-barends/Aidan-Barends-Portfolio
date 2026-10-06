@@ -16,6 +16,10 @@ export type Project = {
   imageIsIllustration?: boolean;
   // Full-page capture that scrolls on hover (height in px at 960px wide)
   preview?: { src: string; height: number };
+  // Phone-sized screenshot of the live site
+  mobileImage?: string;
+  // Short "how I built it" story: problem, key decision, result
+  buildNotes?: { problem: string; decision: string; result: string };
   // Extra figures shown as stat tiles on the project page
   stats?: { value: string; label: string }[];
   // Freelance work for a real client (listed on the Experience page)
@@ -36,6 +40,31 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+  {
+    slug: "ask-aidan-ai-assistant",
+    name: "Ask Aidan: AI Portfolio Assistant",
+    description:
+      "An AI chat assistant built into this portfolio that answers visitors' questions about my projects, experience, and availability. It runs on Claude through the Anthropic API, streams answers word by word, and only answers from my resume and project data, so it doesn't make things up.",
+    tech: ["Next.js", "TypeScript", "Claude API", "Streaming", "Tailwind CSS"],
+    github: "https://github.com/aidan-g-barends/Aidan-Barends-Portfolio",
+    status: "in-progress",
+    featured: false,
+    role:
+      "Sole developer: designed the chat UI, wrote the Next.js route handler that calls the Anthropic API, built the knowledge base from the site's own project data, and added the safeguards for a public endpoint.",
+    problem:
+      "Recruiters and potential clients often have one quick question, like what stack I use or whether I'm available, and won't read every page to find it.",
+    features: [
+      "Streaming answers rendered as they are generated",
+      "Knowledge base generated from the same project data the site uses, so it stays in sync",
+      "Instructions to answer only from that data and say so when something isn't covered",
+      "Prompt caching on the fixed system prompt to cut cost and latency",
+      "Server-side fallback if a request is declined by a safety classifier",
+      "Input limits, short conversation history, and per-visitor rate limiting",
+      "Suggested questions and a graceful fallback to WhatsApp if the assistant is unavailable",
+    ],
+    challenges:
+      "A public AI endpoint costs money on every request, so the main work was keeping it bounded: capped message length and history, a small output limit, low reasoning effort for short factual answers, rate limiting, and a cached system prompt.",
+  },
   {
     slug: "task-flow-pro",
     university: true,
@@ -95,6 +124,7 @@ export const projects: Project[] = [
 
   {
     slug: "jjs-business-solutions",
+    mobileImage: "/projects/mobile/jjs.webp",
     name: "JJS Business Solutions",
     description:
       "A professional business website developed for JJS Business Solutions to establish a modern digital presence and clearly communicate the organisation's training, consulting, and project-focused services. The website was designed to present the organisation in a credible and professional way while making important business information easy for prospective clients, partners, and visitors to discover.",
@@ -165,6 +195,15 @@ export const projects: Project[] = [
 
    {
     slug: "uni-exchange",
+    buildNotes: {
+      problem:
+        "CPUT students buy and sell through informal platforms and social media, with no way to know who they're dealing with.",
+      decision:
+        "A domain-driven Spring Boot backend: 22 domain entities and 13 enums following the same object-oriented and JPA patterns, so a multi-developer team could build features in parallel without the model drifting.",
+      result:
+        "A finished, deployed marketplace for verified CPUT students and staff, with listings, chat, reviews, and a wallet that holds payment until the buyer confirms they have the item.",
+    },
+    mobileImage: "/projects/mobile/uniexchange.webp",
     stats: [{ value: "22", label: "Domain entities" }, { value: "13", label: "Enums" }],
     university: true,
     name: "UniExchange",
@@ -223,6 +262,7 @@ export const projects: Project[] = [
 
   {
     slug: "practiceflow-crm",
+    mobileImage: "/projects/mobile/practiceflow.webp",
     stats: [{ value: "6", label: "Developers on the team" }],
     university: true,
     name: "PracticeFlow CRM",
@@ -288,6 +328,7 @@ export const projects: Project[] = [
 
   {
     slug: "golden-way",
+    mobileImage: "/projects/mobile/golden.webp",
     university: true,
     name: "GoldenWay",
     description:
@@ -324,6 +365,7 @@ export const projects: Project[] = [
 
   {
     slug: "the-hairbra",
+    mobileImage: "/projects/mobile/hairbra.webp",
     name: "The HairBra",
     description:
       "A modern barbershop platform currently in development that combines online appointment booking, secure digital payments, barber profiles, and an integrated e-commerce store into one customer-facing application. The goal is to provide local barbershops with a complete digital platform where customers can discover barbers, book appointments, pay online, and purchase grooming products from the same application.",
@@ -368,6 +410,7 @@ export const projects: Project[] = [
 
     {
     slug: "2g-architecture-solutions",
+    mobileImage: "/projects/mobile/2g.webp",
     name: "2G Architecture Solutions",
     description:
       "A modern, editorial-style website concept developed for an established independent architectural practice with approximately 28 years of industry experience in Saldanha, Western Coast. Built with Next.js, TypeScript, and GSAP-powered animations, the site focuses on architectural storytelling, a curated project archive, and a refined visual identity designed to position the practice as a premium, trustworthy local studio.",
@@ -405,6 +448,15 @@ export const projects: Project[] = [
 
     {
     slug: "bouplan-ontwerpers",
+    buildNotes: {
+      problem:
+        "A practice running since 1987 had no proper website, and no real project photography or copy had been supplied yet.",
+      decision:
+        "Don't invent anything. I stripped out fabricated names, history, and statistics from early AI-generated concepts, and built a typed content layer with honest placeholder states so real photos and copy can drop in without touching a single component.",
+      result:
+        "A live multi-page site with a WCAG AA-tested palette, local SEO structured data, and a content layer the client can fill in without a rebuild.",
+    },
+    mobileImage: "/projects/mobile/bouplan.webp",
     name: "Bouplan Ontwerpers",
     description:
       "A premium website concept developed for an established architectural design practice operating in Langebaan, West Coast since 1987. Built with Next.js, TypeScript, and Tailwind CSS v4, the site translates the practice's existing brand identity into a modern digital experience, with a focus on accessibility, local SEO, and a typed content architecture that allows real project photography and client content to be dropped in without any component changes.",
@@ -441,6 +493,7 @@ export const projects: Project[] = [
 
   {
     slug: "dfv-dental-booking",
+    mobileImage: "/projects/mobile/dfv.webp",
     name: "DFV Dental Booking",
     description:
       "A practice website and online booking system built for Dr Frans Venter's dental practice. It gives patients a simple way to learn about the practice and request appointments online, instead of relying on phone calls to book a visit.",
@@ -469,6 +522,15 @@ export const projects: Project[] = [
 
   {
     slug: "beauty-spot",
+    buildNotes: {
+      problem:
+        "The salon only took bookings by phone, which only works while someone is free to answer and the salon is open.",
+      decision:
+        "Model availability properly: 15-minute slots that account for each therapist, treatment length, Saturday trading hours, and staff time off, designed so the same therapist can never be booked twice for one slot. The staff diary sticks to a few clear actions so the team can use it between clients.",
+      result:
+        "Clients can book online any time and get a booking reference, and the team shares one diary with 'My day' and 'Whole salon' views. Live on Vercel.",
+    },
+    mobileImage: "/projects/mobile/beautyspot.webp",
     name: "Beauty Spot",
     description:
       "A website and online booking system for Beauty Spot Health & Skincare, a salon in Langebaan offering nails, pedicures, lashes, waxing, facials, and massage. Clients can browse services and prices, meet the therapists, and book a treatment online at any time, while the salon team manages the day's appointments from a private staff diary.",
