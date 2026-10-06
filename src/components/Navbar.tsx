@@ -4,8 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
-import { Menu, X } from "lucide-react";
+import { Menu, Search, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
+import { OPEN_PALETTE_EVENT } from "./CommandPalette";
 
 const links = [
   { href: "/", label: "Home" },
@@ -125,6 +126,21 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-3 justify-self-end">
+          <button
+            type="button"
+            onClick={() =>
+              window.dispatchEvent(new Event(OPEN_PALETTE_EVENT))
+            }
+            aria-label="Search the site (Ctrl+K)"
+            className="flex h-9 items-center gap-2 rounded-lg border border-surface-border px-2.5 text-foreground-muted transition-colors hover:border-accent hover:text-foreground"
+          >
+            <Search size={16} aria-hidden="true" />
+
+            <kbd className="hidden font-[family-name:var(--font-mono)] text-[11px] lg:inline">
+              Ctrl K
+            </kbd>
+          </button>
+
           <ThemeToggle />
 
           <button

@@ -2,8 +2,7 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useSyncExternalStore } from "react";
-
-const THEME_EVENT = "themechange";
+import { THEME_EVENT, toggleTheme } from "../lib/theme";
 
 // The initial "dark" class is set before paint by the inline script in
 // layout.tsx, so the toggle only has to read it from the DOM.
@@ -32,22 +31,6 @@ export default function ThemeToggle() {
     getSnapshot,
     getServerSnapshot
   );
-
-  function toggleTheme() {
-    const nextIsDark = !isDark;
-
-    document.documentElement.classList.toggle(
-      "dark",
-      nextIsDark
-    );
-
-    localStorage.setItem(
-      "theme",
-      nextIsDark ? "dark" : "light"
-    );
-
-    window.dispatchEvent(new Event(THEME_EVENT));
-  }
 
   // Keep the server and initial client render identical.
   if (isDark === null) {

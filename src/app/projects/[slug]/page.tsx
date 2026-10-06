@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Image from "next/image";
+import ProjectShot from "../../../components/ProjectShot";
 import {
   ArrowLeft,
   ArrowRight,
@@ -19,19 +19,8 @@ function getDomain(url: string) {
   }
 }
 
-function ImageFrame({
-  image,
-  name,
-  live,
-  liveIsProduction,
-  isIllustration,
-}: {
-  image: string;
-  name: string;
-  live?: string;
-  liveIsProduction?: boolean;
-  isIllustration?: boolean;
-}) {
+function ImageFrame({ project }: { project: Project }) {
+  const { live, liveIsProduction } = project;
   const liveLabel = liveIsProduction ? "Live Site" : "Live Demo";
 
   const frameContent = (
@@ -49,16 +38,9 @@ function ImageFrame({
       )}
 
       <div className="relative aspect-[16/10] w-full overflow-hidden">
-        <Image
-          src={image}
-          alt={
-            isIllustration
-              ? `Illustration representing ${name}`
-              : `${name} screenshot`
-          }
-          fill
+        <ProjectShot
+          project={project}
           sizes="(min-width: 768px) 768px, 100vw"
-          className="object-cover object-top transition-transform duration-500 group-hover/image:scale-[1.03]"
           preload
         />
 
@@ -162,6 +144,19 @@ export default async function ProjectDetailPage({
 
   const project = projects[projectIndex];
 
+  // Up to four tiles: project-specific figures first, then counts
+  const stats = [
+    ...(project.stats ?? []),
+    { value: String(project.tech.length), label: "Technologies" },
+    ...(project.features
+      ? [{ value: String(project.features.length), label: "Key features" }]
+      : []),
+    {
+      value: project.status === "live" ? "Live" : project.status === "in-progress" ? "WIP" : "Code",
+      label: project.status === "live" ? "Deployed" : project.status === "in-progress" ? "In progress" : "On GitHub",
+    },
+  ].slice(0, 4);
+
   const previousProject =
     projects[(projectIndex - 1 + projects.length) % projects.length];
   const nextProject =
@@ -230,18 +225,39 @@ export default async function ProjectDetailPage({
               ))}
             </div>
           </div>
+
+          <dl
+            data-gsap="stagger"
+            className="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-4"
+          >
+            {stats.map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-xl border border-surface-border bg-surface/70 px-4 py-3 backdrop-blur"
+              >
+                <dt className="sr-only">{stat.label}</dt>
+
+                <dd>
+                  <span className="block font-[family-name:var(--font-heading)] text-2xl font-bold text-accent">
+                    {stat.value}
+                  </span>
+
+                  <span
+                    aria-hidden="true"
+                    className="block text-xs text-foreground-muted"
+                  >
+                    {stat.label}
+                  </span>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
       <section className="mx-auto max-w-3xl px-6 pb-20">
         {project.image && (
-          <ImageFrame
-            image={project.image}
-            name={project.name}
-            live={project.live}
-            liveIsProduction={project.liveIsProduction}
-            isIllustration={project.imageIsIllustration}
-          />
+          <ImageFrame project={project} />
         )}
 
         <div

@@ -12,6 +12,8 @@ import { Analytics } from "@vercel/analytics/next";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MotionProvider from "../components/MotionProvider";
+import CommandPalette from "../components/CommandPalette";
+import { projects } from "../data/projects";
 import { SITE_URL } from "../lib/site";
 
 const spaceGrotesk = Space_Grotesk({
@@ -40,14 +42,12 @@ export const metadata: Metadata = {
       "Portfolio of Aidan Barends, a Software Engineering student at CPUT and freelance web developer building full stack web applications and AI-powered tools.",
     type: "website",
     url: SITE_URL,
-    images: ["/og-image.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
     description:
       "Portfolio of Aidan Barends, a Software Engineering student at CPUT and freelance web developer building full stack web applications and AI-powered tools.",
-    images: ["/og-image.png"],
   },
 };
 
@@ -91,6 +91,14 @@ export default function RootLayout({
         </main>
 
         <Footer />
+
+        <CommandPalette
+          projects={projects.map(({ slug, name, tech }) => ({
+            slug,
+            name,
+            tech,
+          }))}
+        />
 
         <Analytics />
       </body>

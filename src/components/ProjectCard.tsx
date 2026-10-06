@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import ProjectShot from "./ProjectShot";
 import { useRef } from "react";
 import type { MouseEvent } from "react";
 import gsap from "gsap";
@@ -99,16 +99,9 @@ export default function ProjectCard({
           )}
 
           <div className="relative aspect-[16/10] w-full overflow-hidden">
-            <Image
-              src={project.image}
-              alt={
-                project.imageIsIllustration
-                  ? `Illustration representing ${project.name}`
-                  : `${project.name} screenshot`
-              }
-              fill
+            <ProjectShot
+              project={project}
               sizes="(min-width: 640px) 50vw, 100vw"
-              className="object-cover object-top transition-transform duration-500 group-hover/image:scale-[1.04]"
             />
 
             {project.live && (

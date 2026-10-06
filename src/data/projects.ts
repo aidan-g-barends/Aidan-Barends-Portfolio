@@ -14,6 +14,10 @@ export type Project = {
   image?: string;
   // Generated cover art rather than a real screenshot of the app
   imageIsIllustration?: boolean;
+  // Full-page capture that scrolls on hover (height in px at 960px wide)
+  preview?: { src: string; height: number };
+  // Extra figures shown as stat tiles on the project page
+  stats?: { value: string; label: string }[];
   // Freelance work for a real client (listed on the Experience page)
   clientWork?: boolean;
   // Built as part of my CPUT Software Engineering diploma
@@ -100,6 +104,7 @@ export const projects: Project[] = [
     liveIsProduction: true,
     clientWork: true,
     image: "/projects/jjs.png",
+    preview: { src: "/projects/previews/jjs.webp", height: 2972 },
     status: "live",
     featured: false,
     role:
@@ -126,6 +131,7 @@ export const projects: Project[] = [
 
   {
     slug: "mediticket-2",
+    stats: [{ value: "7", label: "Developers on the team" }],
     university: true,
     name: "MediTicket 2",
     description:
@@ -159,6 +165,7 @@ export const projects: Project[] = [
 
    {
     slug: "uni-exchange",
+    stats: [{ value: "22", label: "Domain entities" }, { value: "13", label: "Enums" }],
     university: true,
     name: "UniExchange",
     description:
@@ -177,6 +184,7 @@ export const projects: Project[] = [
     github: "https://github.com/AidanBarends/UniExchange",
     live: "https://uniexchange-rust.vercel.app/",
     image: "/projects/uniexchange.webp",
+    preview: { src: "/projects/previews/uniexchange.webp", height: 2560 },
 
     status: "live",
     featured: false,
@@ -215,6 +223,7 @@ export const projects: Project[] = [
 
   {
     slug: "practiceflow-crm",
+    stats: [{ value: "6", label: "Developers on the team" }],
     university: true,
     name: "PracticeFlow CRM",
     description:
@@ -328,6 +337,7 @@ export const projects: Project[] = [
     github: "https://github.com/aidan-g-barends/The_HairBra",
     live: "https://the-hair-bra.vercel.app/",
     image: "/projects/hairbra.png",
+    preview: { src: "/projects/previews/hairbra.webp", height: 1872 },
     status: "live",
     featured: true,
     role:
@@ -365,6 +375,7 @@ export const projects: Project[] = [
     github: "https://github.com/aidan-g-barends/2G-Architecture",
     live: "https://2-g-architecture.vercel.app/",
     image: "/projects/2G.png",
+    preview: { src: "/projects/previews/2g.webp", height: 2210 },
     status: "live",
     featured: true,
     role:
@@ -401,6 +412,7 @@ export const projects: Project[] = [
     github: "https://github.com/aidan-g-barends/BouplanOntwerpers",
     live: "https://bouplan-ontwerpers.vercel.app/",
     image: "/projects/bouplan.png",
+    preview: { src: "/projects/previews/bouplan.webp", height: 3917 },
     status: "live",
     featured: true,
     role:
@@ -436,6 +448,7 @@ export const projects: Project[] = [
     github: "https://github.com/aidan-g-barends/DFV",
     live: "https://dfv-mocha.vercel.app/",
     image: "/projects/dfv.png",
+    preview: { src: "/projects/previews/dfv.webp", height: 2936 },
     private: true,
     status: "live",
     featured: false,

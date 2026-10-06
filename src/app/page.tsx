@@ -3,6 +3,43 @@ import { ArrowRight, Download } from "lucide-react";
 import { projects } from "../data/projects";
 import ProjectCard from "../components/ProjectCard";
 import Eyebrow from "../components/Eyebrow";
+import TypedRoles from "../components/TypedRoles";
+import Services from "../components/Services";
+import { SITE_URL } from "../lib/site";
+
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Aidan Barends",
+  url: SITE_URL,
+  image: `${SITE_URL}/projects/profile.jpeg`,
+  jobTitle: "Freelance Web Developer",
+  description:
+    "Software Engineering student at CPUT, freelance web developer, and IT Field Technician working toward becoming an AI Engineer.",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Langebaan",
+    addressRegion: "Western Cape",
+    addressCountry: "ZA",
+  },
+  affiliation: {
+    "@type": "CollegeOrUniversity",
+    name: "Cape Peninsula University of Technology",
+  },
+  knowsAbout: [
+    "Web Development",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Java",
+    "Spring Boot",
+    "Networking",
+  ],
+  sameAs: [
+    "https://github.com/aidan-g-barends",
+    "https://www.linkedin.com/in/aidan-barends/",
+  ],
+};
 
 const skillGroups = [
   {
@@ -71,6 +108,14 @@ export default function Home() {
 
   return (
     <>
+      {/* Structured data so search engines know who this site is about */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+
       {/* HERO */}
       <section className="relative overflow-hidden">
         <div
@@ -78,25 +123,16 @@ export default function Home() {
           className="hero-grid pointer-events-none absolute inset-0"
         />
 
+        {/* Aurora: drifting blobs (CSS) inside a wrapper that follows the cursor (GSAP) */}
         <div
           data-gsap="parallax"
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[800px] -translate-x-1/2 rounded-full opacity-40 blur-3xl dark:opacity-20"
-          style={{
-            background:
-              "radial-gradient(circle, var(--accent) 0%, transparent 70%)",
-          }}
-        />
-
-        <div
-          data-gsap="parallax"
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-32 top-48 h-[380px] w-[380px] rounded-full opacity-30 blur-3xl dark:opacity-20"
-          style={{
-            background:
-              "radial-gradient(circle, var(--accent-2) 0%, transparent 70%)",
-          }}
-        />
+          className="pointer-events-none absolute inset-0"
+        >
+          <div className="aurora-blob aurora-blob-1" />
+          <div className="aurora-blob aurora-blob-2" />
+          <div className="aurora-blob aurora-blob-3" />
+        </div>
 
         <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-28 text-center sm:py-40">
           <div data-gsap="hero">
@@ -109,11 +145,18 @@ export default function Home() {
             </span>
           </div>
 
-          <div data-gsap="hero">
-            <p className="mt-6 font-[family-name:var(--font-mono)] text-sm text-accent">
-              IT Field Technician → Software Engineering Student →
-              Aspiring AI Engineer
-            </p>
+          <div
+            data-gsap="hero"
+            className="mt-6"
+          >
+            <TypedRoles
+              roles={[
+                "Freelance Web Developer",
+                "Software Engineering Student",
+                "IT Field Technician",
+                "Aspiring AI Engineer",
+              ]}
+            />
           </div>
 
           <div data-gsap="hero">
@@ -253,11 +296,13 @@ export default function Home() {
         </div>
       </section>
 
+      <Services />
+
       {/* SKILLS */}
       <section className="border-y border-surface-border bg-surface/50">
         <div className="mx-auto max-w-5xl px-6 py-20">
           <div data-gsap="reveal">
-            <Eyebrow index="02" label="Toolkit" />
+            <Eyebrow index="03" label="Toolkit" />
 
             <h2 className="text-2xl font-bold sm:text-3xl">Skills</h2>
 
@@ -320,7 +365,7 @@ export default function Home() {
           />
 
           <div className="relative">
-            <Eyebrow index="03" label="What's next" />
+            <Eyebrow index="04" label="What's next" />
           </div>
 
           <h2 className="relative text-2xl font-bold sm:text-3xl">
