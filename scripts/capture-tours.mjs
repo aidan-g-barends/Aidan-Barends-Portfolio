@@ -12,13 +12,19 @@
 //   GOLDENWAY_EMAIL=...
 //   GOLDENWAY_PASSWORD=...
 //
-// Uses the Chrome already installed on this machine. Writes
-// public/projects/tours/<slug>.webm plus a poster image, and records them in
-// src/data/tours.json, which projects.ts reads.
+// Uses the Chrome already installed on this machine. Frames are captured
+// straight from Chrome and encoded with ffmpeg (H.264, plays everywhere).
+// Writes public/projects/tours/<slug>.mp4 plus a poster image, and records
+// them in src/data/tours.json, which projects.ts reads.
 
 import { chromium } from "playwright-core";
 import sharp from "sharp";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import ffmpegPath from "ffmpeg-static";
+import { execFile } from "node:child_process";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { promisify } from "node:util";
 
 try {
   process.loadEnvFile(".env.local");
@@ -58,8 +64,17 @@ const TOURS = [
 const DEFAULT_VIEWPORT = { width: 1440, height: 900 };
 const MAX_DISCOVERED_PAGES = 6;
 // Slow backends (cold starts) get this long to replace their loading states
+// while warming up; the recorded pass is quicker since they're awake by then
 const DATA_TIMEOUT_MS = 30000;
+const RECORDING_DATA_TIMEOUT_MS = 8000;
+// Moments where nothing changes on screen are trimmed to this in the video
+const MAX_STILL_SECONDS = 1.2;
 const OUT_DIR = "public/projects/tours";
+// Pages render at 1.5x pixel density; Chrome sends frames at window size
+const SCALE = 1.5;
+const FPS = 30;
+// Lower is sharper and bigger; 20-24 suits mostly still app screens
+const QUALITY_CRF = 21;
 
 // Cursor and click ripple drawn into the page, since recordings don't show
 // the real pointer. Re-added on every page load, at the last known position.
@@ -129,7 +144,7 @@ async function clickElement(page, locator) {
   return true;
 }
 
-async function waitForData(page) {
+async function waitForData(page, timeout = DATA_TIMEOUT_MS) {
   await page.waitForLoadState("networkidle", { timeout: 15000 }).catch(() => {});
 
   // Wait until spinners, skeletons and "Loading..." text are gone
@@ -139,10 +154,10 @@ async function waitForData(page) {
         !document.querySelector(".animate-spin, .animate-pulse, [aria-busy='true']") &&
         !/\bloading\b/i.test(document.body.innerText),
       null,
-      { timeout: DATA_TIMEOUT_MS, polling: 300 }
+      { timeout, polling: 300 }
     )
     .catch(() =>
-      console.warn(`  ${new URL(page.url()).pathname} still loading after ${DATA_TIMEOUT_MS / 1000}s`)
+      console.warn(`  ${new URL(page.url()).pathname} still loading after ${timeout / 1000}s`)
     );
 }
 
@@ -227,19 +242,74 @@ async function warmUp(browser, tour, viewport) {
   return paths;
 }
 
+// Collects Chrome's own screencast frames (sent whenever the screen changes)
+// as high-quality JPEGs in a temp folder, with their timestamps
+async function startRecorder(page, viewport) {
+  const dir = await mkdtemp(join(tmpdir(), "tour-"));
+  const cdp = await page.context().newCDPSession(page);
+  const frames = [];
+  const writes = [];
+
+  cdp.on("Page.screencastFrame", ({ data, metadata, sessionId }) => {
+    const file = join(dir, `${String(frames.length).padStart(6, "0")}.jpg`);
+
+    frames.push({ file, time: metadata.timestamp });
+    writes.push(writeFile(file, Buffer.from(data, "base64")));
+    cdp.send("Page.screencastFrameAck", { sessionId }).catch(() => {});
+  });
+
+  await cdp.send("Page.startScreencast", {
+    format: "jpeg",
+    quality: 92,
+    maxWidth: Math.round(viewport.width * SCALE),
+    maxHeight: Math.round(viewport.height * SCALE),
+  });
+
+  return {
+    async stop(output) {
+      await cdp.send("Page.stopScreencast");
+      await Promise.all(writes);
+
+      // Each frame stays on screen until the next one arrived
+      const entry = (frame) => `file '${frame.file.replaceAll("\\", "/")}'`;
+      const lines = frames.flatMap((frame, index) => {
+        const next = frames[index + 1]?.time ?? frame.time + 1;
+        const hold = Math.min(next - frame.time, MAX_STILL_SECONDS);
+        return [entry(frame), `duration ${hold.toFixed(4)}`];
+      });
+
+      // ffmpeg's concat format needs the last file listed again to hold it
+      const listFile = join(dir, "frames.txt");
+      await writeFile(listFile, [...lines, entry(frames.at(-1)), ""].join("\n"));
+
+      await promisify(execFile)(ffmpegPath, [
+        "-y", "-loglevel", "error",
+        "-f", "concat", "-safe", "0", "-i", listFile,
+        "-vf", `fps=${FPS},scale=trunc(iw/2)*2:trunc(ih/2)*2:flags=lanczos`,
+        "-c:v", "libx264", "-preset", "slow", "-crf", String(QUALITY_CRF),
+        "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an",
+        output,
+      ]);
+
+      await rm(dir, { recursive: true, force: true });
+      return frames.reduce(
+        (total, frame, index) =>
+          total + Math.min((frames[index + 1]?.time ?? frame.time + 1) - frame.time, MAX_STILL_SECONDS),
+        0
+      );
+    },
+  };
+}
+
 async function recordTour(browser, tour) {
   const viewport = tour.viewport ?? DEFAULT_VIEWPORT;
 
   console.log("  warming up");
   const paths = await warmUp(browser, tour, viewport);
 
-  const context = await browser.newContext({
-    viewport,
-    recordVideo: { dir: `${OUT_DIR}/.raw`, size: viewport },
-  });
+  const context = await browser.newContext({ viewport, deviceScaleFactor: SCALE });
   await context.addInitScript(CURSOR_SCRIPT);
 
-  const recordingStarted = Date.now();
   const page = await context.newPage();
   const { email, password } = credentials(tour);
   const loginUrl = tour.origin + tour.loginPath;
@@ -250,8 +320,8 @@ async function recordTour(browser, tour) {
   await waitForData(page);
   await page.mouse.move(cursorAt.x, cursorAt.y);
 
-  // The player skips the blank frames before the login page appeared
-  const start = (Date.now() - recordingStarted) / 1000;
+  // Recording starts once the login page is showing, so there's no blank lead-in
+  const recorder = await startRecorder(page, viewport);
   await page.waitForTimeout(600);
 
   console.log("  signing in");
@@ -268,7 +338,7 @@ async function recordTour(browser, tour) {
   await clickElement(page, page.locator('button[type="submit"]').first());
 
   await page.waitForURL((url) => url.href !== loginUrl, { timeout: 30000 });
-  await waitForData(page);
+  await waitForData(page, RECORDING_DATA_TIMEOUT_MS);
   await page.waitForTimeout(1200);
 
   let poster;
@@ -288,7 +358,7 @@ async function recordTour(browser, tour) {
         await page.goto(tour.origin + path);
       }
 
-      await waitForData(page);
+      await waitForData(page, RECORDING_DATA_TIMEOUT_MS);
       await page.waitForTimeout(700);
     }
 
@@ -305,22 +375,19 @@ async function recordTour(browser, tour) {
     console.log(`  visited ${path}`);
   }
 
-  const duration = (Date.now() - recordingStarted) / 1000;
-  const video = page.video();
-  await context.close();
-
   await mkdir(OUT_DIR, { recursive: true });
-  const src = `/projects/tours/${tour.slug}.webm`;
+  const src = `/projects/tours/${tour.slug}.mp4`;
   const posterSrc = `/projects/tours/${tour.slug}.webp`;
 
-  await video.saveAs(`public${src}`);
-  await video.delete();
-  await sharp(poster).resize({ width: 960 }).webp({ quality: 80 }).toFile(`public${posterSrc}`);
+  console.log("  encoding video");
+  const duration = await recorder.stop(`public${src}`);
+  await context.close();
+
+  await sharp(poster).resize({ width: 1440 }).webp({ quality: 85 }).toFile(`public${posterSrc}`);
 
   return {
     video: src,
     poster: posterSrc,
-    start: Math.round(start * 10) / 10,
     duration: Math.round(duration),
   };
 }

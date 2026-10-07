@@ -8,7 +8,6 @@ const VISIBLE_RATIO = 0.6;
 
 // Recorded walkthrough of an app (scripts/capture-tours.mjs). Shows the
 // poster until hovered; touchscreens play it once it's on screen instead.
-// Starts at `tour.start` to skip the blank frames before the app loaded.
 export default function TourVideo({ tour, label }: { tour: Tour; label: string }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -20,22 +19,13 @@ export default function TourVideo({ tour, label }: { tour: Tour; label: string }
     if (reduceMotion) return;
 
     const play = () => {
-      if (video.currentTime < tour.start) video.currentTime = tour.start;
       video.play().catch(() => {});
     };
 
     const stop = () => {
       video.pause();
-      video.currentTime = tour.start;
+      video.currentTime = 0;
     };
-
-    // Loop back to where the app appears, not to the blank first frames
-    const restart = () => {
-      video.currentTime = tour.start;
-      video.play().catch(() => {});
-    };
-
-    video.addEventListener("ended", restart);
 
     // The video covers the whole frame, so hovering it means hovering the card
     const isTouch =
@@ -46,7 +36,6 @@ export default function TourVideo({ tour, label }: { tour: Tour; label: string }
       video.addEventListener("mouseleave", stop);
 
       return () => {
-        video.removeEventListener("ended", restart);
         video.removeEventListener("mouseenter", play);
         video.removeEventListener("mouseleave", stop);
       };
@@ -62,11 +51,8 @@ export default function TourVideo({ tour, label }: { tour: Tour; label: string }
 
     observer.observe(video);
 
-    return () => {
-      video.removeEventListener("ended", restart);
-      observer.disconnect();
-    };
-  }, [tour.start]);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -76,6 +62,7 @@ export default function TourVideo({ tour, label }: { tour: Tour; label: string }
         poster={tour.poster}
         aria-label={`${label} walkthrough video`}
         muted
+        loop
         playsInline
         preload="none"
         className="absolute inset-0 h-full w-full object-cover object-top"

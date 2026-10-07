@@ -3,8 +3,6 @@ import tours from "./tours.json";
 export type Tour = {
   video: string;
   poster: string;
-  // Seconds of blank recording before the app appears
-  start: number;
   duration: number;
 };
 

@@ -1,14 +1,12 @@
 {
   "practiceflow-crm": {
-    "video": "/projects/tours/practiceflow-crm.webm",
+    "video": "/projects/tours/practiceflow-crm.mp4",
     "poster": "/projects/tours/practiceflow-crm.webp",
-    "start": 32.6,
-    "duration": 117
+    "duration": 82
   },
   "golden-way": {
-    "video": "/projects/tours/golden-way.webm",
+    "video": "/projects/tours/golden-way.mp4",
     "poster": "/projects/tours/golden-way.webp",
-    "start": 1.7,
-    "duration": 41
+    "duration": 36
   }
 }

@@ -39,6 +39,3 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-
-# raw recordings from scripts/capture-tours.mjs
-/public/projects/tours/.raw
