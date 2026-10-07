@@ -1,5 +1,13 @@
 import tours from "./tours.json";
 
+export type Tour = {
+  video: string;
+  poster: string;
+  // Seconds of blank recording before the app appears
+  start: number;
+  duration: number;
+};
+
 export type ProjectStatus = "live" | "github-only" | "in-progress";
 
 export type Project = {
@@ -16,9 +24,10 @@ export type Project = {
   image?: string;
   // Generated cover art rather than a real screenshot of the app
   imageIsIllustration?: boolean;
-  // Full-page capture that scrolls on hover (height in px at 960px wide).
-  // `pages` is set for multi-page tours from scripts/capture-tours.mjs
-  preview?: { src: string; height: number; pages?: number };
+  // Full-page capture that scrolls on hover (height in px at 960px wide)
+  preview?: { src: string; height: number };
+  // Recorded walkthrough of an app behind a login (scripts/capture-tours.mjs)
+  tour?: Tour;
   // Phone-sized screenshot of the live site
   mobileImage?: string;
   // Short "how I built it" story: problem, key decision, result
@@ -569,11 +578,9 @@ const projectList: Project[] = [
   },
 ];
 
-// Multi-page tours (apps behind a login) replace the single-page preview
-const tourPreviews: Record<string, Project["preview"]> = tours;
+// Walkthrough videos recorded by scripts/capture-tours.mjs, by project slug
+const tourVideos: Record<string, Tour> = tours;
 
-export const projects: Project[] = projectList.map((project) => {
-  const tour = tourPreviews[project.slug];
-
-  return tour ? { ...project, preview: tour } : project;
-});
+export const projects: Project[] = projectList.map((project) =>
+  tourVideos[project.slug] ? { ...project, tour: tourVideos[project.slug] } : project
+);

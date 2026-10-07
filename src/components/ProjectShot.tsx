@@ -1,10 +1,11 @@
 import Image from "next/image";
 import type { Project } from "../data/projects";
 import PreviewImage from "./PreviewImage";
+import TourVideo from "./TourVideo";
 
-// Project image for cards and detail pages. Projects with a full-page
-// preview scroll from top to bottom while the parent `group/image` is
-// hovered; the rest zoom slightly.
+// Project image for cards and detail pages. Apps with a recorded walkthrough
+// play it on hover; projects with a full-page preview scroll from top to
+// bottom while the parent `group/image` is hovered; the rest zoom slightly.
 export default function ProjectShot({
   project,
   sizes,
@@ -18,9 +19,11 @@ export default function ProjectShot({
     ? `Illustration representing ${project.name}`
     : `${project.name} screenshot`;
 
-  if (project.preview) {
-    const tourPages = project.preview.pages;
+  if (project.tour) {
+    return <TourVideo tour={project.tour} label={project.name} />;
+  }
 
+  if (project.preview) {
     // Longer pages scroll for longer, so the speed feels the same
     const scrollSeconds = Math.max(
       2.5,
@@ -44,14 +47,14 @@ export default function ProjectShot({
         aria-hidden="true"
         className="preview-hint-hover pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-[family-name:var(--font-mono)] text-[11px] text-white backdrop-blur transition-opacity duration-300 group-hover/image:opacity-0 motion-reduce:hidden"
       >
-        {tourPages ? `Hover to tour ${tourPages} pages ↓` : "Hover to scroll ↓"}
+        Hover to scroll ↓
       </span>
 
       <span
         aria-hidden="true"
         className="preview-hint-touch pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-[family-name:var(--font-mono)] text-[11px] text-white backdrop-blur motion-reduce:hidden"
       >
-        {tourPages ? `Pause here to tour ${tourPages} pages ↓` : "Pause here to preview ↓"}
+        Pause here to preview ↓
       </span>
       </>
     );

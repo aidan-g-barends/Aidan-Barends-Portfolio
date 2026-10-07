@@ -1,6 +1,6 @@
-// Captures a multi-page "tour" of apps that need a login, for the hover
-// previews on project cards. It signs in, visits each page, and stitches the
-// screenshots into one tall image with a label bar above each page.
+// Records a walkthrough video of apps that need a login, for the hover
+// previews on project cards. A visible cursor signs in, then clicks through
+// the app's own navigation and scrolls each page, the way a visitor would.
 //
 // Usage:
 //   npm run capture:tours                 every tour
@@ -12,13 +12,13 @@
 //   GOLDENWAY_EMAIL=...
 //   GOLDENWAY_PASSWORD=...
 //
-// Uses the Chrome already installed on this machine, so there is no browser
-// download. Writes public/projects/previews/<slug>-tour.webp and records its
-// size in src/data/tours.json, which projects.ts reads.
+// Uses the Chrome already installed on this machine. Writes
+// public/projects/tours/<slug>.webm plus a poster image, and records them in
+// src/data/tours.json, which projects.ts reads.
 
 import { chromium } from "playwright-core";
 import sharp from "sharp";
-import { readFile, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 
 try {
   process.loadEnvFile(".env.local");
@@ -49,112 +49,149 @@ const TOURS = [
     // Staff pages depend on the account's role, so read them from the
     // console's own navigation instead of listing them here
     discoverFrom: "/staff",
+    // Phone-sized app: a smaller window so it fills more of the video
+    viewport: { width: 960, height: 600 },
   },
 ];
 
-// Capture size, then the stitched image is scaled down to the preview width
-const VIEWPORT = { width: 1440, height: 900 };
-const OUTPUT_WIDTH = 960;
-// Long pages are cut off so one page doesn't take over the tour
-const MAX_PAGE_HEIGHT = 1800;
+// Same 16:10 shape as the preview frame on the cards
+const DEFAULT_VIEWPORT = { width: 1440, height: 900 };
 const MAX_DISCOVERED_PAGES = 6;
-const LABEL_HEIGHT = 64;
-// Time for data to load and entrance animations to finish
-const SETTLE_MS = 2000;
+// Slow backends (cold starts) get this long to replace their loading states
+const DATA_TIMEOUT_MS = 30000;
+const OUT_DIR = "public/projects/tours";
 
-function labelFromPath(path) {
-  const last = path.split("/").filter(Boolean).pop() ?? "Home";
+// Cursor and click ripple drawn into the page, since recordings don't show
+// the real pointer. Re-added on every page load, at the last known position.
+const CURSOR_SCRIPT = `
+  addEventListener("DOMContentLoaded", () => {
+    const cursor = document.createElement("div");
+    cursor.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24"><path d="M4 2l16 9.5-7 1.6-3.6 6.6z" fill="#0B0F14" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+    const saved = JSON.parse(sessionStorage.getItem("tour-cursor") || '{"x":-40,"y":-40}');
+    Object.assign(cursor.style, {
+      position: "fixed", left: "0", top: "0", zIndex: "2147483647",
+      pointerEvents: "none", transform: "translate(" + saved.x + "px," + saved.y + "px)",
+      filter: "drop-shadow(0 2px 3px rgba(0,0,0,.35))",
+    });
+    document.body.appendChild(cursor);
 
-  return last
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
+    addEventListener("mousemove", (event) => {
+      cursor.style.transform = "translate(" + event.clientX + "px," + event.clientY + "px)";
+      sessionStorage.setItem("tour-cursor", JSON.stringify({ x: event.clientX, y: event.clientY }));
+    }, true);
+
+    addEventListener("mousedown", (event) => {
+      const ripple = document.createElement("div");
+      Object.assign(ripple.style, {
+        position: "fixed", left: event.clientX - 18 + "px", top: event.clientY - 18 + "px",
+        width: "36px", height: "36px", borderRadius: "50%", zIndex: "2147483646",
+        pointerEvents: "none", background: "rgba(61,219,217,.45)",
+        transition: "transform .45s ease-out, opacity .45s ease-out",
+      });
+      document.body.appendChild(ripple);
+      requestAnimationFrame(() => {
+        ripple.style.transform = "scale(1.8)";
+        ripple.style.opacity = "0";
+      });
+      setTimeout(() => ripple.remove(), 500);
+    }, true);
+  });
+`;
+
+let cursorAt = { x: 0, y: 0 };
+
+// Eased mouse movement, so the cursor glides like a real hand
+async function glide(page, x, y, duration = 700) {
+  const from = cursorAt;
+  const steps = Math.max(12, Math.round(duration / 16));
+
+  for (let step = 1; step <= steps; step++) {
+    const t = step / steps;
+    const eased = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+
+    await page.mouse.move(from.x + (x - from.x) * eased, from.y + (y - from.y) * eased);
+    await page.waitForTimeout(16);
+  }
+
+  cursorAt = { x, y };
 }
 
-function escapeXml(text) {
-  return text.replace(/[<>&"']/g, (char) => `&#${char.charCodeAt(0)};`);
+async function clickElement(page, locator) {
+  const box = await locator.boundingBox();
+  if (!box) return false;
+
+  await glide(page, box.x + box.width / 2, box.y + box.height / 2);
+  await page.waitForTimeout(200);
+  await page.mouse.down();
+  await page.waitForTimeout(80);
+  await page.mouse.up();
+
+  return true;
 }
 
-// Dark bar with "02 / 07   Patients", matching the portfolio's colours
-function labelBar(index, total, label) {
-  const count = `${String(index + 1).padStart(2, "0")} / ${String(total).padStart(2, "0")}`;
-
-  return Buffer.from(`
-    <svg width="${VIEWPORT.width}" height="${LABEL_HEIGHT}" xmlns="http://www.w3.org/2000/svg">
-      <rect width="100%" height="100%" fill="#0B0F14"/>
-      <rect y="${LABEL_HEIGHT - 2}" width="100%" height="2" fill="#232C38"/>
-      <text x="40" y="${LABEL_HEIGHT / 2 + 8}" font-family="Consolas, Menlo, monospace" font-size="22" fill="#3DDBD9" letter-spacing="3">${count}</text>
-      <text x="170" y="${LABEL_HEIGHT / 2 + 9}" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="26" font-weight="600" fill="#E7ECF2">${escapeXml(label)}</text>
-    </svg>`);
-}
-
-async function settle(page) {
+async function waitForData(page) {
   await page.waitForLoadState("networkidle", { timeout: 15000 }).catch(() => {});
-  await page.waitForTimeout(SETTLE_MS);
+
+  // Wait until spinners, skeletons and "Loading..." text are gone
+  await page
+    .waitForFunction(
+      () =>
+        !document.querySelector(".animate-spin, .animate-pulse, [aria-busy='true']") &&
+        !/\bloading\b/i.test(document.body.innerText),
+      null,
+      { timeout: DATA_TIMEOUT_MS, polling: 300 }
+    )
+    .catch(() =>
+      console.warn(`  ${new URL(page.url()).pathname} still loading after ${DATA_TIMEOUT_MS / 1000}s`)
+    );
 }
 
-// Scroll down the page so lazy-loaded images load, then back to the top
-async function loadLazyContent(page) {
-  await page.evaluate(async (maxHeight) => {
-    for (let y = 0; y < Math.min(document.body.scrollHeight, maxHeight); y += 500) {
-      window.scrollTo(0, y);
-      await new Promise((resolve) => setTimeout(resolve, 150));
-    }
-    window.scrollTo(0, 0);
-  }, MAX_PAGE_HEIGHT);
-  await page.waitForTimeout(1500);
+// Scroll down through the content a little and back, like someone skimming
+async function skim(page, viewport) {
+  await glide(page, viewport.width * 0.6, viewport.height * 0.55, 500);
+
+  for (let tick = 0; tick < 4; tick++) {
+    await page.mouse.wheel(0, 220);
+    await page.waitForTimeout(260);
+  }
+
+  await page.waitForTimeout(500);
+  await page.mouse.wheel(0, -2000);
+  await page.waitForTimeout(500);
 }
 
-async function screenshot(page) {
-  await loadLazyContent(page);
-
-  const buffer = await page.screenshot({ fullPage: true });
-  const { height } = await sharp(buffer).metadata();
-
-  if (height <= MAX_PAGE_HEIGHT) return { buffer, height };
-
-  return {
-    buffer: await sharp(buffer)
-      .extract({ left: 0, top: 0, width: VIEWPORT.width, height: MAX_PAGE_HEIGHT })
-      .toBuffer(),
-    height: MAX_PAGE_HEIGHT,
-  };
-}
-
-async function logIn(page, tour) {
+function credentials(tour) {
   const email = process.env[`${tour.env}_EMAIL`];
   const password = process.env[`${tour.env}_PASSWORD`];
 
   if (!email || !password) {
-    throw new Error(
-      `Add ${tour.env}_EMAIL and ${tour.env}_PASSWORD to .env.local first`
-    );
+    throw new Error(`Add ${tour.env}_EMAIL and ${tour.env}_PASSWORD to .env.local first`);
   }
 
+  return { email, password };
+}
+
+// Signs in without any typing animation (used to warm up the backend)
+async function quickLogIn(page, tour) {
+  const { email, password } = credentials(tour);
   const loginUrl = tour.origin + tour.loginPath;
 
   await page.goto(loginUrl);
-  await settle(page);
-
-  // The sign-in screen is the first stop of the tour, before anything is typed
-  const signIn = await screenshot(page);
-
   await page.fill('input[type="email"]', email);
   await page.fill('input[type="password"]', password);
   await page.click('button[type="submit"]');
-
   await page
-    .waitForURL((url) => url.href !== loginUrl, { timeout: 20000 })
+    .waitForURL((url) => url.href !== loginUrl, { timeout: 30000 })
     .catch(() => {
       throw new Error("Login didn't redirect; check the email and password");
     });
-
-  return signIn;
 }
 
 async function discoverPages(page, tour) {
+  if (tour.pages) return tour.pages;
+
   await page.goto(tour.origin + tour.discoverFrom);
-  await settle(page);
+  await waitForData(page);
 
   const paths = await page.$$eval(
     "a[href]",
@@ -172,16 +209,88 @@ async function discoverPages(page, tour) {
     .slice(0, MAX_DISCOVERED_PAGES + 1);
 }
 
-async function captureTour(browser, tour) {
-  const context = await browser.newContext({ viewport: VIEWPORT });
+// First pass, not recorded: wakes up sleeping backends and finds the pages,
+// so the video isn't mostly loading spinners
+async function warmUp(browser, tour, viewport) {
+  const context = await browser.newContext({ viewport });
   const page = await context.newPage();
 
-  const shots = [{ label: "Sign in", ...(await logIn(page, tour)) }];
-  const paths = tour.pages ?? (await discoverPages(page, tour));
+  await quickLogIn(page, tour);
+  const paths = await discoverPages(page, tour);
 
   for (const path of paths) {
     await page.goto(tour.origin + path);
-    await settle(page);
+    await waitForData(page);
+  }
+
+  await context.close();
+  return paths;
+}
+
+async function recordTour(browser, tour) {
+  const viewport = tour.viewport ?? DEFAULT_VIEWPORT;
+
+  console.log("  warming up");
+  const paths = await warmUp(browser, tour, viewport);
+
+  const context = await browser.newContext({
+    viewport,
+    recordVideo: { dir: `${OUT_DIR}/.raw`, size: viewport },
+  });
+  await context.addInitScript(CURSOR_SCRIPT);
+
+  const recordingStarted = Date.now();
+  const page = await context.newPage();
+  const { email, password } = credentials(tour);
+  const loginUrl = tour.origin + tour.loginPath;
+
+  cursorAt = { x: viewport.width * 0.5, y: viewport.height * 0.8 };
+
+  await page.goto(loginUrl);
+  await waitForData(page);
+  await page.mouse.move(cursorAt.x, cursorAt.y);
+
+  // The player skips the blank frames before the login page appeared
+  const start = (Date.now() - recordingStarted) / 1000;
+  await page.waitForTimeout(600);
+
+  console.log("  signing in");
+  const emailField = page.locator('input[type="email"]').first();
+  const passwordField = page.locator('input[type="password"]').first();
+
+  await clickElement(page, emailField);
+  await emailField.fill("");
+  await emailField.pressSequentially(email, { delay: 45 });
+  await clickElement(page, passwordField);
+  await passwordField.fill("");
+  await passwordField.pressSequentially(password, { delay: 45 });
+  await page.waitForTimeout(300);
+  await clickElement(page, page.locator('button[type="submit"]').first());
+
+  await page.waitForURL((url) => url.href !== loginUrl, { timeout: 30000 });
+  await waitForData(page);
+  await page.waitForTimeout(1200);
+
+  let poster;
+
+  for (const path of paths) {
+    const current = new URL(page.url()).pathname;
+
+    if (current !== path) {
+      // Click the app's own link, like a visitor would; jump straight
+      // there only if the page has no visible link to it
+      const link = page.locator(`a[href="${path}"]:visible`).first();
+      const clicked = (await link.count()) > 0 && (await clickElement(page, link));
+
+      if (clicked) {
+        await page.waitForURL((url) => url.pathname === path, { timeout: 15000 }).catch(() => {});
+      } else {
+        await page.goto(tour.origin + path);
+      }
+
+      await waitForData(page);
+      await page.waitForTimeout(700);
+    }
 
     // A bounce back to the login page means this account can't open it
     if (new URL(page.url()).pathname === tour.loginPath) {
@@ -189,41 +298,31 @@ async function captureTour(browser, tour) {
       continue;
     }
 
-    shots.push({ label: labelFromPath(path), ...(await screenshot(page)) });
-    console.log(`  captured ${path}`);
+    // The first page after signing in doubles as the poster image
+    poster ??= await page.screenshot();
+
+    await skim(page, viewport);
+    console.log(`  visited ${path}`);
   }
 
+  const duration = (Date.now() - recordingStarted) / 1000;
+  const video = page.video();
   await context.close();
 
-  const layers = [];
-  let top = 0;
+  await mkdir(OUT_DIR, { recursive: true });
+  const src = `/projects/tours/${tour.slug}.webm`;
+  const posterSrc = `/projects/tours/${tour.slug}.webp`;
 
-  shots.forEach((shot, index) => {
-    layers.push({ input: labelBar(index, shots.length, shot.label), top, left: 0 });
-    top += LABEL_HEIGHT;
-    layers.push({ input: shot.buffer, top, left: 0 });
-    top += shot.height;
-  });
+  await video.saveAs(`public${src}`);
+  await video.delete();
+  await sharp(poster).resize({ width: 960 }).webp({ quality: 80 }).toFile(`public${posterSrc}`);
 
-  const stitched = await sharp({
-    create: {
-      width: VIEWPORT.width,
-      height: top,
-      channels: 3,
-      background: "#0B0F14",
-    },
-  })
-    .composite(layers)
-    .png()
-    .toBuffer();
-
-  const src = `/projects/previews/${tour.slug}-tour.webp`;
-  const info = await sharp(stitched)
-    .resize({ width: OUTPUT_WIDTH })
-    .webp({ quality: 78 })
-    .toFile(`public${src}`);
-
-  return { src, height: info.height, pages: shots.length };
+  return {
+    video: src,
+    poster: posterSrc,
+    start: Math.round(start * 10) / 10,
+    duration: Math.round(duration),
+  };
 }
 
 const only = process.argv[2];
@@ -244,8 +343,8 @@ try {
     console.log(`${tour.slug}:`);
 
     try {
-      manifest[tour.slug] = await captureTour(browser, tour);
-      console.log(`  saved ${manifest[tour.slug].pages} pages to public${manifest[tour.slug].src}`);
+      manifest[tour.slug] = await recordTour(browser, tour);
+      console.log(`  saved a ${manifest[tour.slug].duration}s walkthrough to public${manifest[tour.slug].video}`);
     } catch (error) {
       failed = true;
       console.error(`  failed: ${error.message}`);
