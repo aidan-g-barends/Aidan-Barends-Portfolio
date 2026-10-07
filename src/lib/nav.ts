@@ -4,9 +4,9 @@ import { Briefcase, FolderKanban, House, Mail, User } from "lucide-react";
 // Shared by the desktop navbar and the mobile tab bar
 export const navLinks: { href: string; label: string; icon: LucideIcon }[] = [
   { href: "/", label: "Home", icon: House },
+  { href: "/about", label: "About", icon: User },
   { href: "/projects", label: "Projects", icon: FolderKanban },
   { href: "/experience", label: "Experience", icon: Briefcase },
-  { href: "/about", label: "About", icon: User },
   { href: "/contact", label: "Contact", icon: Mail },
 ];
 
