@@ -303,34 +303,37 @@ textarea {
 
 /*
  * PROJECT PREVIEWS ON TOUCH SCREENS
- * There's no hover on a phone, so PreviewImage sets data-autoscroll="on"
- * once a preview is on screen and the visitor stops scrolling. It then
- * scrolls top to bottom at the same speed as hovering on a computer, and
- * eases back to the top when the card leaves the screen.
+ * There's no real hover on a phone, so PreviewImage sets
+ * data-autoscroll="on" once a preview is on screen and the visitor stops
+ * scrolling (it only does this on touchscreens). The preview then scrolls
+ * top to bottom at the same speed as hovering, and eases back to the top
+ * when the card leaves the screen.
  */
-.preview-hint-touch {
-  display: none;
+.preview-shot[data-autoscroll="on"] {
+  object-position: bottom;
+  transition-duration: var(--scroll-duration);
+  transition-timing-function: linear;
 }
 
-@media (hover: none) {
+/* Hint text: "Hover to scroll" for mice, "Pause here" for touchscreens.
+   Some phones claim they can hover, so a coarse pointer also counts. */
+.preview-hint-touch {
+  display: none;
+  transition: opacity 0.3s ease;
+}
+
+@media (hover: none), (pointer: coarse) {
   .preview-hint-hover {
     display: none;
   }
 
   .preview-hint-touch {
     display: inline-block;
-    transition: opacity 0.3s ease;
   }
+}
 
-  .preview-shot[data-autoscroll="on"] {
-    object-position: bottom;
-    transition-duration: var(--scroll-duration);
-    transition-timing-function: linear;
-  }
-
-  .preview-shot[data-autoscroll="on"] ~ .preview-hint-touch {
-    opacity: 0;
-  }
+.preview-shot[data-autoscroll="on"] ~ .preview-hint-touch {
+  opacity: 0;
 }
 
 /*

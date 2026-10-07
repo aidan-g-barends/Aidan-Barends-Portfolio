@@ -36,7 +36,11 @@ export default function PreviewImage({
     const image = imageRef.current;
     if (!image) return;
 
-    const isTouch = window.matchMedia("(hover: none)").matches;
+    // Don't rely on "(hover: none)": some phones (e.g. Samsung) report
+    // that they can hover, so check for a touchscreen instead
+    const isTouch =
+      window.matchMedia("(pointer: coarse)").matches ||
+      navigator.maxTouchPoints > 0;
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
