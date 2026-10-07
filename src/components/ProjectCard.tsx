@@ -5,7 +5,8 @@ import ProjectShot from "./ProjectShot";
 import { useRef } from "react";
 import type { MouseEvent } from "react";
 import gsap from "gsap";
-import { GraduationCap } from "lucide-react";
+import { ExternalLink, GraduationCap, Lock } from "lucide-react";
+import GithubIcon from "./GithubIcon";
 import type { Project } from "../data/projects";
 
 function getDomain(url: string) {
@@ -169,54 +170,49 @@ export default function ProjectCard({
           ))}
         </div>
 
-        <div className="mt-5 flex flex-wrap gap-4 text-sm font-medium">
-        {/* Standard GitHub repository */}
-        {project.github && (
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent transition-transform duration-200 hover:translate-x-1 hover:underline"
-          >
-            {project.private ? "GitHub (Private) →" : "GitHub →"}
-          </a>
-        )}
+        <div className="mt-5 flex flex-wrap items-center gap-2 text-sm font-medium">
+          {/* Live deployment */}
+          {project.live && (
+            <a
+              href={project.live}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-background transition-transform duration-300 hover:scale-105"
+            >
+              {liveLabel}
+              <ExternalLink size={14} aria-hidden="true" />
+            </a>
+          )}
 
-        {/* Frontend repository */}
-        {project.githubFrontend && (
-          <a
-            href={project.githubFrontend}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent transition-transform duration-200 hover:translate-x-1 hover:underline"
-          >
-            Frontend GitHub →
-          </a>
-        )}
-
-        {/* Backend repository */}
-        {project.githubBackend && (
-          <a
-            href={project.githubBackend}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent transition-transform duration-200 hover:translate-x-1 hover:underline"
-          >
-            Backend GitHub →
-          </a>
-        )}
-
-        {/* Live deployment */}
-        {project.live && (
-          <a
-            href={project.live}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent transition-transform duration-200 hover:translate-x-1 hover:underline"
-          >
-            {liveLabel} →
-          </a>
-        )}
+          {/* Repositories: one repo, or separate frontend and backend */}
+          {[
+            { href: project.github, label: "Source" },
+            { href: project.githubFrontend, label: "Frontend" },
+            { href: project.githubBackend, label: "Backend" },
+          ]
+            .filter((repo) => repo.href)
+            .map((repo) =>
+              project.private ? (
+                <span
+                  key={repo.label}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-dashed border-surface-border px-4 py-2 text-foreground-muted"
+                >
+                  <Lock size={13} aria-hidden="true" />
+                  Private repo
+                </span>
+              ) : (
+                <a
+                  key={repo.label}
+                  href={repo.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-surface-border px-4 py-2 transition-colors duration-300 hover:border-foreground/40 hover:bg-foreground/5"
+                >
+                  <GithubIcon size={14} />
+                  {repo.label}
+                </a>
+              )
+            )}
         </div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+import { SITE_URL } from "../lib/site";
+
 export type ProjectStatus = "live" | "github-only" | "in-progress";
 
 export type Project = {
@@ -47,8 +49,9 @@ export const projects: Project[] = [
       "An AI chat assistant built into this portfolio that answers visitors' questions about my projects, experience, and availability. It runs on Google's Gemini API (free tier), streams answers word by word, and only answers from my resume and project data, so it doesn't make things up.",
     tech: ["Next.js", "TypeScript", "Gemini API", "Streaming", "Tailwind CSS"],
     github: "https://github.com/aidan-g-barends/Aidan-Barends-Portfolio",
+    live: `${SITE_URL}/#ask`,
     image: "/projects/ask-aidan.webp",
-    status: "in-progress",
+    status: "live",
     featured: true,
     role:
       "Sole developer: designed the chat UI, wrote the Next.js route handler that calls the Gemini API, built the knowledge base from the site's own project data, and added the safeguards for a public endpoint.",
