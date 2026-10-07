@@ -5,9 +5,9 @@ import ProjectShot from "./ProjectShot";
 import GithubIcon from "./GithubIcon";
 import { getDomain, linkTarget } from "../lib/links";
 
-// Large showcase row for the home page: screenshot on one side, the story and
-// links on the other. Rows alternate sides on desktop and stack on phones.
-export default function FeaturedProject({
+// Showcase row for a project: screenshot on one side, the story and links on
+// the other. Rows alternate sides on desktop and stack on phones.
+export default function ProjectShowcase({
   project,
   index,
   total,

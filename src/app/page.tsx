@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { projects } from "../data/projects";
-import FeaturedProject from "../components/FeaturedProject";
+import ProjectShowcase from "../components/ProjectShowcase";
 import Eyebrow from "../components/Eyebrow";
 import TypedRoles from "../components/TypedRoles";
 import Services from "../components/Services";
@@ -275,7 +275,7 @@ export default function Home() {
         <div className="mt-12 space-y-20 sm:mt-16 sm:space-y-28">
           {featuredProjects.map((project, index) => (
             <div key={project.slug} data-gsap="reveal">
-              <FeaturedProject
+              <ProjectShowcase
                 project={project}
                 index={index}
                 total={featuredProjects.length}

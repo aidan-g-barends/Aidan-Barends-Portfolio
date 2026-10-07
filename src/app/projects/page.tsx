@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { projects } from "../../data/projects";
 import type { Project, ProjectStatus } from "../../data/projects";
-import ProjectCard from "../../components/ProjectCard";
+import ProjectShowcase from "../../components/ProjectShowcase";
 import PageHeader from "../../components/PageHeader";
 import Eyebrow from "../../components/Eyebrow";
 
@@ -104,7 +104,7 @@ function InviteCard() {
   return (
     <Link
       href="/contact?topic=freelance"
-      className="group flex min-h-64 flex-col items-center justify-center rounded-xl border-2 border-dashed border-surface-border p-8 text-center transition-colors duration-300 hover:border-accent/60 hover:bg-accent/5"
+      className="group flex flex-col items-center justify-center rounded-xl border-2 border-dashed border-surface-border px-8 py-12 text-center transition-colors duration-300 hover:border-accent/60 hover:bg-accent/5"
     >
       <span className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
         Taking on new clients
@@ -139,7 +139,7 @@ export default function ProjectsPage() {
         title="Everything I've"
         highlight="built."
         description="Client websites, my own builds, and university team projects."
-        width="max-w-5xl"
+        width="max-w-6xl"
       >
         {/* Jump links double as a quick summary of the counts */}
         <nav
@@ -161,7 +161,7 @@ export default function ProjectsPage() {
         </nav>
       </PageHeader>
 
-      <section className="mx-auto max-w-5xl px-6 pb-20">
+      <section className="mx-auto max-w-6xl px-6 pb-20">
         {visibleGroups.map((group, index) => (
           <div
             key={group.id}
@@ -185,19 +185,23 @@ export default function ProjectsPage() {
               </p>
             </div>
 
-            <div
-              data-gsap="stagger"
-              className="mt-6 grid gap-6 sm:grid-cols-2"
-            >
-              {group.projects.map((project) => (
-                <ProjectCard
-                  key={project.slug}
-                  project={project}
-                />
+            <div className="mt-12 space-y-20 sm:space-y-28">
+              {group.projects.map((project, projectIndex) => (
+                <div key={project.slug} data-gsap="reveal">
+                  <ProjectShowcase
+                    project={project}
+                    index={projectIndex}
+                    total={group.projects.length}
+                  />
+                </div>
               ))}
-
-              {group.inviteCard && <InviteCard />}
             </div>
+
+            {group.inviteCard && (
+              <div data-gsap="reveal" className="mt-16">
+                <InviteCard />
+              </div>
+            )}
           </div>
         ))}
       </section>
