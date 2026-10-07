@@ -52,7 +52,7 @@ function describeProjects() {
         `  Tech: ${project.tech.join(", ")}`,
         `  ${project.description}`,
         project.role ? `  Aidan's role: ${project.role}` : "",
-        project.live ? `  Live: ${project.live}` : "",
+        project.live ? `  Live: ${new URL(project.live, SITE_URL)}` : "",
         `  Case study: ${SITE_URL}/projects/${project.slug}`,
       ]
         .filter(Boolean)

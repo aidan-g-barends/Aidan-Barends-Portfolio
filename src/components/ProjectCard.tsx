@@ -8,14 +8,7 @@ import gsap from "gsap";
 import { ExternalLink, GraduationCap, Lock } from "lucide-react";
 import GithubIcon from "./GithubIcon";
 import type { Project } from "../data/projects";
-
-function getDomain(url: string) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-}
+import { getDomain, linkTarget } from "../lib/links";
 
 export default function ProjectCard({
   project,
@@ -83,8 +76,7 @@ export default function ProjectCard({
       {project.image && (
         <a
           href={project.live ?? `/projects/${project.slug}`}
-          target={project.live ? "_blank" : undefined}
-          rel={project.live ? "noopener noreferrer" : undefined}
+          {...linkTarget(project.live ?? "/")}
           className="group/image relative block w-full overflow-hidden border-b border-surface-border bg-background"
         >
           {project.live && (
@@ -175,8 +167,7 @@ export default function ProjectCard({
           {project.live && (
             <a
               href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...linkTarget(project.live)}
               className="inline-flex items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-background transition-transform duration-300 hover:scale-105"
             >
               {liveLabel}

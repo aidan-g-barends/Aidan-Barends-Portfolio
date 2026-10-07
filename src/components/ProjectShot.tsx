@@ -19,6 +19,8 @@ export default function ProjectShot({
     : `${project.name} screenshot`;
 
   if (project.preview) {
+    const tourPages = project.preview.pages;
+
     // Longer pages scroll for longer, so the speed feels the same
     const scrollSeconds = Math.max(
       2.5,
@@ -42,14 +44,14 @@ export default function ProjectShot({
         aria-hidden="true"
         className="preview-hint-hover pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-[family-name:var(--font-mono)] text-[11px] text-white backdrop-blur transition-opacity duration-300 group-hover/image:opacity-0 motion-reduce:hidden"
       >
-        Hover to scroll ↓
+        {tourPages ? `Hover to tour ${tourPages} pages ↓` : "Hover to scroll ↓"}
       </span>
 
       <span
         aria-hidden="true"
         className="preview-hint-touch pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-[family-name:var(--font-mono)] text-[11px] text-white backdrop-blur motion-reduce:hidden"
       >
-        Pause here to preview ↓
+        {tourPages ? `Pause here to tour ${tourPages} pages ↓` : "Pause here to preview ↓"}
       </span>
       </>
     );

@@ -6,13 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "capture:tours": "node scripts/capture-tours.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.27.0",
     "@gsap/react": "^2.1.2",
-    "@splinetool/react-spline": "^4.1.0",
-    "@splinetool/runtime": "^2.0.73",
     "@vercel/analytics": "^2.0.1",
     "gsap": "^3.15.0",
     "lucide-react": "^1.25.0",
@@ -29,6 +28,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
+    "playwright-core": "^1.63.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

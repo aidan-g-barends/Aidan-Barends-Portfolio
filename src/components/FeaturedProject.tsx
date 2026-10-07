@@ -3,14 +3,7 @@ import { ArrowRight, ExternalLink, GraduationCap, Lock } from "lucide-react";
 import type { Project } from "../data/projects";
 import ProjectShot from "./ProjectShot";
 import GithubIcon from "./GithubIcon";
-
-function getDomain(url: string) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-}
+import { getDomain, linkTarget } from "../lib/links";
 
 // Large showcase row for the home page: screenshot on one side, the story and
 // links on the other. Rows alternate sides on desktop and stack on phones.
@@ -45,8 +38,7 @@ export default function FeaturedProject({
 
         <a
           href={project.live ?? `/projects/${project.slug}`}
-          target={project.live ? "_blank" : undefined}
-          rel={project.live ? "noopener noreferrer" : undefined}
+          {...linkTarget(project.live ?? "/")}
           aria-label={
             project.live
               ? `Open the ${project.name} ${liveLabel.toLowerCase()}`
@@ -137,8 +129,7 @@ export default function FeaturedProject({
           {project.live && (
             <a
               href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...linkTarget(project.live)}
               className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background transition-transform duration-300 hover:scale-105"
             >
               {liveLabel}

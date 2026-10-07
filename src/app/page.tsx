@@ -2,7 +2,6 @@ import Link from "next/link";
 import { ArrowRight, Download } from "lucide-react";
 import { projects } from "../data/projects";
 import FeaturedProject from "../components/FeaturedProject";
-import HeroRobot from "../components/HeroRobot";
 import Eyebrow from "../components/Eyebrow";
 import TypedRoles from "../components/TypedRoles";
 import Services from "../components/Services";
@@ -136,8 +135,7 @@ export default function Home() {
           <div className="aurora-blob aurora-blob-3" />
         </div>
 
-        <div className="relative mx-auto grid max-w-6xl items-center px-5 pb-16 pt-12 sm:px-6 sm:py-40 lg:grid-cols-[1.1fr_1fr] lg:gap-8 lg:py-20">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-5 pb-16 pt-12 text-center sm:px-6 sm:py-40">
           <div data-gsap="hero">
             <span className="inline-flex items-center gap-2 rounded-full border border-surface-border bg-surface/70 px-3 py-1 text-xs font-medium text-foreground-muted backdrop-blur">
               <span className="relative flex h-2 w-2">
@@ -179,7 +177,7 @@ export default function Home() {
           </div>
 
           <div data-gsap="hero">
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4 lg:justify-start">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/projects"
                 className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
@@ -225,9 +223,6 @@ export default function Home() {
               </div>
             ))}
           </div>
-          </div>
-
-          <HeroRobot />
         </div>
       </section>
 

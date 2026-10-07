@@ -1,4 +1,4 @@
-import { SITE_URL } from "../lib/site";
+import tours from "./tours.json";
 
 export type ProjectStatus = "live" | "github-only" | "in-progress";
 
@@ -16,8 +16,9 @@ export type Project = {
   image?: string;
   // Generated cover art rather than a real screenshot of the app
   imageIsIllustration?: boolean;
-  // Full-page capture that scrolls on hover (height in px at 960px wide)
-  preview?: { src: string; height: number };
+  // Full-page capture that scrolls on hover (height in px at 960px wide).
+  // `pages` is set for multi-page tours from scripts/capture-tours.mjs
+  preview?: { src: string; height: number; pages?: number };
   // Phone-sized screenshot of the live site
   mobileImage?: string;
   // Short "how I built it" story: problem, key decision, result
@@ -41,15 +42,15 @@ export type Project = {
   };
 };
 
-export const projects: Project[] = [
+const projectList: Project[] = [
   {
     slug: "ask-aidan-ai-assistant",
     name: "AI Portfolio Assistant",
     description:
       "An AI chat assistant built into this portfolio that answers visitors' questions about my projects, experience, and availability. It runs on Google's Gemini API (free tier), streams answers word by word, and only answers from my resume and project data, so it doesn't make things up.",
     tech: ["Next.js", "TypeScript", "Gemini API", "Streaming", "Tailwind CSS"],
-    github: "https://github.com/aidan-g-barends/Aidan-Barends-Portfolio",
-    live: `${SITE_URL}/#ask`,
+    // It lives on this site, so the demo jumps straight to the chat section
+    live: "/#ask",
     image: "/projects/ask-aidan.webp",
     status: "live",
     featured: true,
@@ -567,3 +568,12 @@ export const projects: Project[] = [
       "The hardest part was modelling availability correctly: several therapists, different treatment lengths, trading hours that change on Saturdays, and staff time off all affect which slots can be offered, and two clients must never be able to book the same therapist at the same time. The staff side also had to be simple enough for the team to use between clients, so the diary focuses on a few clear actions like confirming, marking arrivals, and recording no-shows.",
   },
 ];
+
+// Multi-page tours (apps behind a login) replace the single-page preview
+const tourPreviews: Record<string, Project["preview"]> = tours;
+
+export const projects: Project[] = projectList.map((project) => {
+  const tour = tourPreviews[project.slug];
+
+  return tour ? { ...project, preview: tour } : project;
+});

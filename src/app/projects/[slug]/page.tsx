@@ -11,14 +11,7 @@ import {
 } from "lucide-react";
 import { projects } from "../../../data/projects";
 import type { Project } from "../../../data/projects";
-
-function getDomain(url: string) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, "");
-  } catch {
-    return url;
-  }
-}
+import { getDomain, linkTarget } from "../../../lib/links";
 
 function ImageFrame({ project }: { project: Project }) {
   const { live, liveIsProduction } = project;
@@ -62,8 +55,7 @@ function ImageFrame({ project }: { project: Project }) {
   const frame = live ? (
     <a
       href={live}
-      target="_blank"
-      rel="noopener noreferrer"
+      {...linkTarget(live)}
       className={frameClassName}
       style={{
         boxShadow: "var(--card-shadow)",
@@ -298,8 +290,7 @@ export default async function ProjectDetailPage({
           {project.live && (
             <a
               href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
+              {...linkTarget(project.live)}
               className="group inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
             >
               {project.liveIsProduction ? "Visit Live Site" : "Open Live Demo"}
