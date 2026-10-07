@@ -8,6 +8,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   CircleCheck,
+  Lock,
 } from "lucide-react";
 import { projects } from "../../../data/projects";
 import type { Project } from "../../../data/projects";
@@ -302,7 +303,15 @@ export default async function ProjectDetailPage({
             </a>
           )}
 
-          {project.github && (
+          {/* Private repos can't be opened by visitors, so just say so */}
+          {project.github && project.private && (
+            <span className="inline-flex items-center gap-2 rounded-lg border border-dashed border-surface-border px-5 py-2.5 text-foreground-muted">
+              <Lock size={15} aria-hidden="true" />
+              Private repository
+            </span>
+          )}
+
+          {project.github && !project.private && (
             <a
               href={project.github}
               target="_blank"
@@ -313,9 +322,7 @@ export default async function ProjectDetailPage({
                   : "inline-flex items-center gap-2 rounded-lg bg-accent px-5 py-2.5 text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
               }
             >
-              {project.private
-                ? "View on GitHub (Private)"
-                : "View on GitHub"}
+              View on GitHub
               <ArrowUpRight size={16} aria-hidden="true" />
             </a>
           )}
