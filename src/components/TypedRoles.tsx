@@ -50,7 +50,7 @@ export default function TypedRoles({ roles }: { roles: string[] }) {
   }, [animate, deleting, length, roleIndex, roles]);
 
   return (
-    <p className="inline-flex items-center gap-2 rounded-lg border border-surface-border bg-surface/70 px-4 py-2 font-[family-name:var(--font-mono)] text-sm backdrop-blur">
+    <p className="inline-flex items-center gap-2 whitespace-nowrap rounded-lg border border-surface-border bg-surface/70 px-3 py-2 font-[family-name:var(--font-mono)] text-xs backdrop-blur sm:px-4 sm:text-sm">
       <span className="sr-only">{roles.join(", ")}</span>
 
       <span

@@ -47,6 +47,7 @@ export const projects: Project[] = [
       "An AI chat assistant built into this portfolio that answers visitors' questions about my projects, experience, and availability. It runs on Google's Gemini API (free tier), streams answers word by word, and only answers from my resume and project data, so it doesn't make things up.",
     tech: ["Next.js", "TypeScript", "Gemini API", "Streaming", "Tailwind CSS"],
     github: "https://github.com/aidan-g-barends/Aidan-Barends-Portfolio",
+    image: "/projects/ask-aidan.webp",
     status: "in-progress",
     featured: true,
     role:

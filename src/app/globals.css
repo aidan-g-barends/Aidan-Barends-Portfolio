@@ -276,6 +276,70 @@ textarea {
   }
 }
 
+/* Phones get the bottom tab bar instead of a back-to-top button */
+@media (max-width: 639px) {
+  .back-to-top {
+    display: none !important;
+  }
+}
+
+/* On phones the WhatsApp bubble fades in once you scroll past the hero,
+   so it doesn't cover content on the first screen */
+@supports (animation-timeline: scroll()) {
+  @media (max-width: 639px) {
+    .whatsapp-float {
+      animation: back-to-top-show linear both;
+      animation-timeline: scroll(root);
+      animation-range: 300px 500px;
+    }
+  }
+
+  @media (max-width: 639px) and (prefers-reduced-motion: reduce) {
+    .whatsapp-float {
+      animation-duration: auto !important;
+    }
+  }
+}
+
+/*
+ * PROJECT PREVIEWS ON TOUCH SCREENS
+ * There's no hover on a phone, so the full-page preview scrolls from top to
+ * bottom as the card moves through the screen. Hover devices keep the
+ * hover-to-scroll behaviour from ProjectShot.
+ */
+.preview-hint-touch {
+  display: none;
+}
+
+@media (hover: none) {
+  .preview-hint-hover {
+    display: none;
+  }
+
+  .preview-hint-touch {
+    display: inline-block;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (hover: none) and (prefers-reduced-motion: no-preference) {
+    .preview-shot {
+      animation: preview-scroll linear both;
+      animation-timeline: view();
+      animation-range: entry 60% exit 40%;
+    }
+  }
+}
+
+@keyframes preview-scroll {
+  from {
+    object-position: top;
+  }
+  to {
+    object-position: bottom;
+  }
+}
+
 /*
  * COMMAND PALETTE
  */

@@ -108,7 +108,7 @@ export default function AboutPage() {
           {/* STORY */}
           <div
             data-gsap="stagger"
-            className="space-y-5 text-lg leading-relaxed text-foreground-muted"
+            className="space-y-5 text-base leading-relaxed sm:text-lg text-foreground-muted"
           >
             <p>
               I got into tech the way a lot of people my age did,

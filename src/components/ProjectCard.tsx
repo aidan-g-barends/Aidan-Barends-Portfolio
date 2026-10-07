@@ -115,7 +115,7 @@ export default function ProjectCard({
         </a>
       )}
 
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col p-5 sm:p-6">
         <div className="flex items-center justify-between gap-2">
           <h3 className="text-lg font-semibold">
             <Link
@@ -154,7 +154,7 @@ export default function ProjectCard({
           </div>
         </div>
 
-        <p className="mt-2 flex-1 text-sm text-foreground-muted">
+        <p className="mt-2 line-clamp-4 flex-1 text-sm text-foreground-muted sm:line-clamp-none">
           {project.description}
         </p>
 

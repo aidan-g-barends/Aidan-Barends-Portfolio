@@ -38,14 +38,22 @@ export default function ProjectShot({
             "--scroll-duration": `${scrollSeconds}s`,
           } as CSSProperties
         }
-        className="object-cover object-top transition-[object-position] duration-700 ease-in-out group-hover/image:object-bottom group-hover/image:duration-(--scroll-duration) group-hover/image:ease-linear motion-reduce:group-hover/image:object-top"
+        className="preview-shot object-cover object-top transition-[object-position] duration-700 ease-in-out group-hover/image:object-bottom group-hover/image:duration-(--scroll-duration) group-hover/image:ease-linear motion-reduce:group-hover/image:object-top"
       />
+
+      {/* Hover devices scroll on hover; touch screens scroll with the page (globals.css) */}
+      <span
+        aria-hidden="true"
+        className="preview-hint-hover pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-[family-name:var(--font-mono)] text-[11px] text-white backdrop-blur transition-opacity duration-300 group-hover/image:opacity-0 motion-reduce:hidden"
+      >
+        Hover to scroll ↓
+      </span>
 
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-[family-name:var(--font-mono)] text-[11px] text-white backdrop-blur transition-opacity duration-300 group-hover/image:opacity-0 motion-reduce:hidden"
+        className="preview-hint-touch pointer-events-none absolute bottom-3 left-3 rounded-full bg-black/60 px-2.5 py-1 font-[family-name:var(--font-mono)] text-[11px] text-white backdrop-blur motion-reduce:hidden"
       >
-        Hover to scroll ↓
+        Full page preview ↓
       </span>
       </>
     );

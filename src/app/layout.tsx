@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import {
   Space_Grotesk,
   Inter,
@@ -13,6 +13,7 @@ import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import MotionProvider from "../components/MotionProvider";
 import CommandPalette from "../components/CommandPalette";
+import MobileTabBar from "../components/MobileTabBar";
 import { projects } from "../data/projects";
 import { ArrowUp, MessageCircle } from "lucide-react";
 import { SITE_URL, WHATSAPP_URL } from "../lib/site";
@@ -31,6 +32,16 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-mono",
   subsets: ["latin"],
 });
+
+// "cover" lets the mobile tab bar sit behind the iPhone home indicator
+// (it pads itself with the safe-area inset). Zoom stays enabled.
+export const viewport: Viewport = {
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#EEF1F5" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B0F14" },
+  ],
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -72,7 +83,7 @@ export default function RootLayout({
         />
       </head>
 
-      <body className="flex min-h-full flex-col">
+      <body className="flex min-h-full flex-col pb-[calc(4rem+env(safe-area-inset-bottom))] sm:pb-0">
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-background"
@@ -84,7 +95,9 @@ export default function RootLayout({
 
         <main
           id="main-content"
-          className="flex-1"
+          // Content that slides in from the side (scroll reveals) must never
+          // widen the page on phones; clip keeps it from creating a scrollbar
+          className="flex-1 overflow-x-clip"
         >
           <MotionProvider>
             {children}
@@ -111,7 +124,7 @@ export default function RootLayout({
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Chat with Aidan on WhatsApp"
-          className="group fixed bottom-6 right-6 z-40 flex h-14 items-center gap-2 rounded-full bg-emerald-700 px-4 text-white shadow-[0_10px_30px_-8px_rgba(5,150,105,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-800"
+          className="whatsapp-float group fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-4 z-40 flex h-12 w-12 items-center justify-center gap-2 rounded-full bg-emerald-700 text-white sm:bottom-6 sm:right-6 sm:h-14 sm:w-auto sm:px-4 shadow-[0_10px_30px_-8px_rgba(5,150,105,0.7)] transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-800"
         >
           <MessageCircle size={22} aria-hidden="true" />
 
@@ -119,6 +132,8 @@ export default function RootLayout({
             WhatsApp
           </span>
         </a>
+
+        <MobileTabBar />
 
         <CommandPalette
           projects={projects.map(({ slug, name, tech }) => ({

@@ -71,7 +71,7 @@ export default function Services() {
         className="hero-grid pointer-events-none absolute inset-0"
       />
 
-      <div className="relative mx-auto max-w-5xl px-6 py-20">
+      <div className="relative mx-auto max-w-5xl px-6 py-14 sm:py-20">
         <div
           data-gsap="reveal"
           className="flex flex-wrap items-end justify-between gap-4"

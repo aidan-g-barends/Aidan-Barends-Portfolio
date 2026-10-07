@@ -135,7 +135,7 @@ export default function Home() {
           <div className="aurora-blob aurora-blob-3" />
         </div>
 
-        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 py-28 text-center sm:py-40">
+        <div className="relative mx-auto flex max-w-3xl flex-col items-center px-5 pb-16 pt-12 text-center sm:px-6 sm:py-40">
           <div data-gsap="hero">
             <span className="inline-flex items-center gap-2 rounded-full border border-surface-border bg-surface/70 px-3 py-1 text-xs font-medium text-foreground-muted backdrop-blur">
               <span className="relative flex h-2 w-2">
@@ -258,7 +258,7 @@ export default function Home() {
       </section>
 
       {/* BEST PROJECTS */}
-      <section className="mx-auto max-w-5xl px-6 py-20">
+      <section className="mx-auto max-w-5xl px-6 py-14 sm:py-20">
         <div data-gsap="reveal">
           <Eyebrow index="01" label="Featured work" />
 
@@ -303,7 +303,7 @@ export default function Home() {
 
       {/* SKILLS */}
       <section className="border-y border-surface-border bg-surface/50">
-        <div className="mx-auto max-w-5xl px-6 py-20">
+        <div className="mx-auto max-w-5xl px-6 py-14 sm:py-20">
           <div data-gsap="reveal">
             <Eyebrow index="03" label="Toolkit" />
 
@@ -348,7 +348,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="mx-auto max-w-5xl px-6 py-24">
+      <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
         <div
           data-gsap="scale"
           className="relative overflow-hidden rounded-2xl border border-surface-border bg-surface px-6 py-16 text-center sm:px-16"

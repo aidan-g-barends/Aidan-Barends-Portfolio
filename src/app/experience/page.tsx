@@ -430,7 +430,7 @@ export default function ExperiencePage() {
       </section>
 
       {/* EXPERIENCE */}
-      <section className="mx-auto max-w-3xl px-6 py-20">
+      <section className="mx-auto max-w-3xl px-6 py-14 sm:py-20">
         <div data-gsap="reveal">
           <Eyebrow index="01" label="Work" />
 
@@ -713,7 +713,7 @@ export default function ExperiencePage() {
 
       {/* EDUCATION */}
       <section className="border-y border-surface-border bg-surface/50">
-        <div className="mx-auto max-w-3xl px-6 py-20">
+        <div className="mx-auto max-w-3xl px-6 py-14 sm:py-20">
           <div data-gsap="reveal">
             <Eyebrow index="02" label="Study" />
 
@@ -776,7 +776,7 @@ export default function ExperiencePage() {
       </section>
 
       {/* CERTIFICATIONS */}
-      <section className="mx-auto max-w-3xl px-6 py-20">
+      <section className="mx-auto max-w-3xl px-6 py-14 sm:py-20">
         <div data-gsap="reveal">
           <Eyebrow index="03" label="Upskilling" />
 

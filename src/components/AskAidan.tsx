@@ -82,7 +82,7 @@ export default function AskAidan() {
   return (
     <section
       id="ask"
-      className="mx-auto max-w-5xl scroll-mt-20 px-6 py-20"
+      className="mx-auto max-w-5xl scroll-mt-20 px-6 py-14 sm:py-20"
     >
       <div className="grid gap-10 lg:grid-cols-[1fr_1.3fr] lg:items-start">
         <div data-gsap="reveal">
@@ -116,7 +116,7 @@ export default function AskAidan() {
 
         <div
           data-gsap="reveal"
-          className="spotlight-card flex h-[440px] flex-col overflow-hidden rounded-2xl border border-surface-border bg-surface"
+          className="spotlight-card flex h-[400px] flex-col sm:h-[440px] overflow-hidden rounded-2xl border border-surface-border bg-surface"
           style={{
             boxShadow: "var(--card-shadow)",
           }}
@@ -130,7 +130,7 @@ export default function AskAidan() {
 
             <span className="ml-auto inline-flex items-center gap-1 font-[family-name:var(--font-mono)] text-[11px] text-foreground-muted">
               <Sparkles size={12} aria-hidden="true" />
-              AI · may make mistakes
+              AI<span className="hidden sm:inline"> · may make mistakes</span>
             </span>
           </div>
 

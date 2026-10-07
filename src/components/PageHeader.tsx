@@ -45,7 +45,7 @@ export default function PageHeader({
         }}
       />
 
-      <div className={`relative mx-auto px-6 pb-12 pt-20 sm:pt-24 ${width}`}>
+      <div className={`relative mx-auto px-6 pb-10 pt-12 sm:pb-12 sm:pt-24 ${width}`}>
         <div data-gsap="hero">
           <Eyebrow label={eyebrow} />
 
