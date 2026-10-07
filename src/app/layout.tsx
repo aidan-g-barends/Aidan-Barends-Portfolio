@@ -76,6 +76,10 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Applies the saved theme before first paint so dark mode doesn't
+            flash light. It has to be a plain inline script: next/script
+            queues inline scripts until Next's own JS loads, which is after
+            the first paint. */}
         <script
           dangerouslySetInnerHTML={{
             __html: `try{var t=localStorage.getItem("theme");if(t?t==="dark":matchMedia("(prefers-color-scheme: dark)").matches)document.documentElement.classList.add("dark")}catch(e){}`,
