@@ -42,13 +42,13 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: "ask-aidan-ai-assistant",
-    name: "Ask Aidan: AI Portfolio Assistant",
+    name: "AI Portfolio Assistant",
     description:
       "An AI chat assistant built into this portfolio that answers visitors' questions about my projects, experience, and availability. It runs on Google's Gemini API (free tier), streams answers word by word, and only answers from my resume and project data, so it doesn't make things up.",
     tech: ["Next.js", "TypeScript", "Gemini API", "Streaming", "Tailwind CSS"],
     github: "https://github.com/aidan-g-barends/Aidan-Barends-Portfolio",
     status: "in-progress",
-    featured: false,
+    featured: true,
     role:
       "Sole developer: designed the chat UI, wrote the Next.js route handler that calls the Gemini API, built the knowledge base from the site's own project data, and added the safeguards for a public endpoint.",
     problem:
