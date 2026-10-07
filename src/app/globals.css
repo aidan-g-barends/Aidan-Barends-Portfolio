@@ -303,9 +303,10 @@ textarea {
 
 /*
  * PROJECT PREVIEWS ON TOUCH SCREENS
- * There's no hover on a phone, so the full-page preview scrolls from top to
- * bottom as the card moves through the screen. Hover devices keep the
- * hover-to-scroll behaviour from ProjectShot.
+ * There's no hover on a phone, so PreviewImage sets data-autoscroll="on"
+ * once a preview is on screen and the visitor stops scrolling. It then
+ * scrolls top to bottom at the same speed as hovering on a computer, and
+ * eases back to the top when the card leaves the screen.
  */
 .preview-hint-touch {
   display: none;
@@ -318,25 +319,17 @@ textarea {
 
   .preview-hint-touch {
     display: inline-block;
+    transition: opacity 0.3s ease;
   }
-}
 
-@supports (animation-timeline: view()) {
-  @media (hover: none) and (prefers-reduced-motion: no-preference) {
-    .preview-shot {
-      animation: preview-scroll linear both;
-      animation-timeline: view();
-      animation-range: entry 60% exit 40%;
-    }
-  }
-}
-
-@keyframes preview-scroll {
-  from {
-    object-position: top;
-  }
-  to {
+  .preview-shot[data-autoscroll="on"] {
     object-position: bottom;
+    transition-duration: var(--scroll-duration);
+    transition-timing-function: linear;
+  }
+
+  .preview-shot[data-autoscroll="on"] ~ .preview-hint-touch {
+    opacity: 0;
   }
 }
 
