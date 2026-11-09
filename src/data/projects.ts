@@ -265,6 +265,7 @@ const projectList: Project[] = [
     liveIsProduction: true,
     image: "/projects/cover-knownmerch.png",
     dswc: true,
+    clientWork: true,
     status: "live",
     featured: false,
     role:
