@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const topicLabels: Record<string, string> = {
   job: "Job opportunity",
-  freelance: "Freelance project",
+  freelance: "Website or online store project",
   other: "Something else",
 };
 

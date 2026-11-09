@@ -718,7 +718,7 @@ export default function ExperiencePage() {
 
           <p className="mt-2 text-foreground-muted">
             Real clients teach you things a classroom can&apos;t.
-            Between field work, remote support, and freelancing,
+            Between field work, remote support, and running my business,
             these are the lessons that stuck.
           </p>
         </div>

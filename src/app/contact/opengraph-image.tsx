@@ -8,6 +8,6 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "Contact",
     title: "Let's build something.",
-    subtitle: "Open to junior developer roles and new freelance clients.",
+    subtitle: "Open to junior developer roles and new Digital Solutions WC clients.",
   });
 }

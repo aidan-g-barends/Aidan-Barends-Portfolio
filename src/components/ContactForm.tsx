@@ -33,7 +33,7 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
 
 const topics = [
   { value: "job", label: "Job opportunity" },
-  { value: "freelance", label: "Freelance project" },
+  { value: "freelance", label: "Website or online store project" },
   { value: "other", label: "Something else" },
 ] as const;
 
@@ -68,7 +68,7 @@ function TopicOptions({ defaultTopic }: { defaultTopic: string }) {
   );
 }
 
-// Reads ?topic= so links like "Start a Freelance Project" preselect it.
+// Reads ?topic= so links like "Start a Project" preselect it.
 function TopicPicker() {
   const searchParams = useSearchParams();
   const requested = searchParams.get("topic");
@@ -202,7 +202,7 @@ export default function ContactForm() {
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:hidden" />
             <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
           </span>
-          Open to junior roles &amp; freelance projects
+          Open to junior roles &amp; new client projects
         </span>
       </PageHeader>
 

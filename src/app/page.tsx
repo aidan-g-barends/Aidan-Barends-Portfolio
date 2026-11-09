@@ -14,9 +14,9 @@ const personJsonLd = {
   name: "Aidan Barends",
   url: SITE_URL,
   image: `${SITE_URL}/projects/profile.jpeg`,
-  jobTitle: "Freelance Web Developer",
+  jobTitle: "Owner & Founder, Digital Solutions WC",
   description:
-    "Software Engineering student at CPUT, freelance web developer, and IT Field Technician working toward becoming an AI Engineer.",
+    "Software Engineering student at CPUT, owner and founder of Digital Solutions WC, and IT Field Technician working toward becoming an AI Engineer.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Langebaan",
@@ -142,7 +142,7 @@ export default function Home() {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75 motion-reduce:hidden" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </span>
-              Open to junior roles &amp; freelance projects
+              Open to junior roles &amp; new client projects
             </span>
           </div>
 
@@ -152,7 +152,7 @@ export default function Home() {
           >
             <TypedRoles
               roles={[
-                "Freelance Web Developer",
+                "Founder, Digital Solutions WC",
                 "Software Engineering Student",
                 "IT Field Technician",
                 "Aspiring AI Engineer",
@@ -169,8 +169,8 @@ export default function Home() {
 
           <div data-gsap="hero">
             <p className="mt-6 max-w-xl text-lg text-foreground-muted">
-              A Software Engineering student at CPUT and freelance web
-              developer who ships full stack apps for real clients,
+              A Software Engineering student at CPUT and founder of
+              Digital Solutions WC who ships full stack apps for real clients,
               fixes real networks by day, and is working toward
               becoming an AI Engineer.
             </p>
@@ -377,8 +377,8 @@ export default function Home() {
 
           <p className="relative mx-auto mt-4 max-w-md text-foreground-muted">
             I&apos;m open to junior developer roles, and I&apos;m
-            taking on new freelance clients who need a website built
-            properly.
+            taking on new clients at Digital Solutions WC who need a
+            website or online store built properly.
           </p>
 
           <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -398,7 +398,7 @@ export default function Home() {
               href="/contact?topic=freelance"
               className="inline-flex items-center gap-2 rounded-lg border border-surface-border bg-background/60 px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-1 hover:border-accent"
             >
-              Start a Freelance Project
+              Start a Project
             </Link>
           </div>
         </div>

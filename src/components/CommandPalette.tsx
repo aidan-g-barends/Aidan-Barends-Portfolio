@@ -117,7 +117,7 @@ export default function CommandPalette({
       { id: "copy-email", group: "Actions", label: "Copy email address", hint: EMAIL, icon: Copy, action: { type: "copy-email" } },
       { id: "ask", group: "Actions", label: "Ask the AI about Aidan", hint: "Chat assistant", icon: Bot, keywords: "chatbot ai question gemini", action: { type: "go", href: "/#ask" } },
       { id: "whatsapp", group: "Actions", label: "Chat on WhatsApp", hint: "071 680 8399", icon: MessageCircle, keywords: "phone message hire website", action: { type: "external", href: WHATSAPP_URL } },
-      { id: "freelance", group: "Actions", label: "Start a freelance project", icon: Mail, keywords: "hire website client", action: { type: "go", href: "/contact?topic=freelance" } },
+      { id: "freelance", group: "Actions", label: "Start a website project", icon: Mail, keywords: "hire website client freelance digital solutions wc", action: { type: "go", href: "/contact?topic=freelance" } },
       { id: "resume", group: "Actions", label: "Open resume (PDF)", icon: FileText, keywords: "cv download", action: { type: "external", href: "/resume.pdf" } },
       { id: "theme", group: "Actions", label: "Toggle light / dark theme", icon: SunMoon, keywords: "dark mode light mode", action: { type: "theme" } },
       { id: "github", group: "Actions", label: "GitHub profile", icon: ArrowUpRight, action: { type: "external", href: "https://github.com/aidan-g-barends" } },

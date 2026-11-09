@@ -7,7 +7,7 @@ export const contentType = ogContentType;
 export default function Image() {
   return renderOgImage({
     eyebrow: "Experience",
-    title: "Freelancing, IT field work & study.",
-    subtitle: "Freelance web developer and IT Field Technician at CraythorneIT.",
+    title: "My business, IT field work & study.",
+    subtitle: "Founder of Digital Solutions WC and IT Field Technician at CraythorneIT.",
   });
 }

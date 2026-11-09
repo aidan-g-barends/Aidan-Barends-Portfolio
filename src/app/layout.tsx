@@ -47,11 +47,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
   description:
-    "Portfolio of Aidan Barends, a Software Engineering student at CPUT and freelance web developer building full stack web applications and AI-powered tools.",
+    "Portfolio of Aidan Barends, a Software Engineering student at CPUT and founder of Digital Solutions WC, building full stack web applications and AI-powered tools.",
   openGraph: {
     title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
     description:
-      "Portfolio of Aidan Barends, a Software Engineering student at CPUT and freelance web developer building full stack web applications and AI-powered tools.",
+      "Portfolio of Aidan Barends, a Software Engineering student at CPUT and founder of Digital Solutions WC, building full stack web applications and AI-powered tools.",
     type: "website",
     url: SITE_URL,
   },
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Aidan Barends | Software Engineer & Aspiring AI Engineer",
     description:
-      "Portfolio of Aidan Barends, a Software Engineering student at CPUT and freelance web developer building full stack web applications and AI-powered tools.",
+      "Portfolio of Aidan Barends, a Software Engineering student at CPUT and founder of Digital Solutions WC, building full stack web applications and AI-powered tools.",
   },
 };
 

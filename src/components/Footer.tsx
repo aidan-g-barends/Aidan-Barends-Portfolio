@@ -42,8 +42,8 @@ export default function Footer() {
           </p>
 
           <p className="mt-2 max-w-xs text-sm text-foreground-muted">
-            Software Engineering student, freelance web developer,
-            IT Field Technician, and aspiring AI Engineer based in
+            Software Engineering student, founder of Digital
+            Solutions WC, IT Field Technician, and aspiring AI Engineer based in
             the Western Cape.
           </p>
 

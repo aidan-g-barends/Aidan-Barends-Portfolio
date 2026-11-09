@@ -56,8 +56,8 @@ const quickFacts = [
   },
   {
     icon: Code2,
-    label: "Freelancing",
-    value: "Websites for small businesses",
+    label: "Running",
+    value: "Digital Solutions WC, my web business",
   },
   {
     icon: Sparkles,
@@ -96,8 +96,8 @@ export default function AboutPage() {
             <p className="font-semibold">Aidan Barends</p>
 
             <p className="text-sm text-foreground-muted">
-              Software Engineering student · Freelance web
-              developer · IT Field Technician
+              Software Engineering student · Founder, Digital
+              Solutions WC · IT Field Technician
             </p>
           </div>
         </div>

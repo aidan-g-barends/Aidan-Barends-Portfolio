@@ -85,8 +85,8 @@ export default function Services() {
             </h2>
 
             <p className="mt-2 max-w-xl text-foreground-muted">
-              I&apos;m a freelance web developer taking on new
-              clients. Here&apos;s what I can do for your business.
+              Through my business, Digital Solutions WC, I&apos;m taking
+              on new clients. Here&apos;s what I can do for your business.
             </p>
           </div>
 
