@@ -10,7 +10,7 @@ import Eyebrow from "../../components/Eyebrow";
 export const metadata: Metadata = {
   title: "Projects | Aidan Barends",
   description:
-    "Client websites, independent builds, and university team projects by Aidan Barends, including JJS Business Solutions, UniExchange, and MediTicket 2.",
+    "Digital Solutions WC builds, independent projects, and university team projects by Aidan Barends, including KNOWNMERCH, UniExchange, and MediTicket 2.",
 };
 
 type Group = {
@@ -22,14 +22,15 @@ type Group = {
 };
 
 // Each project goes in the first group it matches, so nothing is listed
-// twice. The badges on each card still show the rest (Live, Uni, Client).
+// twice. The badges on each card still show the rest (Live, Uni, DSWC).
 const groupDefinitions: Group[] = [
   {
-    id: "client",
-    title: "Client Work",
+    id: "dswc",
+    title: "Digital Solutions WC",
     description:
-      "Websites built for paying clients as a freelance web developer.",
-    matches: (project) => Boolean(project.clientWork),
+      "Websites and online stores built under my own business, Digital Solutions WC.",
+    // dswc projects, plus any future client sites, land here
+    matches: (project) => Boolean(project.dswc || project.clientWork),
     inviteCard: true,
   },
   {
@@ -63,7 +64,7 @@ const groupDefinitions: Group[] = [
 
 // Display order on the page
 const displayOrder = [
-  "client",
+  "dswc",
   "live",
   "independent",
   "university",
@@ -138,7 +139,7 @@ export default function ProjectsPage() {
         eyebrow="Projects"
         title="Everything I've"
         highlight="built."
-        description="Client websites, my own builds, and university team projects."
+        description="Digital Solutions WC builds, my own projects, and university team projects."
         width="max-w-6xl"
       >
         {/* Jump links double as a quick summary of the counts */}
