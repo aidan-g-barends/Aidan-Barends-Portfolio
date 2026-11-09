@@ -132,13 +132,22 @@ export default function AboutPage() {
             </p>
 
             <p>
-              On top of that, I freelance as a web developer,
-              building websites for small businesses like{" "}
-              <Link
-                href="/projects/jjs-business-solutions"
+              On top of that, I&apos;m the owner and founder of{" "}
+              <a
+                href="https://digitalsolutionswc-iota.vercel.app/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-medium text-accent hover:underline"
               >
-                JJS Business Solutions
+                Digital Solutions WC
+              </a>
+              , my own web development business. I build websites
+              and online stores for small businesses, like{" "}
+              <Link
+                href="/projects/knownmerch"
+                className="font-medium text-accent hover:underline"
+              >
+                KNOWNMERCH
               </Link>
               . I handle the whole thing myself, from figuring out
               what the business needs to deploying the live site,
