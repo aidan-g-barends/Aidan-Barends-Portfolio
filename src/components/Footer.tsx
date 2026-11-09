@@ -96,8 +96,7 @@ export default function Footer() {
 
       <div className="border-t border-surface-border">
         <p className="mx-auto max-w-5xl px-6 py-5 text-xs text-foreground-muted">
-          &copy; {new Date().getFullYear()} Aidan Barends. Built with
-          Next.js, Tailwind CSS and GSAP.
+          &copy; {new Date().getFullYear()} Aidan Barends.
         </p>
       </div>
     </footer>
