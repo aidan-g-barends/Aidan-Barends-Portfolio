@@ -5,6 +5,7 @@ import {
   ArrowUpRight,
   Award,
   Briefcase,
+  Building2,
   Clapperboard,
   Code2,
   Cpu,
@@ -14,6 +15,7 @@ import {
   LifeBuoy,
   Lightbulb,
   RotateCcw,
+  Rocket,
   School,
   Ticket,
   UserCheck,
@@ -38,11 +40,12 @@ function getDomain(url: string) {
   }
 }
 
-// Client sites come from projects.ts (clientWork: true), so a new
-// client only needs to be added there.
-const freelanceClients = projects.filter(
-  (project) => project.clientWork
-);
+// Link to my business's own website
+const DSWC_URL = "https://digitalsolutionswc-iota.vercel.app/";
+
+// Projects built under Digital Solutions WC come from projects.ts
+// (dswc: true), so a new one only needs adding there.
+const dswcProjects = projects.filter((project) => project.dswc);
 
 type Area = {
   icon: LucideIcon;
@@ -60,42 +63,53 @@ type PeriodData = {
 };
 
 const freelance = {
-  role: "Freelance Web Developer",
+  role: "Owner & Founder",
+  company: "Digital Solutions WC",
+  website: DSWC_URL,
   period: "Jul 2025 – Present",
   summary:
-    "I build websites for small businesses that need a proper online presence, handling the whole job myself. Click a period to see how it's grown.",
+    "I run Digital Solutions WC, my own web development business. I build websites and online stores for small businesses and handle the whole job myself, from planning to launch. Click a period to see how it grew.",
   milestones: [
     {
-      label: "Growing it as a business",
+      label: "Founded Digital Solutions WC",
       period: "Sep 2026 – Present",
       current: true,
       description:
-        "This is when I got serious about it. I'm treating freelancing as a business now and actively looking for new clients who need a website designed, built, and launched properly.",
+        "I turned my freelancing into a proper business, Digital Solutions WC. I now take on websites and online stores for small businesses under my own brand, and I'm actively looking for new clients.",
       areas: [
         {
-          icon: Briefcase,
-          title: "Running it as a business",
+          icon: Rocket,
+          title: "Running the business",
           items: [
-            "Treating freelancing as a business, not a side project",
-            "Actively looking for new clients",
-            "Taking on new website projects for small businesses",
+            "Founded and run Digital Solutions WC as owner and sole developer",
+            "Find clients, scope projects, and quote the work",
+            "Built the studio's own website to showcase services and work",
           ],
         },
         {
           icon: Code2,
           title: "What I deliver",
           items: [
-            "Turning a business's services and information into a clear, professional website",
-            "Responsive UI that works across mobile, tablet, and desktop",
-            "Reusable, maintainable components so the site is easy to update",
+            "Business websites that turn a company's services into a clear, professional site",
+            "Full-stack online stores with payments, stock, and an admin area",
+            "Responsive UI that works on mobile, tablet, and desktop",
             "Deployment and launch of the live production site",
+          ],
+        },
+        {
+          icon: Building2,
+          title: "Current work",
+          items: [
+            "Building KNOWNMERCH, an online store for bar and braai gear",
+            "Yoco payments, Supabase database, and Resend emails",
           ],
         },
       ],
       skills: [
+        "Business Ownership",
         "Web Design",
-        "Responsive UI",
-        "Reusable Components",
+        "Full-Stack Development",
+        "E-commerce",
         "Deployment",
         "Client Communication",
       ],
@@ -105,7 +119,7 @@ const freelance = {
       period: "Jul 2025",
       current: false,
       description:
-        "I started taking on web design work alongside my studies and my IT job.",
+        "I started taking on web design work alongside my studies and my IT job. This is what later became Digital Solutions WC.",
       areas: [
         {
           icon: Code2,
@@ -125,7 +139,7 @@ const freelance = {
 export const metadata: Metadata = {
   title: "Experience & Education | Aidan Barends",
   description:
-    "Aidan Barends' experience as a freelance web developer and an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
+    "Aidan Barends' experience as Owner & Founder of Digital Solutions WC and as an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
 };
 
 const highlights = [
@@ -468,7 +482,17 @@ export default function ExperiencePage() {
                 </h3>
 
                 <p className="mt-1 font-medium text-accent">
-                  Self-employed · {freelance.period}
+                  <a
+                    href={freelance.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 hover:underline"
+                  >
+                    {freelance.company}
+                    <ArrowUpRight size={14} aria-hidden="true" />
+                  </a>
+                  {" · "}
+                  {freelance.period}
                 </p>
               </div>
 
@@ -494,11 +518,11 @@ export default function ExperiencePage() {
               }))}
             />
 
-            {/* Client work is shared across both periods, so it sits outside the tabs */}
+            {/* Digital Solutions WC work sits outside the tabs */}
             <div className="mt-8 border-t border-surface-border pt-6">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h4 className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
-                  Client work
+                  Digital Solutions WC
                 </h4>
 
                 <Link
@@ -515,22 +539,51 @@ export default function ExperiencePage() {
               </div>
 
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
-                {freelanceClients.map((client) => (
-                  <li key={client.slug}>
+                {/* The studio's own website (external link, so <a> not <Link>) */}
+                <li>
+                  <a
+                    href={DSWC_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center justify-between gap-3 rounded-xl border border-surface-border bg-background p-4 transition-colors duration-300 hover:border-accent/50"
+                  >
+                    <div className="min-w-0">
+                      <p className="font-semibold transition-colors group-hover:text-accent">
+                        Studio website
+                      </p>
+
+                      <p className="truncate font-[family-name:var(--font-mono)] text-xs text-foreground-muted">
+                        {getDomain(DSWC_URL)}
+                      </p>
+                    </div>
+
+                    <ArrowUpRight
+                      size={18}
+                      aria-hidden="true"
+                      className="shrink-0 text-foreground-muted transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent"
+                    />
+                  </a>
+                </li>
+
+                {/* Projects built under the business (dswc: true) */}
+                {dswcProjects.map((project) => (
+                  <li key={project.slug}>
                     <Link
-                      href={`/projects/${client.slug}`}
+                      href={`/projects/${project.slug}`}
                       className="group flex items-center justify-between gap-3 rounded-xl border border-surface-border bg-background p-4 transition-colors duration-300 hover:border-accent/50"
                     >
                       <div className="min-w-0">
                         <p className="font-semibold transition-colors group-hover:text-accent">
-                          {client.name}
+                          {project.name}
                         </p>
 
-                        {client.live && (
-                          <p className="truncate font-[family-name:var(--font-mono)] text-xs text-foreground-muted">
-                            {getDomain(client.live)}
-                          </p>
-                        )}
+                        <p className="truncate font-[family-name:var(--font-mono)] text-xs text-foreground-muted">
+                          {project.live
+                            ? getDomain(project.live)
+                            : project.status === "in-progress"
+                              ? "In progress"
+                              : "Case study"}
+                        </p>
                       </div>
 
                       <ArrowUpRight
