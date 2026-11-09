@@ -174,10 +174,80 @@ const projectList: Project[] = [
   },
 
   {
+    slug: "ivy-hold",
+    name: "Ivy & Hold",
+    description:
+      "A Digital Solutions WC build: a custom online store for Ivy & Hold, a South African brand selling vegan leather handbags. The storefront is designed to feel premium on a phone, pulls products and stock from Shopify, and takes Yoco card payments at checkout.",
+    tech: ["React", "Shopify", "Supabase", "Yoco", "Vercel"],
+    github: "https://github.com/aidan-g-barends/frame-to-storefront",
+    private: true,
+    live: "https://www.ivyhold.co.za/",
+    liveIsProduction: true,
+    dswc: true,
+    clientWork: true,
+    image: "/projects/cover-ivy-hold.png",
+    mobileImage: "/projects/mobile/ivy-hold.webp",
+    status: "live",
+    featured: false,
+    role:
+      "Designed and built the storefront through Digital Solutions WC, including the Shopify integration, Yoco checkout, customer reviews, SEO, and Meta Pixel setup.",
+    problem:
+      "Ivy & Hold needed an online store that matched its premium, earthy brand and worked well on a phone, where most of its customers shop, while keeping products and stock easy to manage in Shopify and taking local card payments.",
+    features: [
+      "Custom storefront design built around the brand's own colours",
+      "Products and stock pulled from Shopify",
+      "Yoco card payments at checkout",
+      "Product pages with image galleries and an add-to-bag bar",
+      "Curated product picks on the home page",
+      "Customer reviews with photos",
+      "Free delivery threshold and returns info shown up front",
+      "SEO setup and Meta Pixel for ad tracking",
+      "Live on the client's own domain",
+    ],
+    challenges:
+      "The main challenge was combining Shopify for products and stock with a fully custom front end and a local payment provider, so the brand got a store that looks and feels like its own instead of a standard Shopify theme, while the owner still manages products in a familiar place.",
+  },
+
+  {
+    slug: "jjs-business-solutions",
+    mobileImage: "/projects/mobile/jjs.webp",
+    name: "JJS Business Solutions",
+    description:
+      "A Digital Solutions WC build: a professional business website for JJS Business Solutions, an accredited skills development provider delivering training, consulting and projects across South Africa. The site presents its three service areas and credentials clearly and makes it easy for organisations to enquire.",
+    tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
+    github: "https://github.com/aidan-g-barends/jjs-website",
+    private: true,
+    live: "https://jjsbussol.co.za/",
+    liveIsProduction: true,
+    dswc: true,
+    clientWork: true,
+    image: "/projects/jjs.png",
+    preview: { src: "/projects/previews/jjs.webp", height: 2972 },
+    status: "live",
+    featured: false,
+    role:
+      "Sole developer through Digital Solutions WC, responsible for the design, frontend development, responsive layouts, reusable components, SEO, and launch on the client's own domain.",
+    problem:
+      "JJS Business Solutions needed a professional online presence that could clearly communicate its services and establish a strong digital representation of the organisation. The website needed to make the business easy to understand while presenting its services and information through a polished, modern, and responsive experience.",
+    features: [
+      "Professional business-focused landing page",
+      "Clear presentation of the training, consulting, and project service areas",
+      "Credentials and trusted-by sections",
+      "Enquiry form and WhatsApp contact",
+      "Modern responsive user interface for mobile, tablet, and desktop",
+      "Reusable frontend components",
+      "SEO setup",
+      "Launched on the client's own domain",
+    ],
+    challenges:
+      "The main challenge was translating an established organisation's services and business identity into a modern digital experience without making the website feel unnecessarily complicated. The project required balancing professional presentation, clear information architecture, responsive design, reusable components, and usability across different screen sizes, and taking it all the way through to a live launch on the client's domain.",
+  },
+
+  {
     slug: "knownmerch",
     name: "KNOWNMERCH",
     description:
-      "A Digital Solutions WC build: a full-stack online store for bar, braai and kuier gear, made for South African customers. It has a product catalogue with hover video clips, a cart, Yoco card payments, stock tracking, discount codes, customer reviews, a newsletter sign-up, and an admin area for orders, reviews and subscribers. It's still in development ahead of launch.",
+      "A Digital Solutions WC build: a full-stack online store for bar, braai and kuier gear, made for South African customers. It has a product catalogue with hover video clips, a cart, Yoco card payments, stock tracking, discount codes, customer reviews, a newsletter sign-up, and an admin area for orders, reviews and subscribers.",
     tech: [
       "TanStack Start",
       "React",
@@ -190,9 +260,12 @@ const projectList: Project[] = [
       "Vercel",
     ],
     github: "https://github.com/aidan-g-barends/knownmerch",
+    private: true,
+    live: "https://knownmerch.vercel.app/",
+    liveIsProduction: true,
     image: "/projects/cover-knownmerch.png",
     dswc: true,
-    status: "in-progress",
+    status: "live",
     featured: false,
     role:
       "Sole developer at Digital Solutions WC, responsible for the storefront, database, checkout and payments, admin area, emails, SEO, and deployment.",
