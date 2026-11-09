@@ -34,6 +34,8 @@ export type Project = {
   stats?: { value: string; label: string }[];
   // Freelance work for a real client (listed on the Experience page)
   clientWork?: boolean;
+  // Built under my own business, Digital Solutions WC
+  dswc?: boolean;
   // Built as part of my CPUT Software Engineering diploma
   university?: boolean;
   status: ProjectStatus;
@@ -172,41 +174,44 @@ const projectList: Project[] = [
   },
 
   {
-    slug: "jjs-business-solutions",
-    mobileImage: "/projects/mobile/jjs.webp",
-    name: "JJS Business Solutions",
+    slug: "knownmerch",
+    name: "KNOWNMERCH",
     description:
-      "A professional business website developed for JJS Business Solutions to establish a modern digital presence and clearly communicate the organisation's training, consulting, and project-focused services. The website was designed to present the organisation in a credible and professional way while making important business information easy for prospective clients, partners, and visitors to discover.",
-    tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
-    github: "https://github.com/aidan-g-barends/jjs-website",
-    private: true,
-    live: "https://jjsbussol.co.za/",
-    liveIsProduction: true,
-    clientWork: true,
-    image: "/projects/jjs.png",
-    preview: { src: "/projects/previews/jjs.webp", height: 2972 },
-    status: "live",
+      "A Digital Solutions WC build: a full-stack online store for bar, braai and kuier gear, made for South African customers. It has a product catalogue with hover video clips, a cart, Yoco card payments, stock tracking, discount codes, customer reviews, a newsletter sign-up, and an admin area for orders, reviews and subscribers. It's still in development ahead of launch.",
+    tech: [
+      "TanStack Start",
+      "React",
+      "TypeScript",
+      "Supabase",
+      "PostgreSQL",
+      "Tailwind CSS",
+      "Yoco",
+      "Resend",
+      "Vercel",
+    ],
+    github: "https://github.com/aidan-g-barends/knownmerch",
+    image: "/projects/cover-knownmerch.png",
+    dswc: true,
+    status: "in-progress",
     featured: false,
     role:
-      "Sole developer responsible for the website's frontend development, UI implementation, responsive layouts, reusable components, content presentation, deployment, and overall user experience.",
+      "Sole developer at Digital Solutions WC, responsible for the storefront, database, checkout and payments, admin area, emails, SEO, and deployment.",
     problem:
-      "JJS Business Solutions needed a professional online presence that could clearly communicate its services and establish a strong digital representation of the organisation. The website needed to make the business easy to understand while presenting its services and information through a polished, modern, and responsive experience.",
+      "South African shoppers buying bar and braai gear online want a store that is simple, fast on mobile, and takes local payments. KNOWNMERCH is built without Shopify, so the checkout, stock and orders are fully under the owner's control, and it avoids monthly platform fees.",
     features: [
-      "Professional business-focused landing page",
-      "Clear presentation of JJS Business Solutions' services",
-      "Training, consulting, and project information",
-      "Structured content sections for improved information discovery",
-      "Modern responsive user interface",
-      "Mobile, tablet, and desktop support",
-      "Reusable frontend components",
-      "Consistent visual hierarchy and design patterns",
-      "Clear navigation between important sections",
-      "Professional presentation of business information",
-      "Production deployment using Vercel",
-      "Live publicly accessible website",
+      "Shop with Bar and Braai categories and product pages",
+      "Short hover video clips on product cards and product pages",
+      "Cart drawer and checkout with Aramex delivery and free delivery over R799",
+      "Yoco card payments, confirmed through a signed webhook",
+      "Stock tracked per variant, reduced when an order is paid",
+      "Newsletter sign-up with a welcome discount code",
+      "Customer reviews and a back-in-stock notify option",
+      "Admin area for orders, reviews, subscribers and restock requests",
+      "Order confirmation emails sent with Resend",
+      "SEO setup with a sitemap, robots file and Open Graph image",
     ],
     challenges:
-      "The main challenge was translating an established organisation's services and business identity into a modern digital experience without making the website feel unnecessarily complicated. The project required balancing professional presentation, clear information architecture, responsive design, reusable components, and usability across different screen sizes. It also provided practical experience in taking a business-focused website from development through to a live production deployment.",
+      "Taking real payments safely was the main challenge. The order is only marked as paid when Yoco's webhook arrives and its signature checks out, never because the customer's browser says so, and stock is only taken off once an order is confirmed. Prices and discounts are worked out on the server instead of trusted from the browser, and the business rules (prices, delivery, discount codes) live in one config file so they are easy to change.",
   },
 
   {
