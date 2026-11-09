@@ -20,9 +20,11 @@ export default async function Image({
   return renderOgImage({
     eyebrow: project?.university
       ? "University project"
-      : project?.clientWork
-        ? "Client work"
-        : "Project",
+      : project?.dswc
+        ? "Digital Solutions WC"
+        : project?.clientWork
+          ? "Client work"
+          : "Project",
     title: project?.name ?? "Project",
     subtitle: project?.tech.slice(0, 4).join(" · ") ?? "",
     image: project?.image,

@@ -75,6 +75,12 @@ export default function ProjectShowcase({
 
           <span aria-hidden="true" className="h-px w-8 bg-surface-border" />
 
+          {project.dswc && (
+            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
+              Digital Solutions WC
+            </span>
+          )}
+
           {project.clientWork && (
             <span className="rounded-full bg-accent-2/15 px-2 py-0.5 text-xs font-medium text-blue-700 dark:text-accent-2">
               Client

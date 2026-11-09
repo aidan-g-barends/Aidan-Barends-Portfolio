@@ -223,6 +223,7 @@ export default async function ProjectDetailPage({
             <p className="mt-8 font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
               {[
                 project.university && "University project",
+                project.dswc && "Digital Solutions WC",
                 project.clientWork && "Client work",
                 statusLabels[project.status],
               ]
