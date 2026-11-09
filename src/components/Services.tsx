@@ -18,7 +18,7 @@ const services = [
     title: "Business websites",
     description:
       "A professional, fast, mobile-friendly site that explains what you do and makes it easy for customers to get in touch.",
-    example: { label: "See JJS Business Solutions", href: "/projects/jjs-business-solutions" },
+    example: { label: "See 2G Architecture", href: "/projects/2g-architecture-solutions" },
   },
   {
     icon: CalendarCheck,

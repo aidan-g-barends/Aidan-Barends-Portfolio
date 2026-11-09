@@ -200,7 +200,7 @@ export default function AskAidan() {
               value={input}
               onChange={(event) => setInput(event.target.value)}
               maxLength={MAX_CHARS}
-              placeholder="e.g. What did he build for JJS?"
+              placeholder="e.g. What is Digital Solutions WC?"
               autoComplete="off"
               className="h-10 flex-1 rounded-lg border border-surface-border bg-background px-3 text-sm outline-none transition focus:border-accent focus:ring-2 focus:ring-accent/20"
             />
