@@ -98,10 +98,11 @@ const freelance = {
         },
         {
           icon: Building2,
-          title: "Current work",
+          title: "Sites launched",
           items: [
-            "Building KNOWNMERCH, an online store for bar and braai gear",
-            "Yoco payments, Supabase database, and Resend emails",
+            "Ivy & Hold: online store for a vegan leather handbag brand (ivyhold.co.za)",
+            "JJS Business Solutions: business website for a skills development provider (jjsbussol.co.za)",
+            "KNOWNMERCH: full-stack online store for bar and braai gear",
           ],
         },
       ],

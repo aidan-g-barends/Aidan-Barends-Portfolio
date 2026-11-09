@@ -144,6 +144,20 @@ export default function AboutPage() {
               , my own web development business. I build websites
               and online stores for small businesses, like{" "}
               <Link
+                href="/projects/ivy-hold"
+                className="font-medium text-accent hover:underline"
+              >
+                Ivy &amp; Hold
+              </Link>
+              ,{" "}
+              <Link
+                href="/projects/jjs-business-solutions"
+                className="font-medium text-accent hover:underline"
+              >
+                JJS Business Solutions
+              </Link>{" "}
+              and{" "}
+              <Link
                 href="/projects/knownmerch"
                 className="font-medium text-accent hover:underline"
               >

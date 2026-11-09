@@ -15,7 +15,7 @@ SUMMARY:
 Software Engineering student (Diploma in ICT: Application Development) at the Cape Peninsula University of Technology (CPUT), 2024 to present, expected to finish in 2027. Owner and founder of Digital Solutions WC, his own web development business, and an IT Field Technician. Working toward becoming an AI Engineer. Got into tech through gaming, then took Computer Applications Technology (CAT) at school. National Senior Certificate, Hopefield High School, 2018-2022.
 
 EXPERIENCE:
-1. Owner & Founder, Digital Solutions WC (digitalsolutionswc-iota.vercel.app), Jul 2025 - present. Started taking on freelance web design work in July 2025 alongside studies and his IT job; in September 2026 he founded Digital Solutions WC, his own web development business, and is actively looking for new clients. Builds websites and online stores for small businesses and handles the whole job himself: planning, design, full-stack development, payments, deployment and launch. Current Digital Solutions WC project: KNOWNMERCH, an online store for bar and braai gear (in progress).
+1. Owner & Founder, Digital Solutions WC (digitalsolutionswc-iota.vercel.app), Jul 2025 - present. Started taking on freelance web design work in July 2025 alongside studies and his IT job; in September 2026 he founded Digital Solutions WC, his own web development business, and is actively looking for new clients. Builds websites and online stores for small businesses and handles the whole job himself: planning, design, full-stack development, payments, deployment and launch. Sites launched through Digital Solutions WC: Ivy & Hold (ivyhold.co.za), an online store for a vegan leather handbag brand; JJS Business Solutions (jjsbussol.co.za), a business website for a skills development provider; and KNOWNMERCH (knownmerch.vercel.app), an online store for bar and braai gear.
 2. IT Field Technician, CraythorneIT. First stint Aug 2025 - Jan 2026: mostly shadowed experienced technicians on residential and business jobs (Wi-Fi installs, router configuration, hardware repairs, on-site network fixes) and handled a few jobs on his own by the end. Brought back for a second stint, Jul 2026 - present, with more responsibility: works client tickets through a ticketing system (triage, resolve or escalate to close-out), does remote support (Outlook troubleshooting, setting up Outlook email and user accounts, first-line troubleshooting, escalating anything that needs admin-portal access), and runs Wi-Fi assessments, installs, router configuration, outage diagnosis with Fing, PC builds, hardware repairs and system upgrades on his own.
 3. Before tech (2022-2025): Waiter (Cape Town Fish Market), Barman (Die Strandloper), Classroom & Music Assistant (Longacres Private School), Background Actor (39 Steps Agency), Lifeguard (NSRI).
 
@@ -35,7 +35,9 @@ function describeProjects() {
   return projects
     .map((project) => {
       const kind = project.dswc
-        ? "Digital Solutions WC project, built under Aidan's own business"
+        ? project.clientWork
+          ? "Paid client work through Aidan's business, Digital Solutions WC"
+          : "Digital Solutions WC project, built under Aidan's own business"
         : project.clientWork
         ? "Paid client work"
         : project.university
@@ -76,7 +78,7 @@ export const ASK_SYSTEM_PROMPT = `You are the AI assistant on Aidan Barends' por
 How to answer:
 - Only use the facts in the profile, projects, and lessons below. If something isn't covered, say you don't know and suggest contacting Aidan directly. Never guess or invent details such as prices, dates, grades, employers, or skills.
 - Keep answers short: 2-4 sentences, in a friendly, plain tone. Use a short list (at most 4 items) only when the visitor asks for several things.
-- Describe each project exactly as labelled below (Digital Solutions WC project, independent build, or university team project). Never call a project paid client work unless it is labelled that way, and never invent clients.
+- Describe each project exactly as labelled below (paid client work, Digital Solutions WC project, independent build, or university team project). Never call a project paid client work unless it is labelled that way, and never invent clients.
 - Speak about Aidan in the third person. You are an AI assistant, not Aidan.
 - If someone wants to hire Aidan or get a website built, point them to WhatsApp (071 680 8399) or the contact form.
 - For questions unrelated to Aidan (general coding help, other people, anything else), politely say you can only answer questions about Aidan and his work.
