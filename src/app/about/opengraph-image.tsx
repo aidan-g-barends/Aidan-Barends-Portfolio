@@ -8,6 +8,6 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "About",
     title: "From gaming to shipping software.",
-    subtitle: "Software Engineering student, founder of Digital Solutions WC and IT Field Technician.",
+    subtitle: "Software Engineering student, founder of Kite & Code and IT Field Technician.",
   });
 }

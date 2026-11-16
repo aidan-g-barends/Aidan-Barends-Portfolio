@@ -10,7 +10,7 @@ import Eyebrow from "../../components/Eyebrow";
 export const metadata: Metadata = {
   title: "Projects | Aidan Barends",
   description:
-    "Digital Solutions WC builds, independent projects, and university team projects by Aidan Barends, including KNOWNMERCH, UniExchange, and MediTicket 2.",
+    "Kite & Code builds, independent projects, and university team projects by Aidan Barends, including KNOWNMERCH, UniExchange, and MediTicket 2.",
 };
 
 type Group = {
@@ -26,9 +26,9 @@ type Group = {
 const groupDefinitions: Group[] = [
   {
     id: "dswc",
-    title: "Digital Solutions WC",
+    title: "Kite & Code",
     description:
-      "Websites and online stores built under my own business, Digital Solutions WC.",
+      "Websites and online stores built under my own business, Kite & Code.",
     // dswc projects, plus any future client sites, land here
     matches: (project) => Boolean(project.dswc || project.clientWork),
     inviteCard: true,
@@ -139,7 +139,7 @@ export default function ProjectsPage() {
         eyebrow="Projects"
         title="Everything I've"
         highlight="built."
-        description="Digital Solutions WC builds, my own projects, and university team projects."
+        description="Kite & Code builds, my own projects, and university team projects."
         width="max-w-6xl"
       >
         {/* Jump links double as a quick summary of the counts */}

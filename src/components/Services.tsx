@@ -85,7 +85,7 @@ export default function Services() {
             </h2>
 
             <p className="mt-2 max-w-xl text-foreground-muted">
-              Through my business, Digital Solutions WC, I&apos;m taking
+              Through my business, Kite & Code, I&apos;m taking
               on new clients. Here&apos;s what I can do for your business.
             </p>
           </div>

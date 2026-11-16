@@ -14,9 +14,9 @@ const personJsonLd = {
   name: "Aidan Barends",
   url: SITE_URL,
   image: `${SITE_URL}/projects/profile.jpeg`,
-  jobTitle: "Owner & Founder, Digital Solutions WC",
+  jobTitle: "Owner & Founder, Kite & Code",
   description:
-    "Software Engineering student at CPUT, owner and founder of Digital Solutions WC, and IT Field Technician working toward becoming an AI Engineer.",
+    "Software Engineering student at CPUT, owner and founder of Kite & Code, and IT Field Technician working toward becoming an AI Engineer.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Langebaan",
@@ -152,7 +152,7 @@ export default function Home() {
           >
             <TypedRoles
               roles={[
-                "Founder, Digital Solutions WC",
+                "Founder, Kite & Code",
                 "Software Engineering Student",
                 "IT Field Technician",
                 "Aspiring AI Engineer",
@@ -170,7 +170,7 @@ export default function Home() {
           <div data-gsap="hero">
             <p className="mt-6 max-w-xl text-lg text-foreground-muted">
               A Software Engineering student at CPUT and founder of
-              Digital Solutions WC who ships full stack apps for real clients,
+              Kite & Code who ships full stack apps for real clients,
               fixes real networks by day, and is working toward
               becoming an AI Engineer.
             </p>
@@ -377,7 +377,7 @@ export default function Home() {
 
           <p className="relative mx-auto mt-4 max-w-md text-foreground-muted">
             I&apos;m open to junior developer roles, and I&apos;m
-            taking on new clients at Digital Solutions WC who need a
+            taking on new clients at Kite & Code who need a
             website or online store built properly.
           </p>
 

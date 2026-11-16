@@ -8,6 +8,6 @@ export default function Image() {
   return renderOgImage({
     eyebrow: "Experience",
     title: "My business, IT field work & study.",
-    subtitle: "Founder of Digital Solutions WC and IT Field Technician at CraythorneIT.",
+    subtitle: "Founder of Kite & Code and IT Field Technician at CraythorneIT.",
   });
 }

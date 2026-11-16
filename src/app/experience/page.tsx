@@ -43,7 +43,7 @@ function getDomain(url: string) {
 // Link to my business's own website
 const DSWC_URL = "https://digitalsolutionswc-iota.vercel.app/";
 
-// Projects built under Digital Solutions WC come from projects.ts
+// Projects built under Kite & Code come from projects.ts
 // (dswc: true), so a new one only needs adding there.
 const dswcProjects = projects.filter((project) => project.dswc);
 
@@ -64,24 +64,24 @@ type PeriodData = {
 
 const freelance = {
   role: "Owner & Founder",
-  company: "Digital Solutions WC",
+  company: "Kite & Code",
   website: DSWC_URL,
   period: "Jul 2025 – Present",
   summary:
-    "I run Digital Solutions WC, my own web development business. I build websites and online stores for small businesses and handle the whole job myself, from planning to launch. Click a period to see how it grew.",
+    "I run Kite & Code, my own web development business. I build websites and online stores for small businesses and handle the whole job myself, from planning to launch. Click a period to see how it grew.",
   milestones: [
     {
-      label: "Founded Digital Solutions WC",
+      label: "Founded Kite & Code",
       period: "Sep 2026 – Present",
       current: true,
       description:
-        "I turned my freelancing into a proper business, Digital Solutions WC. I now take on websites and online stores for small businesses under my own brand, and I'm actively looking for new clients.",
+        "I turned my freelancing into a proper business, Kite & Code. I now take on websites and online stores for small businesses under my own brand, and I'm actively looking for new clients.",
       areas: [
         {
           icon: Rocket,
           title: "Running the business",
           items: [
-            "Founded and run Digital Solutions WC as owner and sole developer",
+            "Founded and run Kite & Code as owner and sole developer",
             "Find clients, scope projects, and quote the work",
             "Built the studio's own website to showcase services and work",
           ],
@@ -120,7 +120,7 @@ const freelance = {
       period: "Jul 2025",
       current: false,
       description:
-        "I started taking on web design work alongside my studies and my IT job. This is what later became Digital Solutions WC.",
+        "I started taking on web design work alongside my studies and my IT job. This is what later became Kite & Code.",
       areas: [
         {
           icon: Code2,
@@ -140,7 +140,7 @@ const freelance = {
 export const metadata: Metadata = {
   title: "Experience & Education | Aidan Barends",
   description:
-    "Aidan Barends' experience as Owner & Founder of Digital Solutions WC and as an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
+    "Aidan Barends' experience as Owner & Founder of Kite & Code and as an IT Field Technician at CraythorneIT, along with education at CPUT and relevant certifications.",
 };
 
 const highlights = [
@@ -519,11 +519,11 @@ export default function ExperiencePage() {
               }))}
             />
 
-            {/* Digital Solutions WC work sits outside the tabs */}
+            {/* Kite & Code work sits outside the tabs */}
             <div className="mt-8 border-t border-surface-border pt-6">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <h4 className="font-[family-name:var(--font-mono)] text-xs uppercase tracking-[0.2em] text-accent">
-                  Digital Solutions WC
+                  Kite & Code
                 </h4>
 
                 <Link

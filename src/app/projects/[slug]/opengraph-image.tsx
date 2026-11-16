@@ -21,7 +21,7 @@ export default async function Image({
     eyebrow: project?.university
       ? "University project"
       : project?.dswc
-        ? "Digital Solutions WC"
+        ? "Kite & Code"
         : project?.clientWork
           ? "Client work"
           : "Project",

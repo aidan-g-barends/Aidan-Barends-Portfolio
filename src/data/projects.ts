@@ -34,7 +34,7 @@ export type Project = {
   stats?: { value: string; label: string }[];
   // Freelance work for a real client (listed on the Experience page)
   clientWork?: boolean;
-  // Built under my own business, Digital Solutions WC
+  // Built under my own business, Kite & Code
   dswc?: boolean;
   // Built as part of my CPUT Software Engineering diploma
   university?: boolean;
@@ -177,7 +177,7 @@ const projectList: Project[] = [
     slug: "ivy-hold",
     name: "Ivy & Hold",
     description:
-      "A Digital Solutions WC build: a custom online store for Ivy & Hold, a South African brand selling vegan leather handbags. The storefront is designed to feel premium on a phone, pulls products and stock from Shopify, and takes Yoco card payments at checkout.",
+      "A Kite & Code build: a custom online store for Ivy & Hold, a South African brand selling vegan leather handbags. The storefront is designed to feel premium on a phone, pulls products and stock from Shopify, and takes Yoco card payments at checkout.",
     tech: ["React", "Shopify", "Supabase", "Yoco", "Vercel"],
     github: "https://github.com/aidan-g-barends/frame-to-storefront",
     private: true,
@@ -190,7 +190,7 @@ const projectList: Project[] = [
     status: "live",
     featured: false,
     role:
-      "Designed and built the storefront through Digital Solutions WC, including the Shopify integration, Yoco checkout, customer reviews, SEO, and Meta Pixel setup.",
+      "Designed and built the storefront through Kite & Code, including the Shopify integration, Yoco checkout, customer reviews, SEO, and Meta Pixel setup.",
     problem:
       "Ivy & Hold needed an online store that matched its premium, earthy brand and worked well on a phone, where most of its customers shop, while keeping products and stock easy to manage in Shopify and taking local card payments.",
     features: [
@@ -213,7 +213,7 @@ const projectList: Project[] = [
     mobileImage: "/projects/mobile/jjs.webp",
     name: "JJS Business Solutions",
     description:
-      "A Digital Solutions WC build: a professional business website for JJS Business Solutions, an accredited skills development provider delivering training, consulting and projects across South Africa. The site presents its three service areas and credentials clearly and makes it easy for organisations to enquire.",
+      "A Kite & Code build: a professional business website for JJS Business Solutions, an accredited skills development provider delivering training, consulting and projects across South Africa. The site presents its three service areas and credentials clearly and makes it easy for organisations to enquire.",
     tech: ["React", "TypeScript", "Tailwind CSS", "Vite"],
     github: "https://github.com/aidan-g-barends/jjs-website",
     private: true,
@@ -226,7 +226,7 @@ const projectList: Project[] = [
     status: "live",
     featured: false,
     role:
-      "Sole developer through Digital Solutions WC, responsible for the design, frontend development, responsive layouts, reusable components, SEO, and launch on the client's own domain.",
+      "Sole developer through Kite & Code, responsible for the design, frontend development, responsive layouts, reusable components, SEO, and launch on the client's own domain.",
     problem:
       "JJS Business Solutions needed a professional online presence that could clearly communicate its services and establish a strong digital representation of the organisation. The website needed to make the business easy to understand while presenting its services and information through a polished, modern, and responsive experience.",
     features: [
@@ -247,7 +247,7 @@ const projectList: Project[] = [
     slug: "knownmerch",
     name: "KNOWNMERCH",
     description:
-      "A Digital Solutions WC build: a full-stack online store for bar, braai and kuier gear, made for South African customers. It has a product catalogue with hover video clips, a cart, Yoco card payments, stock tracking, discount codes, customer reviews, a newsletter sign-up, and an admin area for orders, reviews and subscribers.",
+      "A Kite & Code build: a full-stack online store for bar, braai and kuier gear, made for South African customers. It has a product catalogue with hover video clips, a cart, Yoco card payments, stock tracking, discount codes, customer reviews, a newsletter sign-up, and an admin area for orders, reviews and subscribers.",
     tech: [
       "TanStack Start",
       "React",
@@ -269,7 +269,7 @@ const projectList: Project[] = [
     status: "live",
     featured: false,
     role:
-      "Sole developer at Digital Solutions WC, responsible for the storefront, database, checkout and payments, admin area, emails, SEO, and deployment.",
+      "Sole developer at Kite & Code, responsible for the storefront, database, checkout and payments, admin area, emails, SEO, and deployment.",
     problem:
       "South African shoppers buying bar and braai gear online want a store that is simple, fast on mobile, and takes local payments. KNOWNMERCH is built without Shopify, so the checkout, stock and orders are fully under the owner's control, and it avoids monthly platform fees.",
     features: [

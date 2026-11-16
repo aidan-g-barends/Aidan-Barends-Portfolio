@@ -57,7 +57,7 @@ const quickFacts = [
   {
     icon: Code2,
     label: "Running",
-    value: "Digital Solutions WC, my web business",
+    value: "Kite & Code, my web business",
   },
   {
     icon: Sparkles,
@@ -139,7 +139,7 @@ export default function AboutPage() {
                 rel="noopener noreferrer"
                 className="font-medium text-accent hover:underline"
               >
-                Digital Solutions WC
+                Kite & Code
               </a>
               , my own web development business. I build websites
               and online stores for small businesses, like{" "}
