@@ -357,7 +357,7 @@ export default function Home() {
       <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
         <div
           data-gsap="scale"
-          className="relative overflow-hidden rounded-2xl border border-surface-border bg-surface px-6 py-16 text-center sm:px-16"
+          className="relative overflow-hidden rounded-3xl border border-surface-border bg-blush/30 px-6 py-16 text-center sm:px-16 dark:bg-surface"
         >
           <div
             aria-hidden="true"
@@ -390,7 +390,7 @@ export default function Home() {
           <div className="relative mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
+              className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-semibold text-background shadow-[0_10px_30px_-10px_var(--accent)] transition-all duration-300 hover:-translate-y-1"
             >
               Get In Touch
               <ArrowRight
@@ -402,7 +402,7 @@ export default function Home() {
 
             <Link
               href="/contact?topic=freelance"
-              className="inline-flex items-center gap-2 rounded-lg border border-surface-border bg-background/60 px-6 py-3 text-sm font-medium text-foreground transition-all duration-300 hover:-translate-y-1 hover:border-accent"
+              className="inline-flex items-center gap-2 rounded-full border border-foreground/20 bg-background/70 px-7 py-3 text-sm font-semibold text-foreground transition-all duration-300 hover:-translate-y-1 hover:border-accent"
             >
               Start a Project
             </Link>
