@@ -5,6 +5,8 @@ import ProjectShowcase from "../components/ProjectShowcase";
 import Eyebrow from "../components/Eyebrow";
 import TypedRoles from "../components/TypedRoles";
 import Services from "../components/Services";
+import TrustBar from "../components/TrustBar";
+import BrowseByType from "../components/BrowseByType";
 import AskAidan from "../components/AskAidan";
 import { SITE_URL } from "../lib/site";
 
@@ -226,6 +228,8 @@ export default function Home() {
         </div>
       </section>
 
+      <TrustBar />
+
       {/* TECH MARQUEE */}
       <section
         aria-label="Technologies I've worked with"
@@ -256,6 +260,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <BrowseByType />
 
       {/* BEST PROJECTS */}
       <section className="mx-auto max-w-6xl px-6 py-14 sm:py-20">
