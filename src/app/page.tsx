@@ -182,7 +182,7 @@ export default function Home() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/projects"
-                className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 text-sm font-medium text-background shadow-[0_0_32px_-8px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_-6px_var(--accent)]"
+                className="group inline-flex items-center gap-2 rounded-full bg-accent px-7 py-3 text-sm font-semibold text-background shadow-[0_10px_30px_-10px_var(--accent)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_36px_-8px_var(--accent)]"
               >
                 View My Work
                 <ArrowRight
@@ -195,7 +195,7 @@ export default function Home() {
               <Link
                 href="/resume.pdf"
                 target="_blank"
-                className="inline-flex items-center gap-2 rounded-lg border border-surface-border bg-surface/60 px-6 py-3 text-sm font-medium text-foreground backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-accent"
+                className="inline-flex items-center gap-2 rounded-full border border-surface-border bg-surface/60 px-7 py-3 text-sm font-semibold text-foreground backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-accent"
               >
                 <Download size={16} aria-hidden="true" />
                 Download Resume
