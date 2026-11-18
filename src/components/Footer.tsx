@@ -29,7 +29,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-surface-border bg-surface/40">
+    <footer className="relative border-t border-surface-border bg-blush/25 dark:bg-surface/40">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent to-transparent opacity-60"
@@ -42,9 +42,8 @@ export default function Footer() {
           </p>
 
           <p className="mt-2 max-w-xs text-sm text-foreground-muted">
-            Software Engineering student, founder of Digital
-            Solutions WC, IT Field Technician, and aspiring AI Engineer based in
-            the Western Cape.
+            Software Engineering student, founder of Kite &amp; Code,
+            and aspiring AI Engineer based in Langebaan, Western Cape.
           </p>
 
           <div className="mt-4 flex items-center gap-2">
