@@ -40,6 +40,7 @@
   --color-foreground-muted: var(--foreground-muted);
   --color-accent: var(--accent);
   --color-accent-2: var(--accent-2);
+  --color-blush: var(--blush);
 
   --font-heading: var(--font-heading);
   --font-body: var(--font-body);
