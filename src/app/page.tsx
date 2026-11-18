@@ -327,7 +327,7 @@ export default function Home() {
             {skillGroups.map((group) => (
               <div
                 key={group.label}
-                className="group rounded-xl border border-surface-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
+                className="group rounded-2xl border border-surface-border bg-background p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-2/60 hover:shadow-lg"
               >
                 <div className="flex items-center gap-2">
                   <span className="h-1.5 w-1.5 rounded-full bg-accent" />
@@ -341,7 +341,7 @@ export default function Home() {
                   {group.items.map((item) => (
                     <span
                       key={item}
-                      className="rounded-md bg-surface px-2.5 py-1 font-[family-name:var(--font-mono)] text-xs transition-colors duration-300 group-hover:bg-accent/10"
+                      className="rounded-full bg-blush/40 px-3 py-1 font-[family-name:var(--font-mono)] text-xs text-foreground transition-colors duration-300 group-hover:bg-blush/70"
                     >
                       {item}
                     </span>
