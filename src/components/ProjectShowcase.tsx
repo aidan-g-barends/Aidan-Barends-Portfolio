@@ -44,7 +44,7 @@ export default function ProjectShowcase({
               ? `Open the ${project.name} ${liveLabel.toLowerCase()}`
               : `Read about ${project.name}`
           }
-          className="group/image relative block overflow-hidden rounded-2xl border border-surface-border bg-surface shadow-[0_30px_60px_-30px_rgba(58,46,39,0.45)] transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-1.5 hover:border-accent-2/60 hover:shadow-[0_36px_70px_-28px_rgba(58,46,39,0.55)]"
+          className="group/image relative block overflow-hidden rounded-2xl border border-surface-border bg-surface shadow-[0_30px_60px_-30px_rgba(15,23,42,0.45)] transition-[transform,border-color,box-shadow] duration-500 hover:-translate-y-1.5 hover:border-accent/50 hover:shadow-[0_36px_70px_-28px_rgba(15,23,42,0.55)]"
         >
           <div className="flex items-center gap-1.5 border-b border-surface-border px-3 py-2.5">
             <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
