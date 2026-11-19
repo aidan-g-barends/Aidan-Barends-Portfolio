@@ -210,12 +210,12 @@ export default function Home() {
             {stats.map((stat) => (
               <div
                 key={stat.label}
-                className="rounded-2xl border border-surface-border bg-surface/80 px-3 py-4 text-center backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-accent-2/60"
+                className="rounded-2xl border border-surface-border bg-surface/80 px-3 py-4 text-center backdrop-blur transition-all duration-300 hover:-translate-y-1 hover:border-accent/50"
                 style={{
                   boxShadow: "var(--card-shadow)",
                 }}
               >
-                <p className="font-[family-name:var(--font-heading)] text-2xl font-bold text-accent-2 sm:text-3xl">
+                <p className="font-[family-name:var(--font-heading)] text-2xl font-bold text-accent sm:text-3xl">
                   {stat.value}
                 </p>
 
