@@ -29,7 +29,7 @@ const socials = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-surface-border bg-blush/25 dark:bg-surface/40">
+    <footer className="relative border-t border-surface-border bg-surface/40">
       <div
         aria-hidden="true"
         className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-accent to-transparent opacity-60"
