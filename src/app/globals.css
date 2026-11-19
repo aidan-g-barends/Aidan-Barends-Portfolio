@@ -18,18 +18,17 @@
 }
 
 .dark {
-  /* Dark mode is warm espresso instead of cold blue-black */
-  --background: #1F1814;
-  --surface: #2A211B;
-  --surface-border: #43362D;
-  --foreground: #F5EFE6;
-  --foreground-muted: #BFB1A2;
-  --accent: #A8BC8F;
-  --accent-2: #DDA97A;
-  --blush: #E8C4B8;
+  --background: #0B0F14;
+  --surface: #131922;
+  --surface-border: #232C38;
+  --foreground: #E7ECF2;
+  --foreground-muted: #8B97A8;
+  --accent: #3DDBD9;
+  --accent-2: #5B8DEF;
+  --blush: #12363A; /* temporary: removed once every use is migrated */
   --card-shadow: none;
-  --pattern-dot: rgba(245, 239, 230, 0.05);
-  --grid-line: rgba(245, 239, 230, 0.05);
+  --pattern-dot: rgba(255, 255, 255, 0.05);
+  --grid-line: rgba(255, 255, 255, 0.05);
 }
 
 @theme inline {
