@@ -20,7 +20,7 @@ export default function TrustBar() {
 
           return (
             <li key={point.title} className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-blush/60 text-accent">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
                 <Icon size={18} aria-hidden="true" />
               </span>
 
