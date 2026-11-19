@@ -357,7 +357,7 @@ export default function Home() {
       <section className="mx-auto max-w-5xl px-6 py-16 sm:py-24">
         <div
           data-gsap="scale"
-          className="relative overflow-hidden rounded-3xl border border-surface-border bg-blush/30 px-6 py-16 text-center sm:px-16 dark:bg-surface"
+          className="relative overflow-hidden rounded-3xl border border-surface-border bg-surface px-6 py-16 text-center sm:px-16"
         >
           <div
             aria-hidden="true"
