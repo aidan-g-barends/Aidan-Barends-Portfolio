@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm Ivy & Hold palette: cream, olive, caramel, espresso */
-  --background: #F5EFE6;
-  --surface: #FFFBF5;
-  --surface-border: #E3D8C9;
-  --foreground: #3A2E27;
-  --foreground-muted: #6B5D52;
-  --accent: #5C6B4E;
-  --accent-2: #B7865B;
-  --blush: #E8C4B8;
+  /* Cool slate and teal, like the original look */
+  --background: #EEF1F5;
+  --surface: #FFFFFF;
+  --surface-border: #D7DEE7;
+  --foreground: #0B0F14;
+  --foreground-muted: #57626F;
+  --accent: #0A7573;
+  --accent-2: #3D6BE0;
+  --blush: #CDEBEA; /* temporary: removed once every use is migrated */
   --card-shadow:
-    0 1px 3px rgba(58, 46, 39, 0.08),
-    0 1px 2px rgba(58, 46, 39, 0.05);
-  --pattern-dot: rgba(58, 46, 39, 0.06);
-  --grid-line: rgba(58, 46, 39, 0.06);
+    0 1px 3px rgba(15, 23, 42, 0.06),
+    0 1px 2px rgba(15, 23, 42, 0.04);
+  --pattern-dot: rgba(11, 15, 20, 0.06);
+  --grid-line: rgba(11, 15, 20, 0.06);
 }
 
 .dark {
