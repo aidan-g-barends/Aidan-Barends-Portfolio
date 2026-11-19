@@ -76,13 +76,13 @@ export default function ProjectShowcase({
           <span aria-hidden="true" className="h-px w-8 bg-surface-border" />
 
           {project.dswc && (
-            <span className="rounded-full bg-blush px-2 py-0.5 text-xs font-medium text-[#3A2E27]">
+            <span className="rounded-full bg-accent/15 px-2 py-0.5 text-xs font-medium text-accent">
               Kite & Code
             </span>
           )}
 
           {project.clientWork && (
-            <span className="rounded-full bg-accent-2/20 px-2 py-0.5 text-xs font-medium text-[#8A5F38] dark:text-accent-2">
+            <span className="rounded-full bg-accent-2/15 px-2 py-0.5 text-xs font-medium text-blue-700 dark:text-accent-2">
               Client
             </span>
           )}
