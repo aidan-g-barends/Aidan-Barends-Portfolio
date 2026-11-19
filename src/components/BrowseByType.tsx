@@ -4,10 +4,10 @@ import { ArrowUpRight, Briefcase, GraduationCap, Hammer, Rocket } from "lucide-r
 // "Shop by need" style tiles: each one jumps to a section of the Projects page
 // (the ids match the groups defined in src/app/projects/page.tsx).
 const tiles = [
-  { icon: Briefcase, title: "Kite & Code sites", text: "Websites and stores for real businesses", href: "/projects#client", tint: "bg-blush/50" },
-  { icon: Rocket, title: "Live work", text: "My own builds you can try right now", href: "/projects#live", tint: "bg-accent/15" },
-  { icon: Hammer, title: "In progress", text: "What I'm building at the moment", href: "/projects#in-progress", tint: "bg-accent-2/20" },
-  { icon: GraduationCap, title: "University projects", text: "Team builds from my CPUT diploma", href: "/projects#university", tint: "bg-blush/50" },
+  { icon: Briefcase, title: "Kite & Code sites", text: "Websites and stores for real businesses", href: "/projects#client", tint: "bg-accent/10" },
+  { icon: Rocket, title: "Live work", text: "My own builds you can try right now", href: "/projects#live", tint: "bg-accent-2/10" },
+  { icon: Hammer, title: "In progress", text: "What I'm building at the moment", href: "/projects#in-progress", tint: "bg-accent/15" },
+  { icon: GraduationCap, title: "University projects", text: "Team builds from my CPUT diploma", href: "/projects#university", tint: "bg-accent-2/10" },
 ];
 
 export default function BrowseByType() {
