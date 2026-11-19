@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import {
-  Fraunces,
+  Space_Grotesk,
   Inter,
   JetBrains_Mono,
 } from "next/font/google";
@@ -19,7 +19,7 @@ import { projects } from "../data/projects";
 import { ArrowUp, MessageCircle } from "lucide-react";
 import { SITE_URL, WHATSAPP_URL } from "../lib/site";
 
-const fraunces = Fraunces({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-heading",
   subsets: ["latin"],
 });
@@ -72,7 +72,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${fraunces.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
       // The theme script below adds the "dark" class before hydration
       suppressHydrationWarning
     >
